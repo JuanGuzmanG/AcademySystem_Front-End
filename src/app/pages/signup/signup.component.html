@@ -65,8 +65,12 @@
                                     <input [(ngModel)]="user.birthDate" name="birthDate" matInput type="date" placeholder="birth">
                                 </mat-form-field>
                                 <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>countryBirth</mat-label>
-                                    <input [(ngModel)]="user.CountryBirth" name="CountryBirth" matInput type="text" placeholder="CountryBirth">
+                                    <mat-label>CountryBirth</mat-label>
+                                    <input [(ngModel)]="user.countryBirth" name="countryBirth" matInput type="text" placeholder="CountryBirth">
+                                </mat-form-field>
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Rol</mat-label>
+                                    <input matInput type="text" placeholder="Rol" value="New User" disabled>
                                 </mat-form-field>
                             </form>
                         </div>

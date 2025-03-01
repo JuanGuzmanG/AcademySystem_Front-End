@@ -20,12 +20,11 @@ export class SignupComponent{
     birthDate: '',
     email: '',
     password: '',
-    CountryBirth:'',
+    countryBirth:'',
     phoneNumber:'',
     gender:'',
     bloodType:'',
     photo:'',
-    rol: 1
   }
 
   constructor(private userService:UserService){}
