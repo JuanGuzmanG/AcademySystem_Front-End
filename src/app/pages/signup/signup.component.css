@@ -1,0 +1,21 @@
+.gender-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    transition: width 0.3s ease-in-out; 
+  }
+  
+  .gender-radio-group {
+    width: 100%;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .gender-input {
+    width: 50%;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .other-selected .gender-radio-group {
+    width: 50%;
+  }
+  

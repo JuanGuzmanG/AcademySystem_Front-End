@@ -1,88 +1,196 @@
 <div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-md-12">
-                <div class="container text-center pb-4">
-                    <img src="../../../assets/adduser.png" width="100" alt="aaa">
-                    <h1 class="fs-3 text-center">REGISTRO</h1>
-                </div>
-                
-                <div class="container text-center">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <form (ngSubmit)="formSubmit()">
-                                <mat-form-field class="w-100"  appearance="outline">
-                                    <mat-label>DocumentType</mat-label>
-                                    <input [(ngModel)]="user.documentType" name="documentType" matInput type="text" placeholder="DocumentType">
-                                    <mat-hint>Prueba </mat-hint>
-                                </mat-form-field>
-                                <mat-form-field class="w-100"  appearance="outline">
-                                    <mat-label>Document</mat-label>
-                                    <input [(ngModel)]="user.document" name="document" matInput type="text" placeholder="Identity Document">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>Name</mat-label>
-                                    <input [(ngModel)]="user.firstName" name="firstName" matInput type="text" placeholder="Name">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>MiddleName</mat-label>
-                                    <input [(ngModel)]="user.middleName" name="MiddleName" matInput type="text" placeholder="middleName">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>Lastname </mat-label>
-                                    <input [(ngModel)]="user.lastName" name="lastName" matInput type="text" placeholder="Lastname">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>Secondlastname </mat-label>
-                                    <input [(ngModel)]="user.secondLastName" name="secondLastName" matInput type="text" placeholder="Secondlastname">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>bloodType </mat-label>
-                                    <input [(ngModel)]="user.bloodType" name="bloodType" matInput type="text" placeholder="bloodType">
-                                </mat-form-field>
-                            </form>
-                        </div>
-                        <div class="col-md-6">
-                            <form (ngSubmit)="formSubmit()">
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>Email</mat-label>
-                                    <input [(ngModel)]="user.email" name="email" matInput type="email" placeholder="Email">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>password</mat-label>
-                                    <input [(ngModel)]="user.password" name="password" matInput type="password" placeholder="password">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>phone</mat-label>
-                                    <input [(ngModel)]="user.phoneNumber" name="phoneNumber" matInput type="phone" placeholder="Phone">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>gender</mat-label>
-                                    <input [(ngModel)]="user.gender" name="gender" matInput type="text" placeholder="Gender">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>birth </mat-label>
-                                    <input [(ngModel)]="user.birthDate" name="birthDate" matInput type="date" placeholder="birth">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>CountryBirth</mat-label>
-                                    <input [(ngModel)]="user.countryBirth" name="countryBirth" matInput type="text" placeholder="CountryBirth">
-                                </mat-form-field>
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>Rol</mat-label>
-                                    <input matInput type="text" placeholder="Rol" value="New User" disabled>
-                                </mat-form-field>
-                            </form>
-                        </div>
-
-                        <div class="container text-center">
-                            <button mat-flat-button color="primary" (click)="formSubmit()">Registrar</button>
-                            <button mat-stroked-button style="margin-left: 20px;" color="warn">Limpiar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row" style="margin-top: 20px">
+      <div class="col-md-12">
+        <div class="container text-center pb-4">
+          <img src="../../../assets/adduser.png" width="100" alt="aaa" />
+          <h1 class="fs-3 text-center">REGISTRO</h1>
         </div>
-    </div>
-</div>
 
+        <div class="container text-center">
+          <form (ngSubmit)="formSubmit()">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Document Type</mat-label>
+                  <mat-select
+                    placeholder="Document Type"
+                    [formControl]="DTControl"
+                    required
+                  >
+                    <mat-option *ngFor="let type of types" [value]="type">
+                      {{ type }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="DTControl.hasError('required')">
+                    Choose a Type Document
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Document</mat-label>
+                  <input
+                    [(ngModel)]="user.document"
+                    name="document"
+                    matInput
+                    type="text"
+                    placeholder="Identity Document"
+                  />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Name</mat-label>
+                  <input
+                    [(ngModel)]="user.firstName"
+                    name="firstName"
+                    matInput
+                    type="text"
+                    placeholder="Name"
+                  />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>MiddleName</mat-label>
+                  <input
+                    [(ngModel)]="user.middleName"
+                    name="MiddleName"
+                    matInput
+                    type="text"
+                    placeholder="middleName"
+                  />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Lastname </mat-label>
+                  <input
+                    [(ngModel)]="user.lastName"
+                    name="lastName"
+                    matInput
+                    type="text"
+                    placeholder="Lastname"
+                  />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Secondlastname </mat-label>
+                  <input
+                    [(ngModel)]="user.secondLastName"
+                    name="secondLastName"
+                    matInput
+                    type="text"
+                    placeholder="Secondlastname"
+                  />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Blood Type</mat-label>
+                    <mat-select placeholder="Blood Type" [formControl]="BTControl" required>
+                        <mat-option *ngFor="let Blood of BT" [value]="Blood">
+                            {{ Blood }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input
+                    [(ngModel)]="user.email"
+                    name="email"
+                    matInput
+                    type="email"
+                    placeholder="Email"
+                  />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>password</mat-label>
+                  <input
+                    [(ngModel)]="user.password"
+                    name="password"
+                    matInput
+                    type="password"
+                    placeholder="password"
+                  />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>phone</mat-label>
+                  <input
+                    [(ngModel)]="user.phoneNumber"
+                    name="phoneNumber"
+                    matInput
+                    type="phone"
+                    placeholder="Phone"
+                  />
+                </mat-form-field>
+                <div class="container row mb-3">
+                  <div class="col-1 m-auto">
+                    <mat-label class="container px-0 px-3">Gender</mat-label>
+                  </div>
+                  <div
+                    class="gender-container col-11"
+                    [ngClass]="{ 'other-selected': user.gender === 'Other' }"
+                  >
+                    <mat-radio-group
+                      [(ngModel)]="user.gender"
+                      name="gender"
+                      class="gender-radio-group"
+                    >
+                      <mat-radio-button value="Male">Male</mat-radio-button>
+                      <mat-radio-button value="Female">Female</mat-radio-button>
+                      <mat-radio-button value="Female">i'd rather not say it</mat-radio-button>
+                      <mat-radio-button value="Other">Other</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-form-field
+                      *ngIf="user.gender === 'Other'"
+                      class="gender-input"
+                      appearance="outline"
+                    >
+                      <mat-label>Specify Gender</mat-label>
+                      <input
+                        [(ngModel)]="user.customGender"
+                        name="customGender"
+                        matInput
+                        type="text"
+                        placeholder="Enter your gender"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>birth </mat-label>
+                  <input
+                    [(ngModel)]="user.birthDate"
+                    name="birthDate"
+                    matInput
+                    type="date"
+                    placeholder="birth"
+                  />
+                </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Country of Birth</mat-label>
+                  <mat-select
+                    [(ngModel)]="user.countryBirth"
+                    name="countryBirth"
+                  >
+                    <mat-option
+                      *ngFor="let country of countries"
+                      [value]="country"
+                    >
+                      {{ country }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="container text-center">
+                <button mat-flat-button color="primary" (click)="formSubmit()">
+                  Registrar
+                </button>
+                <button
+                  mat-stroked-button
+                  style="margin-left: 20px"
+                  color="warn"
+                >
+                  Limpiar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
