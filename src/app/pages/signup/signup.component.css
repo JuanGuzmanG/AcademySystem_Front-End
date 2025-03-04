@@ -1,7 +1,5 @@
 .gender-container {
     display: flex;
-    gap: 10px;
-    align-items: center;
     transition: width 0.3s ease-in-out; 
   }
   
@@ -11,7 +9,7 @@
   }
   
   .gender-input {
-    width: 50%;
+    width: 30%;
     transition: width 0.3s ease-in-out;
   }
   

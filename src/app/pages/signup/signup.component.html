@@ -8,14 +8,14 @@
         </div>
 
         <div class="container text-center">
-          <form (ngSubmit)="formSubmit()">
+          <form [formGroup]="signupForm">
             <div class="row">
               <div class="col-md-6">
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Document Type</mat-label>
                   <mat-select
                     placeholder="Document Type"
-                    [formControl]="DTControl"
+                    formControlName="documentType"
                     required
                   >
                     <mat-option *ngFor="let type of types" [value]="type">
@@ -29,8 +29,7 @@
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Document</mat-label>
                   <input
-                    [(ngModel)]="user.document"
-                    name="document"
+                    formControlName="document"
                     matInput
                     type="text"
                     placeholder="Identity Document"
@@ -39,8 +38,7 @@
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Name</mat-label>
                   <input
-                    [(ngModel)]="user.firstName"
-                    name="firstName"
+                    formControlName="firstName"
                     matInput
                     type="text"
                     placeholder="Name"
@@ -49,8 +47,7 @@
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>MiddleName</mat-label>
                   <input
-                    [(ngModel)]="user.middleName"
-                    name="MiddleName"
+                    formControlName="middleName"
                     matInput
                     type="text"
                     placeholder="middleName"
@@ -59,38 +56,40 @@
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Lastname </mat-label>
                   <input
-                    [(ngModel)]="user.lastName"
-                    name="lastName"
+                    formControlName="lastname"
                     matInput
                     type="text"
                     placeholder="Lastname"
+                    required
                   />
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Secondlastname </mat-label>
                   <input
-                    [(ngModel)]="user.secondLastName"
-                    name="secondLastName"
+                    formControlName="secondlastname"
                     matInput
                     type="text"
                     placeholder="Secondlastname"
                   />
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="outline">
-                    <mat-label>Blood Type</mat-label>
-                    <mat-select placeholder="Blood Type" [formControl]="BTControl" required>
-                        <mat-option *ngFor="let Blood of BT" [value]="Blood">
-                            {{ Blood }}
-                        </mat-option>
-                    </mat-select>
+                  <mat-label>Blood Type</mat-label>
+                  <mat-select
+                    placeholder="Blood Type"
+                    [formControl]="BTControl"
+                    formControlName="bloodType"
+                    >
+                    <mat-option *ngFor="let Blood of BT" [value]="Blood">
+                      {{ Blood }}
+                    </mat-option>
+                  </mat-select>
                 </mat-form-field>
               </div>
               <div class="col-md-6">
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Email</mat-label>
                   <input
-                    [(ngModel)]="user.email"
-                    name="email"
+                    formControlName="email"
                     matInput
                     type="email"
                     placeholder="Email"
@@ -99,62 +98,26 @@
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>password</mat-label>
                   <input
-                    [(ngModel)]="user.password"
-                    name="password"
+                    formControlName="password"
                     matInput
                     type="password"
                     placeholder="password"
+                    required
                   />
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>phone</mat-label>
                   <input
-                    [(ngModel)]="user.phoneNumber"
-                    name="phoneNumber"
+                    formControlName="phone"
                     matInput
                     type="phone"
                     placeholder="Phone"
                   />
                 </mat-form-field>
-                <div class="container row mb-3">
-                  <div class="col-1 m-auto">
-                    <mat-label class="container px-0 px-3">Gender</mat-label>
-                  </div>
-                  <div
-                    class="gender-container col-11"
-                    [ngClass]="{ 'other-selected': user.gender === 'Other' }"
-                  >
-                    <mat-radio-group
-                      [(ngModel)]="user.gender"
-                      name="gender"
-                      class="gender-radio-group"
-                    >
-                      <mat-radio-button value="Male">Male</mat-radio-button>
-                      <mat-radio-button value="Female">Female</mat-radio-button>
-                      <mat-radio-button value="Female">i'd rather not say it</mat-radio-button>
-                      <mat-radio-button value="Other">Other</mat-radio-button>
-                    </mat-radio-group>
-                    <mat-form-field
-                      *ngIf="user.gender === 'Other'"
-                      class="gender-input"
-                      appearance="outline"
-                    >
-                      <mat-label>Specify Gender</mat-label>
-                      <input
-                        [(ngModel)]="user.customGender"
-                        name="customGender"
-                        matInput
-                        type="text"
-                        placeholder="Enter your gender"
-                      />
-                    </mat-form-field>
-                  </div>
-                </div>
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>birth </mat-label>
                   <input
-                    [(ngModel)]="user.birthDate"
-                    name="birthDate"
+                    formControlName="birthDate"
                     matInput
                     type="date"
                     placeholder="birth"
@@ -163,8 +126,7 @@
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Country of Birth</mat-label>
                   <mat-select
-                    [(ngModel)]="user.countryBirth"
-                    name="countryBirth"
+                    formControlName="countryBirth"
                   >
                     <mat-option
                       *ngFor="let country of countries"
@@ -174,6 +136,44 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Rol</mat-label>
+                    <input
+                      name="Rol"
+                      matInput
+                      type="text"
+                      value="New User"
+                      disabled
+                    />
+                  </mat-form-field>
+                  <div class="container p-0">
+                    <div class="m-auto">
+                      <mat-label class="container px-0 px-3">Gender</mat-label>
+                    </div>
+                    <div class="gender-container" [ngClass]="{ 'other-selected': signupForm.value.gender === 'Other' }">
+                      <mat-radio-group
+                        formControlName="gender"
+                        class="gender-radio-group"
+                        (change)="onGenderChange($event.value)"
+                      >
+                        <mat-radio-button value="Male">Male</mat-radio-button>
+                        <mat-radio-button value="Female">Female</mat-radio-button>
+                        <mat-radio-button value="private">I'd rather not say</mat-radio-button>
+                        <mat-radio-button value="Other">Other</mat-radio-button>
+                      </mat-radio-group>
+                  
+                      <!-- Campo extra cuando el usuario elige "Other" -->
+                      <mat-form-field *ngIf="customgender === 'Other'" class="gender-input ps-1" appearance="outline">
+                        <mat-label>Specify Gender</mat-label>
+                        <input
+                          formControlName="gender"
+                          matInput
+                          type="text"
+                          placeholder="Enter your gender"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>                  
               </div>
               <div class="container text-center">
                 <button mat-flat-button color="primary" (click)="formSubmit()">
@@ -183,6 +183,7 @@
                   mat-stroked-button
                   style="margin-left: 20px"
                   color="warn"
+                  type="reset"
                 >
                   Limpiar
                 </button>
