@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { materialModule } from '../../material.imports';
+import Swal from 'sweetalert2';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormGroup,FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
-import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-signup',
   imports: [materialModule],
@@ -16,34 +14,24 @@ import Swal from 'sweetalert2';
 export class SignupComponent{
   
   public customgender='';
-  signupForm: FormGroup = new FormGroup({
-    documentType: new FormControl('', Validators.required),
-    document: new FormControl('', Validators.required),
-    firstName: new FormControl('', Validators.required),
-    middleName: new FormControl(''),
-    lastName: new FormControl('', Validators.required),
-    secondLastName: new FormControl(''),
-    birthDate: new FormControl(''),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
-    countryBirth: new FormControl(''),
-    phoneNumber: new FormControl(''),
-    gender: new FormControl(''),
-    bloodType: new FormControl(''),
-    photo: new FormControl('')
-  });
+  public user = {
+    documentType: '',
+    document: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    secondLastName:'',
+    birthDate: '',
+    email: '',
+    password: '',
+    countryBirth:'',
+    phoneNumber:'',
+    gender:'',
+    bloodType:'',
+    photo:'',
+  }
   countries: string[] = [];
   constructor(private userService:UserService, private snack:MatSnackBar,private http: HttpClient){}
-
-  onGenderChange(value: string) {
-    this.customgender = value;
-    
-    if (value !== 'Other') {
-      this.signupForm.patchValue({ gender: value });
-    } else {
-      this.signupForm.patchValue({ gender: '' }); // Se espera que el usuario escriba
-    }
-  }
 
   ngOnInit() {
     this.getCountries();
@@ -65,15 +53,20 @@ export class SignupComponent{
   }
 
   formSubmit(){
-    let user = this.signupForm.value
-    if(!user.gender){
-      user.gender=this.customgender;
+    if(this.user.gender===''){
+      this.user.gender=this.customgender;
     }
-    if(this.signupForm.invalid){
-      this.snack.open("Complete all required fields","OK")
+    if(this.user.document == '' || this.user.document == null){
+      this.snack.open("document is required", "OK",{
+        duration: 3000,
+        verticalPosition: 'top'
+      });
+      return;
     }
-    this.userService.addUser(user).subscribe(
+    console.log("submit: ",this.user)
+    this.userService.addUser(this.user).subscribe(
       (data) => {
+        console.log("userservice: ",this.user)
         Swal.fire('user saved successfully','user saved in the system','success')
       },(error) => {
         this.snack.open('System Error, Try later','OK',{
