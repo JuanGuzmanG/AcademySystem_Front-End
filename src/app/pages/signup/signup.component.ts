@@ -31,7 +31,8 @@ export class SignupComponent{
     photo:'',
   }
   countries: string[] = [];
-  constructor(private userService:UserService, private snack:MatSnackBar,private http: HttpClient){}
+  constructor(private userService:UserService, private snack:MatSnackBar,
+    private http: HttpClient){}
 
   ngOnInit() {
     this.getCountries();
@@ -42,12 +43,11 @@ export class SignupComponent{
       this.countries = data.map(country => country.name.common).sort();
     },
     (error)=>{
-      alert("error library");
       this.snack.open('restcountries failure','OK',{
         duration: 3000,
         verticalPosition: 'top'
       })
-      this.countries = ["colombia","mexico"]
+      this.countries = ["Colombia","Mexico","España","Estados Unidos"]
     }
   );
   }
@@ -56,17 +56,19 @@ export class SignupComponent{
     if(this.user.gender===''){
       this.user.gender=this.customgender;
     }
-    if(this.user.document == '' || this.user.document == null){
-      this.snack.open("document is required", "OK",{
+    if(this.user.document == '' || this.user.firstName == '' ||
+      this.user.lastName == '' || this.user.email == '' || 
+      !this.user.email.includes('@') ||this.user.password == '' 
+      || this.user.documentType == '' || this.EmailControl.errors
+    ){
+      this.snack.open("data is required", "OK",{
         duration: 3000,
         verticalPosition: 'top'
       });
       return;
     }
-    console.log("submit: ",this.user)
     this.userService.addUser(this.user).subscribe(
       (data) => {
-        console.log("userservice: ",this.user)
         Swal.fire('user saved successfully','user saved in the system','success')
       },(error) => {
         this.snack.open('System Error, Try later','OK',{
@@ -77,9 +79,9 @@ export class SignupComponent{
     ); 
   }
 
-  DTControl = new FormControl('', [Validators.required]); // 🔹 Control del select
+  DTControl = new FormControl('', [Validators.required]);
+  BTControl = new FormControl('');
+  EmailControl = new FormControl('',[Validators.required]);
   types = ['Cedula', 'Identity Card', 'Passport', 'PPT'];
-
-  BTControl = new FormControl('', Validators.required);
   BT = ['-','A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 }
