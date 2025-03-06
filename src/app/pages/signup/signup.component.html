@@ -31,13 +31,14 @@
                   <mat-label>Document</mat-label>
                   <input
                     [(ngModel)]="user.document"
+                    [formControl]="Controldocument"
                     name="document"
                     matInput
                     type="text"
-                    placeholder="Identity Document"
+                    placeholder="Document"
                   />
-                  <mat-error *ngIf="user.document==='' || user.document==null">
-                    Choose a Type Document
+                  <mat-error *ngIf="user.document===''">
+                    Enter your Document
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="outline">
@@ -51,7 +52,7 @@
                     required
                   />
                   <mat-error *ngIf="user.firstName==='' || user.firstName===null">
-                    Choose a FirstName
+                    Enter your FirstName
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="outline">
@@ -68,13 +69,14 @@
                   <mat-label>Lastname </mat-label>
                   <input
                     [(ngModel)]="user.lastName"
+                    [formControl]="ControllastName"
                     name="lastName"
                     matInput
                     type="text"
                     placeholder="Lastname"
                   />
-                  <mat-error *ngIf="user.lastName===''">
-                    input your lastname
+                  <mat-error>
+                    Enter your lastname
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="outline">
@@ -87,6 +89,7 @@
                     placeholder="Secondlastname"
                   />
                 </mat-form-field>
+
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Blood Type</mat-label>
                   <mat-select
@@ -112,18 +115,22 @@
                     placeholder="Email"
                   />
                   <mat-error *ngIf="EmailControl.invalid">
-                    email error
+                    Email invalid: Enter Correct Format
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>password</mat-label>
                   <input
                     [(ngModel)]="user.password"
+                    [formControl]="ControlPassword"
                     name="password"
                     matInput
                     type="password"
                     placeholder="password"
                   />
+                  <mat-error>
+                    Enter your password and minlenght: 8 letters
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>phone</mat-label>
@@ -215,6 +222,8 @@
                   mat-stroked-button
                   style="margin-left: 20px"
                   color="warn"
+                  type="reset"
+                  (click)="clear()"
                 >
                   Limpiar
                 </button>

@@ -14,6 +14,15 @@ import { HttpClient } from '@angular/common/http';
 export class SignupComponent{
   
   public customgender='';
+  Controldocument  = new FormControl('',[Validators.required])
+  ControllastName = new FormControl('',[Validators.required])
+  ControlPassword = new FormControl('',[Validators.required,Validators.minLength(8)])
+  DTControl = new FormControl('', [Validators.required]);
+  BTControl = new FormControl('');
+  EmailControl = new FormControl('',[Validators.required, Validators.email]);
+  types = ['Cedula', 'Identity Card', 'Passport', 'PPT'];
+  BT = ['-','A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+
   public user = {
     documentType: '',
     document: '',
@@ -30,24 +39,21 @@ export class SignupComponent{
     bloodType:'',
     photo:'',
   }
-  countries: string[] = [];
+  
   constructor(private userService:UserService, private snack:MatSnackBar,
     private http: HttpClient){}
-
+  
   ngOnInit() {
     this.getCountries();
   }
-
+  
+  countries: string[] = [];
   getCountries() {
     this.http.get<any[]>('https://restcountries.com/v3.1/all').subscribe(data => {
       this.countries = data.map(country => country.name.common).sort();
     },
     (error)=>{
-      this.snack.open('restcountries failure','OK',{
-        duration: 3000,
-        verticalPosition: 'top'
-      })
-      this.countries = ["Colombia","Mexico","España","Estados Unidos"]
+      console.error('error library')
     }
   );
   }
@@ -56,17 +62,17 @@ export class SignupComponent{
     if(this.user.gender===''){
       this.user.gender=this.customgender;
     }
-    if(this.user.document == '' || this.user.firstName == '' ||
-      this.user.lastName == '' || this.user.email == '' || 
-      !this.user.email.includes('@') ||this.user.password == '' 
-      || this.user.documentType == '' || this.EmailControl.errors
-    ){
-      this.snack.open("data is required", "OK",{
-        duration: 3000,
-        verticalPosition: 'top'
-      });
-      return;
-    }
+    
+    if(this.user.document==='' || this.DTControl.invalid || this.user.firstName===''
+      || this.user.lastName==='' || this.EmailControl.invalid || this.ControlPassword.invalid){
+        
+        this.snack.open('fill out the required fields','OK',{
+          duration: 3000,
+          verticalPosition: 'top'
+        })
+        return;
+      }
+    
     this.userService.addUser(this.user).subscribe(
       (data) => {
         Swal.fire('user saved successfully','user saved in the system','success')
@@ -79,9 +85,22 @@ export class SignupComponent{
     ); 
   }
 
-  DTControl = new FormControl('', [Validators.required]);
-  BTControl = new FormControl('');
-  EmailControl = new FormControl('',[Validators.required]);
-  types = ['Cedula', 'Identity Card', 'Passport', 'PPT'];
-  BT = ['-','A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+  clear(){
+    this.user = {
+      documentType: '',
+    document: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    secondLastName:'',
+    birthDate: '',
+    email: '',
+    password: '',
+    countryBirth:'',
+    phoneNumber:'',
+    gender:'',
+    bloodType:'',
+    photo:'',
+    }
+  }
 }

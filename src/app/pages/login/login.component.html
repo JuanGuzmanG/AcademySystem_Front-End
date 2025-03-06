@@ -1,1 +1,55 @@
-<p>login works!</p>
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-4 pt-5">
+                <mat-card>
+                    <div class="container p-3">
+                        <div class="text-center pb-4">
+                            <img src="../../../assets/adduser.png" width="100" alt="aaa" />
+                            <h1 class="fs-3 text-center">Login</h1>
+                        </div>
+
+                        <div class="text-center">
+                            <form>
+                                <div>
+                                    <div>
+                                        <mat-form-field class="w-50" appearance="outline">
+                                            <mat-label>Document</mat-label>
+                                            <input name="document" matInput type="document" placeholder="document" />
+                                            <mat-error>
+                                                Enter your Document
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field class="w-50" appearance="outline">
+                                            <mat-label>password</mat-label>
+                                            <input name="password" matInput type="password" placeholder="password" />
+                                            <mat-error>
+                                                Enter your password
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="text-center">
+                                        <button mat-flat-button color="primary">
+                                            Login
+                                        </button>
+                                        <button mat-stroked-button style="margin-left: 20px" color="warn">
+                                            Limpiar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+</div>

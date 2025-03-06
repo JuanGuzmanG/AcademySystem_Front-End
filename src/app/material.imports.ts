@@ -7,6 +7,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSelectModule} from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
     imports:[MatButtonModule,
@@ -17,7 +20,10 @@ import {MatRadioModule} from '@angular/material/radio';
         MatSelectModule,
         ReactiveFormsModule,
         CommonModule,
-        MatRadioModule
+        MatRadioModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatIconModule
     ],
     exports:[MatButtonModule,
         MatFormFieldModule,MatInputModule,
@@ -26,7 +32,10 @@ import {MatRadioModule} from '@angular/material/radio';
         MatSelectModule,
         ReactiveFormsModule,
         CommonModule,
-        MatRadioModule
+        MatRadioModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatIconModule
     ]
 })
 export class materialModule{}

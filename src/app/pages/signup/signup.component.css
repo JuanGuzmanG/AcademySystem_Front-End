@@ -9,11 +9,15 @@
   }
   
   .gender-input {
-    width: 30%;
+    width: 50%;
     transition: width 0.3s ease-in-out;
   }
   
   .other-selected .gender-radio-group {
     width: 50%;
+  }
+
+  mat-form-field {
+    padding: 5px;
   }
   
