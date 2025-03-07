@@ -1,1 +1,16 @@
-<p>navbar works!</p>
+<mat-toolbar color="primary">
+    <div class="container d-flex justify-content-between">
+        <a [routerLink]="'/'" class="text-decoration-none text-reset"><span>Application</span></a>
+        <div class="mt-1">
+            <a [routerLink]="'/'">
+                <mat-icon style="color: white;">home</mat-icon>
+            </a>
+            <a [routerLink]="'/register'" style="color: white;">
+                <mat-icon>add</mat-icon>
+            </a>
+            <a [routerLink]="'/login'" style="color: white;">
+                <mat-icon>login</mat-icon>
+            </a>
+        </div>
+    </div>
+</mat-toolbar>

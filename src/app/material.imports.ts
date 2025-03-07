@@ -10,6 +10,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports:[MatButtonModule,
@@ -23,7 +24,8 @@ import {MatIconModule} from '@angular/material/icon';
         MatRadioModule,
         MatToolbarModule,
         MatCardModule,
-        MatIconModule
+        MatIconModule,
+        RouterModule
     ],
     exports:[MatButtonModule,
         MatFormFieldModule,MatInputModule,
@@ -35,7 +37,8 @@ import {MatIconModule} from '@angular/material/icon';
         MatRadioModule,
         MatToolbarModule,
         MatCardModule,
-        MatIconModule
+        MatIconModule,
+        RouterModule
     ]
 })
 export class materialModule{}
