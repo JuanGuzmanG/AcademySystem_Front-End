@@ -11,8 +11,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(), // 🔥 Agregado para HttpClient
-    provideAnimations()  // 🔥 Necesario para Angular Material
+    provideHttpClient(),
+    provideAnimations() 
   ]
 };
 

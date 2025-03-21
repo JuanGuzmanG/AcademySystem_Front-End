@@ -18,7 +18,7 @@
                                     <div>
                                         <mat-form-field class="w-50" appearance="outline">
                                             <mat-label>Document</mat-label>
-                                            <input name="document" matInput type="document" placeholder="document" />
+                                            <input [(ngModel)]="loginData.username" name="username" matInput type="document" placeholder="document" />
                                             <mat-error>
                                                 Enter your Document
                                             </mat-error>
@@ -27,14 +27,14 @@
                                     <div>
                                         <mat-form-field class="w-50" appearance="outline">
                                             <mat-label>password</mat-label>
-                                            <input name="password" matInput type="password" placeholder="password" />
+                                            <input [(ngModel)]="loginData.password" name="password" matInput type="password" placeholder="password" />
                                             <mat-error>
                                                 Enter your password
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div>
-                                        <button mat-flat-button color="primary">
+                                        <button mat-flat-button color="primary" (click)="forSubmit()">
                                             <mat-icon fontIcon="login" class="ms-1"></mat-icon>
                                         </button>
                                         <button mat-stroked-button class="ms-4" color="warn">
