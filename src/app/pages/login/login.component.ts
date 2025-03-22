@@ -24,17 +24,23 @@ export class LoginComponent {
 
   forSubmit(){
     if(this.loginData.username==""||this.loginData.username==null){
-      this.snak.open("username empty","OK"){
+      this.snak.open("username empty","OK",{
         duration:3000
-      }
+      })
       return
     }else if(this.loginData.password==""||this.loginData.password==null){
-      this.snak.open("password empty","OK"){
+      this.snak.open("password empty","OK",{
         duration:3000
-      }
-      return
+      })
+      return;
     }
 
-    this.loginService.generateToken(this.loginData).subscribe
+    this.loginService.generateToken(this.loginData).subscribe(
+      (data:any) => {
+        console.log(data);
+      },(error) => {
+        console.log(error)
+      }
+    )
   }
 }
