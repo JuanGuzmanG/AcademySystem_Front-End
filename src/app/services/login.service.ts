@@ -14,7 +14,7 @@ export class LoginService {
 
   public generateToken(loginData:any){
     return this.http.post(`${baseURL}/auth/login`,loginData);
-  }
+  } 
 
   public loginUser(token:any){
     localStorage.setItem('token',token);
@@ -53,8 +53,12 @@ export class LoginService {
     }
   }
 
-  getUserRol(){
+  getUserRole(){
     let user = this.getUser();
     return user.authorities[0].autority;
+  }
+
+  public getCurrentUser(){
+    return this.http.get(`${baseURL}/users/userlogged`);
   }
 }

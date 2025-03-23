@@ -25,7 +25,7 @@ import { RouterModule } from '@angular/router';
         MatToolbarModule,
         MatCardModule,
         MatIconModule,
-        RouterModule
+        RouterModule,
     ],
     exports:[MatButtonModule,
         MatFormFieldModule,MatInputModule,
