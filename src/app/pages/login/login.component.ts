@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { materialModule } from '../../material.imports';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from '../../services/login.service';
+
 @Component({
   selector: 'app-login',
   imports: [materialModule],

@@ -11,6 +11,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { authInterceptorProviders } from './services/auth.interceptor';
 
 @NgModule({
     imports:[MatButtonModule,
@@ -38,7 +39,7 @@ import { RouterModule } from '@angular/router';
         MatToolbarModule,
         MatCardModule,
         MatIconModule,
-        RouterModule
+        RouterModule,
     ]
 })
 export class materialModule{}
