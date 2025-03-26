@@ -42,10 +42,24 @@ export class LoginComponent {
         
         this.loginService.loginUser(data.token);
         this.loginService.getCurrentUser().subscribe((user:any)=>{
+          this.loginService.setUser(user);
           console.log(user);
+          switch(this.loginService.getUserRole()){
+            case 'ADMIN':
+              window.location.href="/admin"
+              break;
+            case 'USER':
+              window.location.href="/user"
+              break;
+            default:
+              window.location.href="/"
+              break;
+          }
+          
         })
       },(error) => {
-        console.log(error)
+        this.snak.open("Invalid credentials","OK",{
+          duration:3000});
       }
     )
   }
