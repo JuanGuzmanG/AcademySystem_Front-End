@@ -1,16 +1,43 @@
 <mat-toolbar color="primary">
-    <div class="container d-flex justify-content-between">
-        <a [routerLink]="'/'" class="text-decoration-none text-reset"><span>Application</span></a>
-        <div class="mt-1">
-            <a [routerLink]="'/'">
-                <mat-icon style="color: white;">home</mat-icon>
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- Logo o Nombre de la aplicación -->
+        <a [routerLink]="'/'" class="text-decoration-none text-reset">
+            <span>Application</span>
+        </a>
+
+        <!-- Contenedor de enlaces alineados -->
+        <div class="d-flex align-items-center gap-3">
+
+            <a 
+                *ngIf="!isLoggedIn"
+                [routerLink]="'/register'" 
+                class="text-white text-decoration-none"
+                mat-button>
+                Signup
             </a>
-            <a [routerLink]="'/register'" style="color: white;">
-                <mat-icon>add</mat-icon>
+
+            <a 
+                *ngIf="!isLoggedIn"
+                [routerLink]="'/login'"
+                class="text-white text-decoration-none"
+                mat-button>
+                Login
             </a>
-            <a [routerLink]="'/login'" style="color: white;">
-                <mat-icon>login</mat-icon>
+
+            <a 
+                *ngIf="isLoggedIn"
+                (click)="logout()"
+                [routerLink]="'/'"
+                class="text-white text-decoration-none"
+                mat-button>
+                Logout
             </a>
+
+            <button
+                *ngIf="isLoggedIn && user"
+                mat-button>
+                {{user.firstName}} {{user.lastName}}
+            </button>
         </div>
     </div>
 </mat-toolbar>

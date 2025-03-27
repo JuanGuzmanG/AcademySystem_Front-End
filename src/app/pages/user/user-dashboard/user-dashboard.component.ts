@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './user-dashboard.component.css'
 })
 export class UserDashboardComponent {
-
+  constructor() {}
 }

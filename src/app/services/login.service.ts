@@ -1,15 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baseURL from './helper';
-import { stringify } from 'querystring';
+import { Subject } from 'rxjs';
+import { WindowService } from './window.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http:HttpClient) {
+  public loginStatusSubject = new Subject<boolean>();
 
+  constructor(private http:HttpClient, private ws:WindowService) {
+    
   }
 
   public generateToken(loginData:any){
@@ -21,11 +24,16 @@ export class LoginService {
   }
 
   public isLoggedIn(){
-    let tokenstr = localStorage.getItem("token");
-    if(tokenstr==undefined || tokenstr=="" || tokenstr){
-      return false;
+    if(this.ws.nativeWindow){
+      let tokenstr = localStorage.getItem("token");
+      if(tokenstr==undefined || tokenstr==""
+        || tokenstr==null){
+        return false;
+      }else{
+        return true;
+      }
     }else{
-      return true;
+      return false;
     }
   }
 
@@ -44,19 +52,23 @@ export class LoginService {
   }
 
   public getUser(){
-    let userSTR = localStorage.getItem("user");
-    if(userSTR !=null){
-      return JSON.parse(userSTR);
+    if(this.ws.nativeWindow){
+      let userSTR = localStorage.getItem("user");
+      if(userSTR !=null){
+        return JSON.parse(userSTR);
+      }else{
+        this.logout();
+        return null;
+      }
     }else{
-      this.logout();
-      return null;
+      return false;
     }
   }
 
   getUserRole(){
     let user = this.getUser();
-    return user.authorities[0].autority;
-  }
+    return user.authorities[0].authority;
+  }  
 
   public getCurrentUser(){
     return this.http.get(`${baseURL}/users/userlogged`);
