@@ -16,6 +16,7 @@ export class LoginService {
   }
 
   public generateToken(loginData:any){
+    localStorage.clear();
     return this.http.post(`${baseURL}/auth/login`,loginData);
   } 
 
