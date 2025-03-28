@@ -11,7 +11,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { authInterceptorProviders } from './services/auth.interceptor';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
     imports:[MatButtonModule,
@@ -27,6 +27,7 @@ import { authInterceptorProviders } from './services/auth.interceptor';
         MatCardModule,
         MatIconModule,
         RouterModule,
+        MatListModule,
     ],
     exports:[MatButtonModule,
         MatFormFieldModule,MatInputModule,
@@ -40,6 +41,7 @@ import { authInterceptorProviders } from './services/auth.interceptor';
         MatCardModule,
         MatIconModule,
         RouterModule,
+        MatListModule,
     ]
 })
 export class materialModule{}

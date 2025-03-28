@@ -8,6 +8,10 @@ import { TeacherDashboardComponent } from './pages/teacher/teacher-dashboard/tea
 import { userGuard } from './services/user.guard';
 import { adminGuard } from './services/admin.guard';
 import { teacherGuard } from './services/teacher.guard';
+import path from 'path';
+import { profile } from 'console';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { WelcomeAdminComponent } from './pages/admin/welcome-admin/welcome-admin.component';
 
 export const routes: Routes = [
     {
@@ -34,8 +38,17 @@ export const routes: Routes = [
     {
         path:'admin',
         component:AdminDashboardComponent,
-        pathMatch:'full',
-        canActivate: [adminGuard]
+        canActivate: [adminGuard],
+        children: [
+            {
+                path:'profile',
+                component: ProfileComponent,
+            },
+            {
+                path:'',
+                component: WelcomeAdminComponent,
+            }
+        ]
     },
     {
         path:'teacher',

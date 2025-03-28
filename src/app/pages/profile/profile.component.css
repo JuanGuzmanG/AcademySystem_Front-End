@@ -1,0 +1,22 @@
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+
+.table tr td{
+    padding: 15px 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 14px;
+}
+mat-card-actions{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+mat-card-actions button{
+    margin: 0 10px;
+}

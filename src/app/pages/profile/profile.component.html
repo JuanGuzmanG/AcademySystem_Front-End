@@ -1,0 +1,45 @@
+<mat-card>
+    <h1>details profile</h1>
+    <mat-card-content>
+        <div class="bootstrap-wrapper">
+            <div class="container">
+                <div class="text-center">
+                    <mat-icon>person</mat-icon>
+
+                    <h1 class="mt20">NOMBRE APELLIDO</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <table class="table text-center">
+                            <tr>
+                                <td>Username</td>
+                                <td>nombre</td>
+                            </tr>
+                            <tr>
+                                <td>ID</td>
+                                <td>1232312</td>
+                            </tr>
+                            <tr>
+                                <td>telefono</td>
+                                <td>123456789</td>
+                            </tr>
+                            <tr>
+                                <td>rol</td>
+                                <td>admin</td>
+                            </tr>
+                            <tr>
+                                <td>estado</td>
+                                <td>active </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mat-card-actions class="text-center">
+            <button mat-raised-button color="primary">Refresh </button>
+            <button mat-raised-button color="primary" routerLink="/profile/edit">Edit</button>
+            <button mat-raised-button color="warn" routerLink="/profile/delete">Delete</button>
+        </mat-card-actions>
+    </mat-card-content>
+</mat-card>
