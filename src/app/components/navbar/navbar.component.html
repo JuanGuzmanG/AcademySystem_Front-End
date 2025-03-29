@@ -35,7 +35,9 @@
 
             <button
                 *ngIf="isLoggedIn && user"
-                mat-button>
+                mat-button
+                routerLink="/admin/profile"
+                >
                 {{user.firstName}} {{user.lastName}}
             </button>
         </div>
