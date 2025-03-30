@@ -12,6 +12,7 @@ import path from 'path';
 import { profile } from 'console';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WelcomeAdminComponent } from './pages/admin/welcome-admin/welcome-admin.component';
+import { ViewCategoriesComponent } from './pages/admin/view-categories/view-categories.component';
 
 export const routes: Routes = [
     {
@@ -47,6 +48,10 @@ export const routes: Routes = [
             {
                 path:'',
                 component: WelcomeAdminComponent,
+            },
+            {
+                path:'categories',
+                component: ViewCategoriesComponent,
             }
         ]
     },
