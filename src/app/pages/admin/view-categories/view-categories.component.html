@@ -1,1 +1,17 @@
-<p>view-categories works!</p>
+<mat-card>
+    <mat-list style="margin: 10px;">
+        <div mat-subheader>All categories</div>
+        <mat-list-item *ngFor="let c of categories" style="border-radius:30px; margin-bottom: 10px; background-color: rgb(201, 201, 201);">
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+                <div mat-line>{{ c.nameSubject }}</div>
+                <div mat-line>{{ c.descriptionSubject }}</div>
+            </div>
+        </mat-list-item>
+    </mat-list>
+
+    <mat-divider></mat-divider>
+
+    <div class="container text-center my-3">
+        <button mat-raised-button color="primary">Add Category</button>
+    </div>
+</mat-card>

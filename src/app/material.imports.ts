@@ -12,6 +12,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import {MatListModule} from '@angular/material/list';
+import { MatDivider } from '@angular/material/divider';
 
 @NgModule({
     imports:[MatButtonModule,
@@ -28,6 +29,7 @@ import {MatListModule} from '@angular/material/list';
         MatIconModule,
         RouterModule,
         MatListModule,
+        MatDivider
     ],
     exports:[MatButtonModule,
         MatFormFieldModule,MatInputModule,
@@ -42,6 +44,7 @@ import {MatListModule} from '@angular/material/list';
         MatIconModule,
         RouterModule,
         MatListModule,
+        MatDivider
     ]
 })
 export class materialModule{}
