@@ -1,17 +1,26 @@
 <mat-card>
     <mat-list style="margin: 10px;">
         <div mat-subheader>All categories</div>
-        <mat-list-item *ngFor="let c of categories" style="border-radius:30px; margin-bottom: 10px; background-color: rgb(201, 201, 201);">
-            <div style="display: flex; justify-content: space-between; width: 100%;">
-                <div mat-line>{{ c.nameSubject }}</div>
-                <div mat-line>{{ c.descriptionSubject }}</div>
+        <mat-list-item *ngFor="let c of subjects"
+            class="h-100"
+            style="border-radius:30px; margin-bottom: 10px; background-color: rgb(201, 201, 201);">
+            <div class="row w-100 p-1">
+                <div class="col-2 m-auto">
+                    <mat-icon>category</mat-icon>
+                </div>
+                <div class="col-10 m-auto">
+                    <div class="text-start fs-5" mat-line>{{ c.nameSubject }}</div>
+                    <mat-divider></mat-divider>
+                    <div class="text-wrap" mat-line>{{ c.descriptionSubject }}</div>
+                </div>
             </div>
+
         </mat-list-item>
     </mat-list>
 
     <mat-divider></mat-divider>
 
     <div class="container text-center my-3">
-        <button mat-raised-button color="primary">Add Category</button>
+        <button routerLink="/admin/add-category" mat-raised-button color="primary">Add Category</button>
     </div>
 </mat-card>

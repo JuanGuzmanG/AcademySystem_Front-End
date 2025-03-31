@@ -1,20 +1,30 @@
 import { Component } from '@angular/core';
 import { materialModule } from '../../../material.imports';
+import { SubjectService } from '../../../services/subject.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-categories',
   imports: [materialModule],
   templateUrl: './view-categories.component.html',
-  styleUrl: './view-categories.component.css'
+  styleUrl: './view-categories.component.css',
 })
 export class ViewCategoriesComponent {
-  constructor(){}
-
-  categories = [
-    { idSubject:1, nameSubject: 'Category 1', descriptionSubject: 'description 1' },
-    { idSubject:2, nameSubject: 'Category 2', descriptionSubject: 'description 2' },
-    { idSubject:3, nameSubject: 'Category 3', descriptionSubject: 'description 3' },
-    { idSubject:4, nameSubject: 'Category 4', descriptionSubject: 'description 4' },
-]
-
+  subjects: any[] = [];
+  constructor(private categoryService: SubjectService) {
+    this.categoryService.listSubjects().subscribe(
+      (data: any) => {
+        this.subjects = data;
+        console.log(this.subjects);
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load categories. Please try again later.',
+        });
+      }
+    );
+  }
 }
