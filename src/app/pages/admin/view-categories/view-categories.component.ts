@@ -15,7 +15,6 @@ export class ViewCategoriesComponent {
     this.categoryService.listSubjects().subscribe(
       (data: any) => {
         this.subjects = data;
-        console.log(this.subjects);
       },
       (error) => {
         console.error('Error fetching categories:', error);

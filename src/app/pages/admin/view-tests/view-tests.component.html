@@ -1,0 +1,25 @@
+<mat-card class="mt-10" *ngFor="let test of tests">
+    <mat-card-header>
+        <div mat-card-avatar class="mt-2 my-auto"><mat-icon>category</mat-icon></div>
+        <mat-card-title>
+            {{test.nameTest}}
+        </mat-card-title>
+        <mat-card-subtitle>
+            {{test.subject.nameSubject}}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-card-actions>
+            <button class="mx-1" [routerLink]="'/admin/questions/'+test.idTest+'/'+'/'+test.nameTest" mat-flat-button color="primary">Questions</button>
+            <button class="mx-1" mat-stroked-button color="primary"> count: {{test.cantQuestions}}</button>
+            <button class="mx-1" mat-stroked-button color="primary">Max Points {{test.maxPoints}}</button>
+            <button [routerLink]="'/admin/update-test/'+test.idTest" class="mx-2" mat-flat-button color="primary">Update</button>
+            <button class="mx-1" mat-flat-button color="primary">attempts</button>
+            <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.idTest)">Delete Test</button>
+        </mat-card-actions>
+    </mat-card-content>
+</mat-card>
+
+<div class="contanier text-center mt-3">
+    <button mat-raised-button routerLink="/admin/add-test" color="primary">Add Test</button>
+</div>

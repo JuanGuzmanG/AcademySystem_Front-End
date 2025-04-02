@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import {MatListModule} from '@angular/material/list';
 import { MatDivider } from '@angular/material/divider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
     imports:[MatButtonModule,
@@ -29,7 +30,8 @@ import { MatDivider } from '@angular/material/divider';
         MatIconModule,
         RouterModule,
         MatListModule,
-        MatDivider
+        MatDivider,
+        MatSlideToggleModule
     ],
     exports:[MatButtonModule,
         MatFormFieldModule,MatInputModule,
@@ -44,7 +46,8 @@ import { MatDivider } from '@angular/material/divider';
         MatIconModule,
         RouterModule,
         MatListModule,
-        MatDivider
+        MatDivider,
+        MatSlideToggleModule
     ]
 })
 export class materialModule{}

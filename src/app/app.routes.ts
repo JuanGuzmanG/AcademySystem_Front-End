@@ -14,6 +14,11 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { WelcomeAdminComponent } from './pages/admin/welcome-admin/welcome-admin.component';
 import { ViewCategoriesComponent } from './pages/admin/view-categories/view-categories.component';
 import { AddCategoryComponent } from './pages/admin/add-category/add-category.component';
+import { ViewTestsComponent } from './pages/admin/view-tests/view-tests.component';
+import { AddTestComponent } from './pages/admin/add-test/add-test.component';
+import { UpdateTestComponent } from './pages/admin/update-test/update-test.component';
+import { ViewTestQuestionsComponent } from './pages/admin/view-test-questions/view-test-questions.component';
+import { AddQuestionComponent } from './pages/admin/add-question/add-question.component';
 
 export const routes: Routes = [
     {
@@ -57,6 +62,26 @@ export const routes: Routes = [
             {
                 path:'add-category',
                 component: AddCategoryComponent
+            },
+            {
+                path:'view-tests',
+                component: ViewTestsComponent,
+            },
+            {
+                path: 'add-test',
+                component: AddTestComponent,
+            },
+            {
+                path:'update-test/:testId',
+                component: UpdateTestComponent,
+            },
+            {
+                path:'questions/:testId/:testName',
+                component: ViewTestQuestionsComponent
+            },
+            {
+                path: 'add-question/:testId',
+                component: AddQuestionComponent,
             }
         ]
     },

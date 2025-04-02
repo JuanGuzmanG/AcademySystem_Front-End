@@ -30,7 +30,6 @@ export class AddCategoryComponent {
       });
       return;
     }
-    console.log(this.subject);
     this.subjectservice.addSubject(this.subject).subscribe(
       (data: any) => {
         this.subject.nameSubject = '';
