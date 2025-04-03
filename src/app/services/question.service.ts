@@ -16,4 +16,11 @@ export class QuestionService {
     return this.http.post("http://localhost:8080/questions/add", question);
   }
 
+  public deleteQuestion(questionId: any){
+    return this.http.delete(`http://localhost:8080/questions/delete/${questionId}`);
+  }
+
+  public updateQuestion(question: any){
+    return this.http.put("http://localhost:8080/questions/update", question);
+  }
 }

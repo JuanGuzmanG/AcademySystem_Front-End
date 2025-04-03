@@ -16,7 +16,6 @@ export class ViewTestsComponent {
     this.testService.listTests().subscribe(
       (data) => {
         this.tests = data;
-        console.log(this.tests);
       },
       (error) => {
         console.log(error);

@@ -35,7 +35,6 @@ export class AddQuestionComponent {
   }
 
   onSubmit() {
-    console.log(this.question);
     if(this.question.contentQuestion.trim() == '' || 
       this.question.correctOption.trim() == ''||
       this.question.option1.trim() == '' ||
@@ -44,15 +43,12 @@ export class AddQuestionComponent {
       this.question.option4.trim() == ''
     ) {
       Swal.fire('Error', 'Please enter all options, correct answer and question', 'error');
-      console.log(this.question);
       return;
     }
     this.question.contentQuestion = '¿' + this.question.contentQuestion + '?';
     
     this.questionService.addQuestion(this.question).subscribe(
       (data) => {
-        console.log(this.testName);
-        console.log(this.idTest);
         Swal.fire('Sucess', 'Question added successfully', 'success');
         this.question.contentQuestion = '';
         this.question.option1 = '';

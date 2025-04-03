@@ -38,6 +38,8 @@
                         <p class="mt-2">
                             <b>Correct Answer: {{q.correctOption}}</b>
                         </p>
+                        <button (click)="updateQuestion(q.idQuestion)" class="mx-1" mat-flat-button color="primary">Update Question</button>
+                        <button (click)="deleteQuestion(q.idQuestion)" class="mx-1" mat-flat-button color="warn">Delete</button>
                     </div>
                 </mat-card-content>
             </mat-card>
