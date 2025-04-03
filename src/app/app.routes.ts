@@ -76,11 +76,11 @@ export const routes: Routes = [
                 component: UpdateTestComponent,
             },
             {
-                path:'questions/:testId/:testName',
+                path:'questions/:testName/:testId',
                 component: ViewTestQuestionsComponent
             },
             {
-                path: 'add-question/:testId',
+                path: 'add-question/:testName/:idTest',
                 component: AddQuestionComponent,
             }
         ]

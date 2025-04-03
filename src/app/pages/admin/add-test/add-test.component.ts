@@ -16,7 +16,7 @@ export class AddTestComponent {
   subjects: any = [];
 
   test = {
-    nameTest: '',
+    testName: '',
     descriptionTest: '',
     maxPoints: 0,
     cantQuestions: 0,
@@ -40,7 +40,7 @@ export class AddTestComponent {
   
   saveTest() {
     console.log(this.test);
-    if(this.test.nameTest.trim() =='' || this.test.nameTest == null){
+    if(this.test.testName.trim() =='' || this.test.testName == null){
       this.snack.open('Test name is required', '',{
         duration:3000
       });
@@ -52,7 +52,7 @@ export class AddTestComponent {
         this.router.navigate(['/admin/view-tests']);
         Swal.fire('Success', 'Test added successfully', 'success').then((e) => {
           this.test = {
-            nameTest: '',
+            testName: '',
             descriptionTest: '',
             maxPoints: 0,
             cantQuestions: 0,

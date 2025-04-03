@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { materialModule } from '../../../material.imports';
 import { TestService } from '../../../services/test.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-tests',
@@ -17,6 +16,7 @@ export class ViewTestsComponent {
     this.testService.listTests().subscribe(
       (data) => {
         this.tests = data;
+        console.log(this.tests);
       },
       (error) => {
         console.log(error);
@@ -25,7 +25,7 @@ export class ViewTestsComponent {
     );
   }
 
-  deleteTest(testId: any) {
+  deleteTest(idTest: any) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -36,10 +36,10 @@ export class ViewTestsComponent {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.testService.deleteTest(testId).subscribe(
+        this.testService.deleteTest(idTest).subscribe(
           (data) => {
             this.tests = this.tests.filter(
-              (test: any) => test.testId != testId);
+              (test: any) => test.testId != idTest);
             Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
             this.testService.listTests().subscribe(
               (data) => {

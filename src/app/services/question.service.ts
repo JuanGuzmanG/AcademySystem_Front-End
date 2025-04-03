@@ -11,4 +11,9 @@ export class QuestionService {
   public listQuestionsOfTest(testId: any){
     return this.http.get(`http://localhost:8080/questions/test/${testId}`);
   }
+
+  public addQuestion(question: any){
+    return this.http.post("http://localhost:8080/questions/add", question);
+  }
+
 }

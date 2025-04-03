@@ -1,4 +1,4 @@
-<h1 class="text-center">{{testName}}</h1>
+<h1 class="text-center">Questions of {{testName}}</h1>
 <div class="bootstrap-wrapper">
     <div class="row">
         <div class="col-md-12">
@@ -6,7 +6,7 @@
                 <button
                 mat-raised-button
                 color="primary"
-                [routerLink]="'/admin/add-question/'+testId"
+                [routerLink]="'/admin/add-question/'+testName+'/'+testId"
                 >
                 Add Question
                 </button>

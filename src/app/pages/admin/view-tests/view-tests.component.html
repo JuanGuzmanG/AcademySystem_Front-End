@@ -2,7 +2,7 @@
     <mat-card-header>
         <div mat-card-avatar class="mt-2 my-auto"><mat-icon>category</mat-icon></div>
         <mat-card-title>
-            {{test.nameTest}}
+            {{test.testName}}
         </mat-card-title>
         <mat-card-subtitle>
             {{test.subject.nameSubject}}
@@ -10,7 +10,7 @@
     </mat-card-header>
     <mat-card-content>
         <mat-card-actions>
-            <button class="mx-1" [routerLink]="'/admin/questions/'+test.idTest+'/'+'/'+test.nameTest" mat-flat-button color="primary">Questions</button>
+            <button class="mx-1" [routerLink]="'/admin/questions/'+test.testName+'/'+test.idTest" mat-flat-button color="primary">Questions</button>
             <button class="mx-1" mat-stroked-button color="primary"> count: {{test.cantQuestions}}</button>
             <button class="mx-1" mat-stroked-button color="primary">Max Points {{test.maxPoints}}</button>
             <button [routerLink]="'/admin/update-test/'+test.idTest" class="mx-2" mat-flat-button color="primary">Update</button>

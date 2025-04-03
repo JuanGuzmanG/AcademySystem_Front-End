@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../../../services/question.service';
 import { materialModule } from '../../../material.imports';
 
@@ -16,6 +16,7 @@ export class ViewTestQuestionsComponent {
   constructor(
     private route: ActivatedRoute,
     private questionService: QuestionService,
+    private router: Router
   ){
       this.testId = this.route.snapshot.params['testId'];
       this.testName = this.route.snapshot.params['testName'];
@@ -29,5 +30,4 @@ export class ViewTestQuestionsComponent {
         }
       )
   }
-
 }
