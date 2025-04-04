@@ -59,7 +59,7 @@ export class LoginComponent {
                 this.snak.open('Welcome Admin', 'OK', { duration: 3000 });
                 break;
               case 'USER':
-                this.router.navigate(['user']);
+                this.router.navigate(['user/0']);
                 this.loginService.loginStatusSubject.next(true);
                 this.snak.open('Welcome User', 'OK', { duration: 3000 });
                 break;

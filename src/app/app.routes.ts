@@ -19,6 +19,9 @@ import { AddTestComponent } from './pages/admin/add-test/add-test.component';
 import { UpdateTestComponent } from './pages/admin/update-test/update-test.component';
 import { ViewTestQuestionsComponent } from './pages/admin/view-test-questions/view-test-questions.component';
 import { AddQuestionComponent } from './pages/admin/add-question/add-question.component';
+import { UpdateQuestionComponent } from './pages/admin/update-question/update-question.component';
+import { LoadTestComponent } from './pages/user/load-test/load-test.component';
+import { WelcomeUserComponent } from './pages/user/welcome-user/welcome-user.component';
 
 export const routes: Routes = [
     {
@@ -39,8 +42,17 @@ export const routes: Routes = [
     {
         path:'user',
         component:UserDashboardComponent,
-        pathMatch:'full',
-        canActivate: [userGuard]
+        canActivate: [userGuard],
+        children: [
+            {
+                path:'',
+                component: WelcomeUserComponent
+            },
+            {
+                path:':subjectID',
+                component: LoadTestComponent
+            }
+        ]
     },
     {
         path:'admin',
@@ -56,7 +68,7 @@ export const routes: Routes = [
                 component: WelcomeAdminComponent,
             },
             {
-                path:'categories',
+                path:'subjectid',
                 component: ViewCategoriesComponent,
             },
             {
@@ -82,6 +94,10 @@ export const routes: Routes = [
             {
                 path: 'add-question/:testName/:idTest',
                 component: AddQuestionComponent,
+            },
+            {
+                path: 'update-question/:testName/:idTest/:questionId',
+                component: UpdateQuestionComponent,
             }
         ]
     },

@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
+import { materialModule } from '../../../material.imports';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { SubjectService } from '../../../services/subject.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-dashboard',
-  imports: [],
+  imports: [materialModule, SidebarComponent],
   templateUrl: './user-dashboard.component.html',
-  styleUrl: './user-dashboard.component.css'
+  styleUrl: './user-dashboard.component.css',
 })
 export class UserDashboardComponent {
-  constructor() {}
+  subjects: any;
+
+  constructor(){}
 }

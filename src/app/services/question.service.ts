@@ -23,4 +23,8 @@ export class QuestionService {
   public updateQuestion(question: any){
     return this.http.put("http://localhost:8080/questions/update", question);
   }
+
+  public getQuestion(questionId: any){
+    return this.http.get(`http://localhost:8080/questions/${questionId}`);
+  }
 }

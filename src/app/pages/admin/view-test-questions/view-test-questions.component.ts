@@ -33,22 +33,6 @@ export class ViewTestQuestionsComponent {
     );
   }
 
-  updateQuestion(question: any) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, update it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.questionService.updateQuestion(question).subscribe();
-      }
-    });
-  }
-
   deleteQuestion(idQuestion: any) {
     Swal.fire({
       title: 'Are you sure?',
