@@ -15,6 +15,14 @@ export class TestService {
   public listTests() {
     return this.http.get(`${baseURL}/test/testlist`);
   }
+
+  public listTestByState() {
+    return this.http.get(`${baseURL}/test/active`);
+  }
+  public listTestsBySubjectId(subjectId: any) {
+    return this.http.get(`${baseURL}/test/active/${subjectId}`);  
+  }
+
   public getTest(testId: any) {
     return this.http.get(`${baseURL}/test/${testId}`);
   }

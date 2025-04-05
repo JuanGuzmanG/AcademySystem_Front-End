@@ -18,18 +18,23 @@
                         </mat-card-subtitle>
                         <p>{{test.descriptionTest}}</p>
                         <mat-card-actions>
-                            <button class="mx-1" mat-raised-button color="primary" >Start Test</button>
-                            <button class="mx-1" mat-raised-button color="warn" >Delete Test</button>
+                            <button class="mx-1" mat-raised-button>View Test</button>
+                            <button [routerLink]="'/user/instructions/'+test.idTest" class="mx-1" mat-raised-button
+                                color="primary">Start Test</button>
                         </mat-card-actions>
                         <mat-card-actions>
                             <button mat-button color="accent">Questions: {{test.cantQuestions}}</button>
-                            <button mat-button color="accent">Max Points: {{test.maxPoints}}</button> 
+                            <button mat-button color="accent">Max Points: {{test.maxPoints}}</button>
                         </mat-card-actions>
                     </mat-card-content>
                 </mat-card>
-                <mat-card-content>
-                    <h1>No tests on this subject</h1>
-                </mat-card-content>
+            </div>
+            <div class="col-md-12" *ngIf="tests.length == 0">
+                <mat-card>
+                    <mat-card-content>
+                        <h1>No tests on this subject</h1>
+                    </mat-card-content>
+                </mat-card>
             </div>
         </div>
     </div>

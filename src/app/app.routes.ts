@@ -22,6 +22,7 @@ import { AddQuestionComponent } from './pages/admin/add-question/add-question.co
 import { UpdateQuestionComponent } from './pages/admin/update-question/update-question.component';
 import { LoadTestComponent } from './pages/user/load-test/load-test.component';
 import { WelcomeUserComponent } from './pages/user/welcome-user/welcome-user.component';
+import { InstructionsComponent } from './pages/user/instructions/instructions.component';
 
 export const routes: Routes = [
     {
@@ -51,7 +52,11 @@ export const routes: Routes = [
             {
                 path:':subjectID',
                 component: LoadTestComponent
-            }
+            },
+            {
+                path:'instructions/:testId',
+                component: InstructionsComponent
+            },
         ]
     },
     {
@@ -68,7 +73,7 @@ export const routes: Routes = [
                 component: WelcomeAdminComponent,
             },
             {
-                path:'subjectid',
+                path:'subjects',
                 component: ViewCategoriesComponent,
             },
             {

@@ -1,0 +1,42 @@
+<div class="bootstrap-wrapper" *ngIf="test">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mt-1">
+                    <mat-card-header>
+                        <mat-card-title>
+                            Read the instructions carefully
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-subtitle>One more step</mat-card-subtitle>
+                    <mat-card-content class="ms-1">
+                        <h1>{{test.testName}}</h1>
+                        <p>{{test.descriptionTest}}</p>
+                        <mat-divider></mat-divider>
+                    </mat-card-content>
+                    <mat-card>
+                        <br>
+                        <h1>Important Instructions</h1>
+                        <ul>
+                            <li>This test is for practice only.</li>
+                            <li>You must submit the test to: <b>{{test.cantQuestions *2}} minutes</b></li>
+                            <li>You can attempt the test as many times as you like.</li>
+                            <li>There are {{test.maxPoints/test.cantQuestions}} points per question.</li>
+                        </ul>
+                        <mat-divider></mat-divider>
+                        <br>
+                        <h2>attempts of test</h2>
+                        <ul>
+                            <li>press the <b>Start</b> button to begin the test</li>
+                            <li>Time will start when you click the <b>Start</b> button</li>
+                            <li>you can not resume this test if it's interrupted for any reason</li>
+                            <li>Scroll down to move on the next question</li>
+                            <li>Click the submit button when you finish the test</li>
+                            <li>The test report will be automatically generated as a PDF</li>
+                        </ul>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,13 +18,13 @@ export class LoadTestComponent {
 
       if (this.subjectId == 0) {
         console.log('Load test for all subjects');
-        this.testService.listTests().subscribe(
+        this.testService.listTestByState().subscribe(
           (data) => {
             this.tests = data;
           },
         (error)=>{console.log(error);});
       } else {
-        this.testService.getTestBySubject(this.subjectId).subscribe(
+        this.testService.listTestsBySubjectId(this.subjectId).subscribe(
           (data) => {
             this.tests = data;
           }
