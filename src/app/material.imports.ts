@@ -31,7 +31,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         RouterModule,
         MatListModule,
         MatDivider,
-        MatSlideToggleModule
+        MatSlideToggleModule,
     ],
     exports:[MatButtonModule,
         MatFormFieldModule,MatInputModule,

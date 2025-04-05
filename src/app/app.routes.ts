@@ -23,6 +23,7 @@ import { UpdateQuestionComponent } from './pages/admin/update-question/update-qu
 import { LoadTestComponent } from './pages/user/load-test/load-test.component';
 import { WelcomeUserComponent } from './pages/user/welcome-user/welcome-user.component';
 import { InstructionsComponent } from './pages/user/instructions/instructions.component';
+import { StartTestComponent } from './pages/user/start-test/start-test.component';
 
 export const routes: Routes = [
     {
@@ -57,7 +58,17 @@ export const routes: Routes = [
                 path:'instructions/:testId',
                 component: InstructionsComponent
             },
+            {
+                path:'instructions/start/test/:testId',
+                component: StartTestComponent, 
+                canActivate: [userGuard]
+            }
         ]
+    },
+    {
+        path:'start/test/:testId',
+        component: StartTestComponent, 
+        canActivate: [userGuard]
     },
     {
         path:'admin',

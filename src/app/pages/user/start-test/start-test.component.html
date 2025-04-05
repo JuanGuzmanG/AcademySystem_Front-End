@@ -1,0 +1,67 @@
+<div class="bootstrap-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <h3>Instructions</h3>
+            </div>
+            <div class="col-md-8">
+                <ng-container *ngIf="questions">
+                    <h1 class="mt-1">In process <b>{{questions[0].test.nameTest}}</b></h1>
+                </ng-container>
+
+                <mat-card *ngFor="let q of questions; let i = index">
+                    <mat-card-content>
+                        <p><b>{{i+1}}) </b><span innerHTML="q.content">{{q.contentQuestion}}</span></p>
+                        <mat-divider></mat-divider>
+                        <div class="mt-1 row">
+                            <div class="col-md-7 mt-2">
+                                <input
+                                [(ngModel)]="q.selectedAnswer"
+                                [value]="q.option1"
+                                name ={{i}}
+                                type="radio"> {{q.option1}}
+                            </div>
+                            <div class="mt-1 row">
+                                <div class="col-md-7 mt-2">
+                                    <input
+                                    [(ngModel)]="q.selectedAnswer"
+                                    [value]="q.option2"
+                                    name={{i}}
+                                    type="radio"> {{q.option2}}
+                                </div>
+                            </div>
+                            <div class="mt-1 row">
+                                <div class="col-md-7 mt-2">
+                                    <input
+                                    [(ngModel)]="q.selectedAnswer"
+                                    [value]="q.option3"
+                                    name={{i}}
+                                    type="radio"> {{q.option3}}
+                                </div>
+                            </div>
+                            <div class="mt-1 row">
+                                <div class="col-md-7 mt-2">
+                                    <input
+                                    [value]="q.option4"
+                                    name={{i}}
+                                    [(ngModel)]="q.selectedAnswer"
+                                    type="radio"> {{q.option4}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6"></div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <div class="contianer text-center mt-3">
+                    <button mat-raised-button (click)="SendTest()" color="primary">Send Test</button>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <!-- Progress -->
+            </div>
+        </div>
+    </div>
+</div>
