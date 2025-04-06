@@ -1,4 +1,4 @@
-<div class="bootstrap-wrapper">
+<div class="bootstrap-wrapper" *ngIf="!sendTest">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
@@ -13,45 +13,9 @@
                     <mat-card-content>
                         <p><b>{{i+1}}) </b><span innerHTML="q.content">{{q.contentQuestion}}</span></p>
                         <mat-divider></mat-divider>
-                        <div class="mt-1 row">
-                            <div class="col-md-7 mt-2">
-                                <input
-                                [(ngModel)]="q.selectedAnswer"
-                                [value]="q.option1"
-                                name ={{i}}
-                                type="radio"> {{q.option1}}
-                            </div>
-                            <div class="mt-1 row">
-                                <div class="col-md-7 mt-2">
-                                    <input
-                                    [(ngModel)]="q.selectedAnswer"
-                                    [value]="q.option2"
-                                    name={{i}}
-                                    type="radio"> {{q.option2}}
-                                </div>
-                            </div>
-                            <div class="mt-1 row">
-                                <div class="col-md-7 mt-2">
-                                    <input
-                                    [(ngModel)]="q.selectedAnswer"
-                                    [value]="q.option3"
-                                    name={{i}}
-                                    type="radio"> {{q.option3}}
-                                </div>
-                            </div>
-                            <div class="mt-1 row">
-                                <div class="col-md-7 mt-2">
-                                    <input
-                                    [value]="q.option4"
-                                    name={{i}}
-                                    [(ngModel)]="q.selectedAnswer"
-                                    type="radio"> {{q.option4}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6"></div>
+                        <div class="mt-2" *ngFor="let opt of [q.option1, q.option2, q.option3, q.option4]">
+                            <input type="radio" [value]="opt" [(ngModel)]="q.selectedAnswer" [name]="'question' + i" />
+                            {{ opt }}
                         </div>
                     </mat-card-content>
                 </mat-card>
@@ -60,8 +24,42 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <!-- Progress -->
+                <mat-card class="mt-2">
+                    <mat-card-header>
+                        <mat-card-title>
+                            Progress
+                        </mat-card-title>
+                        <mat-card-subtitle>The test is sent automatically when the time is up</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <h2 class="text-center">{{getFormattedTime() }}</h2>
+                        <mat-spinner mode="determinate" class="m-auto" [value]="(timer/(this.questions.length*2*60)*100)"></mat-spinner>
+                    </mat-card-content>
+                </mat-card>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="bootstrap-wrapper" *ngIf="sendTest">
+    <div class="row mt-2">
+        <div class="col-md-6 offset-md-3">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Test Results</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h2>Points Earned: {{pointsEarned}}</h2>
+                    <h2>Correct Answer: {{correctAnswers}}</h2>
+                    <h3>Attempts: {{attempts}}</h3>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary">Print</button>
+                    <button mat-raised-button color="warn" [routerLink]="'/user/'+0">Quit</button>
+                </mat-card-actions>
+            </mat-card>
         </div>
     </div>
 </div>

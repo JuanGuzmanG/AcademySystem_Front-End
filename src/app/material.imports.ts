@@ -14,6 +14,8 @@ import { RouterModule } from '@angular/router';
 import {MatListModule} from '@angular/material/list';
 import { MatDivider } from '@angular/material/divider';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
     imports:[MatButtonModule,
@@ -32,6 +34,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         MatListModule,
         MatDivider,
         MatSlideToggleModule,
+        MatProgressSpinnerModule,
+        NgxUiLoaderModule,
     ],
     exports:[MatButtonModule,
         MatFormFieldModule,MatInputModule,
@@ -47,7 +51,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         RouterModule,
         MatListModule,
         MatDivider,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatProgressSpinnerModule,
+        NgxUiLoaderModule
     ]
 })
 export class materialModule{}

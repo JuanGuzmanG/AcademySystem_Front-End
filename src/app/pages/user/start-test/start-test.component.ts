@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { materialModule } from '../../../material.imports';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../../../services/question.service';
-import { queueScheduler } from 'rxjs';
-import { Console } from 'console';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,10 +16,13 @@ export class StartTestComponent {
   pointsEarned: number = 0;
   correctAnswers: number = 0;
   attempts: number = 0;
+  sendTest: boolean = false;
+  timer: number = 0;
 
   constructor(
     private route: ActivatedRoute,
-    private questionsService: QuestionService
+    private questionsService: QuestionService,
+    private router: Router
   ) {
     this.testId = this.route.snapshot.params['testId'];
     this.denyRollback();
@@ -33,9 +34,12 @@ export class StartTestComponent {
       (data) => {
         this.questions = data;
 
+        this.timer = this.questions.length * 2 * 60;
+
         this.questions.forEach((question: any) => {
           question['selectedAnswer'] = null;
         });
+        this.startTimer();
       },
       (error) => {
         console.error('Error loading questions:', error);
@@ -63,17 +67,40 @@ export class StartTestComponent {
       cancelButtonText: 'No, cancel!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.questions.forEach((question: any) => {
-          if (question.selectedAnswer == question.correctOption) {
-            this.correctAnswers++;
-            let points = this.questions[0].test.maxPoints / this.questions.length;
-            this.pointsEarned += points;
-            console.log('puntos ganados ', this.pointsEarned);
-            console.log('respuestas correctas ', this.correctAnswers);
-            console.log(this.questions);
-          }
-        });
+        this.evaluateTest();
       }
     });
   }
+
+  evaluateTest(){
+    this.sendTest = true;
+    this.questions.forEach((question: any) => {
+        this.attempts++;
+        if (question.selectedAnswer == question.correctOption) {
+          this.correctAnswers++;
+          let points = this.questions[0].test.maxPoints / this.questions.length;
+          this.pointsEarned += points;
+        }
+    });
+  }
+
+  startTimer(){
+    let t = window.setInterval(() => {
+      if (this.timer <= 0) {
+        clearInterval(t);
+        this.evaluateTest();
+      } else {
+        this.timer--;
+      }
+    }, 1000);
+  }
+
+  getFormattedTime() {
+    const minutes = Math.floor(this.timer / 60);
+    const seconds = this.timer % 60;
+    return `${minutes < 10 ? '0' : ''}${minutes}:${
+      seconds < 10 ? '0' : ''
+    }${seconds}`;
+  }
+  
 }
