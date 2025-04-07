@@ -7,24 +7,42 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginService } from './login.service';
-import { finalize, Observable } from 'rxjs';
+import { catchError, finalize, Observable, throwError } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private loginService: LoginService,private ngx:NgxUiLoaderService) {}
+  constructor(
+    private loginService: LoginService,
+    private ngx: NgxUiLoaderService,
+    private router: Router
+  ) {}
 
-  intercept(req: HttpRequest<any>,next: HttpHandler): Observable<HttpEvent<any>> {
-
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     this.ngx.start();
 
     let authReq = req;
     const token = this.loginService.getToken();
+
     if (token != null) {
       authReq = authReq.clone({
         setHeaders: { Authorization: `Bearer ${token}` },
       });
+
       return next.handle(authReq).pipe(
+        catchError((error) => {
+          if (error.status === 401 || error.status === 403) {
+            Swal.fire('error', 'Session expired', 'error')
+            this.loginService.logout();
+            this.router.navigate(['/login']);
+          }
+          return throwError(()=> error)
+        }),
         finalize(() => {
           this.ngx.stop();
         })

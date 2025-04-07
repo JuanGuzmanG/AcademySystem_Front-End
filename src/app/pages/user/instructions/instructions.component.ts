@@ -23,8 +23,6 @@ export class InstructionsComponent {
     this.testService.getTest(this.testId).subscribe(
       (data) => {
         this.test = data;
-        console.log(this.test);
-        console.log(this.testId);
       },
       (error) => {
         console.error('Error fetching test:', error);
@@ -42,7 +40,6 @@ export class InstructionsComponent {
       cancelButtonText: 'No, cancel!',
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('Test started:', this.testId);
         this.router.navigate(['start/test/' + this.testId]);
       }
     })

@@ -27,16 +27,31 @@ export class LoginService {
   public isLoggedIn(){
     if(this.ws.nativeWindow){
       let tokenstr = localStorage.getItem("token");
-      if(tokenstr==undefined || tokenstr==""
-        || tokenstr==null){
+      if(!tokenstr){
         return false;
       }else{
+
+        const tokenLoad = this.decodeToken(tokenstr);
+        if(tokenLoad && tokenLoad.exp * 1000 < Date.now()){
+          this.logout();
+          return false;
+        }
         return true;
       }
     }else{
       return false;
     }
   }
+
+  private decodeToken(token: string): any {
+    try {
+      const payload = token.split('.')[1];
+      return JSON.parse(atob(payload));
+    } catch (error) {
+      console.error('Token inválido', error);
+      return null;
+    }
+  }  
 
   public logout(){
     localStorage.removeItem("token");
