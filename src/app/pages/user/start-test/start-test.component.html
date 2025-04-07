@@ -2,7 +2,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                <h3>Instructions</h3>
+                <mat-card>
+                    <mat-card-content>
+                        <h3>Instructions</h3>
+                        <ul>
+                            <li>Don't minimize the test.</li>
+                            <li>Don't switch tabs.</li>
+                            <li>Don't try to go back.</li>
+                        </ul>
+                    </mat-card-content>
+                </mat-card>
             </div>
             <div class="col-md-8">
                 <ng-container *ngIf="questions">
@@ -33,7 +42,7 @@
                     </mat-card-header>
                     <mat-card-content>
                         <h2 class="text-center">{{getFormattedTime() }}</h2>
-                        <mat-spinner mode="determinate" class="m-auto" [value]="(timer/(this.questions.length*2*60)*100)"></mat-spinner>
+                        <mat-spinner mode="determinate" class="m-auto" [value]="(timer/(questions?.length * 2 * 60)*100)"></mat-spinner>
                     </mat-card-content>
                 </mat-card>
             </div>
@@ -42,7 +51,7 @@
 </div>
 
 <div class="bootstrap-wrapper" *ngIf="sendTest">
-    <div class="row mt-2">
+    <div class="mt-2">
         <div class="col-md-6 offset-md-3">
             <mat-card>
                 <mat-card-header>
@@ -56,7 +65,7 @@
                     <h3>Attempts: {{attempts}}</h3>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-raised-button color="primary">Print</button>
+                    <button mat-raised-button (click)="printResult()" color="primary">Print</button>
                     <button mat-raised-button color="warn" [routerLink]="'/user/'+0">Quit</button>
                 </mat-card-actions>
             </mat-card>

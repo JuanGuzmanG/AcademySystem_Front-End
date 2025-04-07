@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { materialModule } from '../../../material.imports';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,5 +9,12 @@ import { materialModule } from '../../../material.imports';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-
+  constructor(
+    private loginService: LoginService,
+  ) {}
+  
+  logout() {
+    this.loginService.logout();
+    window.location.reload();
+  }
 }

@@ -13,9 +13,11 @@ import Swal from 'sweetalert2';
 export class StartTestComponent {
   testId: any;
   questions: any;
+
   pointsEarned: number = 0;
   correctAnswers: number = 0;
   attempts: number = 0;
+
   sendTest: boolean = false;
   timer: number = 0;
 
@@ -73,15 +75,15 @@ export class StartTestComponent {
   }
 
   evaluateTest(){
-    this.sendTest = true;
-    this.questions.forEach((question: any) => {
-        this.attempts++;
-        if (question.selectedAnswer == question.correctOption) {
-          this.correctAnswers++;
-          let points = this.questions[0].test.maxPoints / this.questions.length;
-          this.pointsEarned += points;
-        }
-    });
+    this.questionsService.evaluateTest(this.questions).subscribe(
+      (data:any) => {
+        this.pointsEarned = data.maxPoints;
+        this.correctAnswers = data.cantCorrect;
+        this.attempts = data.attempts;
+
+        this.sendTest = true;
+      }
+    );
   }
 
   startTimer(){
@@ -103,4 +105,7 @@ export class StartTestComponent {
     }${seconds}`;
   }
   
+  printResult() {
+    window.print();
+  }
 }

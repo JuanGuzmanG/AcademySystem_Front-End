@@ -17,7 +17,6 @@ export class LoadTestComponent {
       this.subjectId = params['subjectID'];
 
       if (this.subjectId == 0) {
-        console.log('Load test for all subjects');
         this.testService.listTestByState().subscribe(
           (data) => {
             this.tests = data;
