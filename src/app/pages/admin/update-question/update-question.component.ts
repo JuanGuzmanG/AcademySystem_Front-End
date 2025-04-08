@@ -27,9 +27,6 @@ export class UpdateQuestionComponent {
     this.questionService.getQuestion(this.questionId).subscribe(
       (data)=> {
         this.question = data;
-        console.log(this.question);
-        console.log(this.questionId);
-        console.log(this.testId)
       },
       (error)=>{
         console.log(error);

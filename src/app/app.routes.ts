@@ -24,7 +24,7 @@ import { LoadTestComponent } from './pages/user/load-test/load-test.component';
 import { WelcomeUserComponent } from './pages/user/welcome-user/welcome-user.component';
 import { InstructionsComponent } from './pages/user/instructions/instructions.component';
 import { StartTestComponent } from './pages/user/start-test/start-test.component';
-
+import { ViewTestComponent } from './pages/user/view-test/view-test.component';
 export const routes: Routes = [
     {
         path: '',
@@ -51,8 +51,16 @@ export const routes: Routes = [
                 component: WelcomeUserComponent
             },
             {
+                path:'profile',
+                component:ProfileComponent,
+            },
+            {
                 path:':subjectID',
                 component: LoadTestComponent
+            },
+            {
+                path:'view-test/:testId',
+                component: ViewTestComponent
             },
             {
                 path:'instructions/:testId',

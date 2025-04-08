@@ -18,7 +18,7 @@
                         </mat-card-subtitle>
                         <p>{{test.descriptionTest}}</p>
                         <mat-card-actions>
-                            <button class="mx-1" mat-raised-button>View Test</button>
+                            <button [routerLink]="'/user/view-test/'+test.idTest" class="mx-1" mat-raised-button>View Test</button>
                             <button [routerLink]="'/user/instructions/'+test.idTest" class="mx-1" mat-raised-button
                                 color="primary">Start Test</button>
                         </mat-card-actions>
