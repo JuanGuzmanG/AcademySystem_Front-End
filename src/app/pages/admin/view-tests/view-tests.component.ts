@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import { TestService } from '../../../services/test.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-tests',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './view-tests.component.html',
   styleUrl: './view-tests.component.css',
 })

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../../../services/question.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-start-test',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './start-test.component.html',
   styleUrl: './start-test.component.css',
 })

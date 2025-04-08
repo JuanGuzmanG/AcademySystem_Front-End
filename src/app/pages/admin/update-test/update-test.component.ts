@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../../../services/test.service';
 import { SubjectService } from '../../../services/subject.service';
@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-test',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './update-test.component.html',
   styleUrl: './update-test.component.css'
 })

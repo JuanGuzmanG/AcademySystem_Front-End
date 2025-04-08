@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../material.imports';
+import { materialImports } from '../../material.imports';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-login',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

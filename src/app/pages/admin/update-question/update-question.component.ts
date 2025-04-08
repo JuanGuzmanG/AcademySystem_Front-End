@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../../../services/test.service';
 import { QuestionService } from '../../../services/question.service';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 
 @Component({
   selector: 'app-update-question',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './update-question.component.html',
   styleUrl: './update-question.component.css'
 })

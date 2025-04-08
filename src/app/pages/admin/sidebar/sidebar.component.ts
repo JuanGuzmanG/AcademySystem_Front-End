@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })

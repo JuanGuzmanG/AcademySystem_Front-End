@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import { SubjectService } from '../../../services/subject.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-category',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './add-category.component.html',
   styleUrl: './add-category.component.css',
 })

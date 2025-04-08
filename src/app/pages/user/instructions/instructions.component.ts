@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { TestService } from '../../../services/test.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-instructions',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './instructions.component.html',
   styleUrl: './instructions.component.css',
 })

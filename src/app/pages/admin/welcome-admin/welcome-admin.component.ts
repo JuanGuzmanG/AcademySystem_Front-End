@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 
 @Component({
   selector: 'app-welcome-admin',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './welcome-admin.component.html',
   styleUrl: './welcome-admin.component.css'
 })

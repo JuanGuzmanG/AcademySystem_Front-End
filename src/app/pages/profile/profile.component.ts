@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../material.imports';
+import { materialImports } from '../../material.imports';
 import { LoginService } from '../../services/login.service';
 import { error } from 'console';
 
 @Component({
   selector: 'app-profile',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

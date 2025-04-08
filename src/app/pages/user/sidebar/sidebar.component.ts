@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import { SubjectService } from '../../../services/subject.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sidebar-user',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })

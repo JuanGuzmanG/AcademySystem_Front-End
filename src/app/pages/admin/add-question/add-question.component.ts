@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import { QuestionService } from '../../../services/question.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-question',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './add-question.component.html',
   styleUrl: './add-question.component.css',
 })

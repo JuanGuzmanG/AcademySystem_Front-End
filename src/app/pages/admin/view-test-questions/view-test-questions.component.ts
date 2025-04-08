@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../../../services/question.service';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-view-test-questions',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './view-test-questions.component.html',
   styleUrl: './view-test-questions.component.css',
 })

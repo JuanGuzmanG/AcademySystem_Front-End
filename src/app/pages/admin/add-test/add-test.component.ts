@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import { SubjectService } from '../../../services/subject.service';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-test',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './add-test.component.html',
   styleUrl: './add-test.component.css',
 })

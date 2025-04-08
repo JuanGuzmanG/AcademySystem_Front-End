@@ -8,8 +8,6 @@ import { TeacherDashboardComponent } from './pages/teacher/teacher-dashboard/tea
 import { userGuard } from './services/user.guard';
 import { adminGuard } from './services/admin.guard';
 import { teacherGuard } from './services/teacher.guard';
-import path from 'path';
-import { profile } from 'console';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WelcomeAdminComponent } from './pages/admin/welcome-admin/welcome-admin.component';
 import { ViewCategoriesComponent } from './pages/admin/view-categories/view-categories.component';

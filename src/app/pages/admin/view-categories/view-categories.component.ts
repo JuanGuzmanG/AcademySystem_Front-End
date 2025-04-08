@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { materialModule } from '../../../material.imports';
+import { materialImports } from '../../../material.imports';
 import { SubjectService } from '../../../services/subject.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-categories',
-  imports: [materialModule],
+  imports: [materialImports()],
   templateUrl: './view-categories.component.html',
   styleUrl: './view-categories.component.css',
 })
