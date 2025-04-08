@@ -8,212 +8,148 @@
         </div>
 
         <div class="container text-center">
-          <form #singupForm="ngForm" novalidate>
+          <form [formGroup]="signupForm" novalidate>
             <div class="row">
               <div class="col-md-6">
+                <!-- Document Type -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Document Type</mat-label>
-                  <mat-select
-                    placeholder="Document Type"
-                    [formControl]="DTControl"
-                    [(ngModel)]="user.documentType"
-                    name="documentType"
-                  >
+                  <mat-select formControlName="documentType">
                     <mat-option *ngFor="let type of types" [value]="type">
                       {{ type }}
                     </mat-option>
                   </mat-select>
-                  <mat-error *ngIf="DTControl.hasError('required')">
+                  <mat-error *ngIf="signupForm.get('documentType')?.hasError('required')">
                     Choose a Type Document
                   </mat-error>
                 </mat-form-field>
+
+                <!-- Document -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Document</mat-label>
-                  <input
-                    [(ngModel)]="user.document"
-                    [formControl]="Controldocument"
-                    name="document"
-                    matInput
-                    type="text"
-                    placeholder="Document"
-                  />
-                  <mat-error *ngIf="user.document===''">
+                  <input formControlName="document" matInput type="text" placeholder="Document" />
+                  <mat-error *ngIf="signupForm.get('document')?.hasError('required')">
                     Enter your Document
                   </mat-error>
                 </mat-form-field>
+
+                <!-- First Name -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Name</mat-label>
-                  <input
-                    [(ngModel)]="user.firstName"
-                    name="firstName"
-                    matInput
-                    type="text"
-                    placeholder="Name"
-                    required
-                  />
-                  <mat-error *ngIf="user.firstName==='' || user.firstName===null">
-                    Enter your FirstName
+                  <input formControlName="firstName" matInput type="text" placeholder="Name" />
+                  <mat-error *ngIf="signupForm.get('firstName')?.hasError('required')">
+                    Enter your First Name
                   </mat-error>
-                </mat-form-field>
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>MiddleName</mat-label>
-                  <input
-                    [(ngModel)]="user.middleName"
-                    name="MiddleName"
-                    matInput
-                    type="text"
-                    placeholder="middleName"
-                  />
-                </mat-form-field>
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Lastname </mat-label>
-                  <input
-                    [(ngModel)]="user.lastName"
-                    [formControl]="ControllastName"
-                    name="lastName"
-                    matInput
-                    type="text"
-                    placeholder="Lastname"
-                  />
-                  <mat-error>
-                    Enter your lastname
-                  </mat-error>
-                </mat-form-field>
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Secondlastname </mat-label>
-                  <input
-                    [(ngModel)]="user.secondLastName"
-                    name="secondLastName"
-                    matInput
-                    type="text"
-                    placeholder="Secondlastname"
-                  />
                 </mat-form-field>
 
+                <!-- Middle Name -->
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Middle Name</mat-label>
+                  <input formControlName="middleName" matInput type="text" placeholder="Middle Name" />
+                </mat-form-field>
+
+                <!-- Last Name -->
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Last Name</mat-label>
+                  <input formControlName="lastName" matInput type="text" placeholder="Last Name" />
+                  <mat-error *ngIf="signupForm.get('lastName')?.hasError('required')">
+                    Enter your Last Name
+                  </mat-error>
+                </mat-form-field>
+
+                <!-- Second Last Name -->
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Second Last Name</mat-label>
+                  <input formControlName="secondLastName" matInput type="text" placeholder="Second Last Name" />
+                </mat-form-field>
+
+                <!-- Blood Type -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Blood Type</mat-label>
-                  <mat-select
-                    placeholder="Blood Type"
-                    [formControl]="BTControl"
-                    [(ngModel)]="user.bloodType"
-                    >
+                  <mat-select formControlName="bloodType">
                     <mat-option *ngFor="let Blood of BT" [value]="Blood">
                       {{ Blood }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
+
               <div class="col-md-6">
+                <!-- Email -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Email</mat-label>
-                  <input
-                    [(ngModel)]="user.email"
-                    [formControl]="EmailControl"
-                    name="email"
-                    matInput
-                    type="email"
-                    placeholder="Email"
-                  />
-                  <mat-error *ngIf="EmailControl.invalid">
+                  <input formControlName="email" matInput type="email" placeholder="Email" />
+                  <mat-error *ngIf="signupForm.get('email')?.hasError('email')">
                     Email invalid: Enter Correct Format
                   </mat-error>
                 </mat-form-field>
+
+                <!-- Password -->
                 <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>password</mat-label>
-                  <input
-                    [(ngModel)]="user.password"
-                    [formControl]="ControlPassword"
-                    name="password"
-                    matInput
-                    type="password"
-                    placeholder="password"
-                  />
-                  <mat-error>
-                    Enter your password and minlenght: 8 letters
+                  <mat-label>Password</mat-label>
+                  <input formControlName="password" matInput type="password" placeholder="Password" />
+                  <mat-error *ngIf="signupForm.get('password')?.hasError('minlength')">
+                    Password must be at least 8 characters
                   </mat-error>
                 </mat-form-field>
+
+                <!-- Phone -->
                 <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>phone</mat-label>
-                  <input
-                    [(ngModel)]="user.phoneNumber"
-                    name="phoneNumber"
-                    matInput
-                    type="phone"
-                    placeholder="Phone"
-                  />
+                  <mat-label>Phone</mat-label>
+                  <input formControlName="phoneNumber" matInput type="text" placeholder="Phone" />
                 </mat-form-field>
 
+                <!-- Birth Date -->
                 <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>birth </mat-label>
-                  <input
-                    [(ngModel)]="user.birthDate"
-                    name="birthDate"
-                    matInput
-                    type="date"
-                    placeholder="birth"
-                  />
+                  <mat-label>Birth Date</mat-label>
+                  <input formControlName="birthDate" matInput type="date" />
                 </mat-form-field>
+
+                <!-- Country of Birth -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Country of Birth</mat-label>
-                  <mat-select
-                    [(ngModel)]="user.countryBirth"
-                    name="countryBirth"
-                  >
-                    <mat-option
-                      *ngFor="let country of countries"
-                      [value]="country"
-                    >
+                  <mat-select formControlName="countryBirth">
+                    <mat-option *ngFor="let country of countries" [value]="country">
                       {{ country }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
+
+                <!-- Rol (disabled input) -->
                 <mat-form-field class="w-100" appearance="outline">
-                    <mat-label>Rol</mat-label>
-                    <input
-                      name="Rol"
-                      matInput
-                      type="text"
-                      value="New User"
-                      disabled
-                    />
-                  </mat-form-field>
+                  <mat-label>Rol</mat-label>
+                  <input matInput type="text" value="New User" disabled />
+                </mat-form-field>
+
+                <!-- Gender -->
                 <div class="container row mb-3">
-                    <div class="col-1 m-auto">
-                      <mat-label class="container px-0 px-3">Gender</mat-label>
-                    </div>
-                    <div
-                      class="gender-container col-11"
-                      [ngClass]="{ 'other-selected': user.gender === 'Other' }"
-                    >
-                      <mat-radio-group
-                        [(ngModel)]="customgender"
-                        name="gender"
-                        class="gender-radio-group"
-                      >
-                        <mat-radio-button value="Male">Male</mat-radio-button>
-                        <mat-radio-button value="Female">Female</mat-radio-button>
-                        <mat-radio-button value="private"
-                          >i'd rather not say it</mat-radio-button
-                        >
-                        <mat-radio-button value="Other">Other</mat-radio-button>
-                      </mat-radio-group>
-                      <mat-form-field
-                        *ngIf="customgender === 'Other'"
-                        class="gender-input"
-                        appearance="outline"
-                      >
-                        <mat-label>Specify Gender</mat-label>
-                        <input
-                          [(ngModel)]="user.gender"
-                          name="customGender"
-                          matInput
-                          type="text"
-                          placeholder="Enter your gender"
-                        />
-                      </mat-form-field>
-                    </div>
+                  <div class="col-1 m-auto">
+                    <mat-label class="container px-0 px-3">Gender</mat-label>
                   </div>
+                  <div
+                    class="gender-container col-11"
+                    [ngClass]="{ 'other-selected': signupForm.get('gender')?.value === 'Other' }"
+                  >
+                    <mat-radio-group formControlName="gender" class="gender-radio-group">
+                      <mat-radio-button value="Male">Male</mat-radio-button>
+                      <mat-radio-button value="Female">Female</mat-radio-button>
+                      <mat-radio-button value="private">I'd rather not say</mat-radio-button>
+                      <mat-radio-button value="Other">Other</mat-radio-button>
+                    </mat-radio-group>
+
+                    <mat-form-field
+                      *ngIf="signupForm.get('gender')?.value === 'Other'"
+                      class="gender-input"
+                      appearance="outline"
+                    >
+                      <mat-label>Specify Gender</mat-label>
+                      <input formControlName="customGender" matInput type="text" placeholder="Enter your gender" />
+                    </mat-form-field>
+                  </div>
+                </div>
               </div>
+
+              <!-- Buttons -->
               <div class="container text-center">
                 <button mat-flat-button color="primary" (click)="formSubmit()">
                   Registrar
