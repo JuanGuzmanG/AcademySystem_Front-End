@@ -3,7 +3,7 @@
         <div class="mat-subheader">Menu</div>
         <button routerLink="/admin" mat-list-item>
             <mat-icon mat-list-icon>home</mat-icon>Inicio
-        </button>
+        </button>   
         <button mat-list-item routerLink="/admin/profile">
             <mat-icon mat-list-icon>account_circle</mat-icon>Perfil
         </button>
@@ -18,6 +18,9 @@
         </button>
         <button mat-list-item routerLink="/admin/add-test">
             <mat-icon mat-list-icon>add_circle_outline</mat-icon>Add Test
+        </button>
+        <button mat-list-item routerLink="/admin/users">
+            <mat-icon mat-list-icon>person</mat-icon>users
         </button>
         <button mat-list-item (click)="logout()">
             <mat-icon mat-list-icon>logout</mat-icon>Logout

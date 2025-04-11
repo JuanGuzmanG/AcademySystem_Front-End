@@ -58,6 +58,7 @@ export class SignupComponent {
   }
 
   formSubmit() {
+    console.log(this.signupForm.value);
     if (this.customGender && this.customGender === 'Other') {
       this.signupForm.patchValue({ gender: this.signupForm.get('gender')?.value });
     } else if (this.customGender) {
@@ -74,6 +75,7 @@ export class SignupComponent {
 
     this.userService.addUser(this.signupForm.value).subscribe(
       (data) => {
+        console.log(data);
         Swal.fire('User saved successfully', 'User saved in the system', 'success');
       },
       (error) => {

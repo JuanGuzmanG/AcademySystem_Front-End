@@ -12,4 +12,10 @@ export class UserService {
   public addUser(User: any){
     return this.httpClient.post(`${baseURL}/auth/new_user`,User);
   }
+  public getusers(){
+    return this.httpClient.get(`${baseURL}/users/all_users`);
+  }
+  public deleteUser(userId: any){
+    return this.httpClient.delete(`${baseURL}/users/delete/${userId}`); 
+  }
 }

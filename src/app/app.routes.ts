@@ -23,6 +23,7 @@ import { WelcomeUserComponent } from './pages/user/welcome-user/welcome-user.com
 import { InstructionsComponent } from './pages/user/instructions/instructions.component';
 import { StartTestComponent } from './pages/user/start-test/start-test.component';
 import { ViewTestComponent } from './pages/user/view-test/view-test.component';
+import { ViewUsersComponent } from './pages/admin/view-users/view-users.component';
 export const routes: Routes = [
     {
         path: '',
@@ -120,6 +121,10 @@ export const routes: Routes = [
             {
                 path: 'update-question/:testName/:idTest/:questionId',
                 component: UpdateQuestionComponent,
+            },
+            {
+                path:"users",
+                component: ViewUsersComponent
             }
         ]
     },
