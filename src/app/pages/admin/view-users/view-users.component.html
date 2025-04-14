@@ -28,7 +28,7 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let user">
-            <button mat-button color="primary">Editar</button>
+            <button [routerLink]="'/admin/users/update/'+user.document"mat-button color="primary">Editar</button>
             <button (click)="deleteUser(user.document)" mat-button color="warn">Eliminar</button>
         </td>
     </ng-container>

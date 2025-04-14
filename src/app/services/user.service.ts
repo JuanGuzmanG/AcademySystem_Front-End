@@ -8,7 +8,10 @@ import baseURL from './helper';
 export class UserService {
 
   constructor(private httpClient:HttpClient) { }
+  public get(userId: any){
+    return this.httpClient.get(`${baseURL}/users/get_user_${userId}`);
 
+  }
   public addUser(User: any){
     return this.httpClient.post(`${baseURL}/auth/new_user`,User);
   }
@@ -17,5 +20,8 @@ export class UserService {
   }
   public deleteUser(userId: any){
     return this.httpClient.delete(`${baseURL}/users/delete/${userId}`); 
+  }
+  public updateUser(test:any){
+    return this.httpClient.put(`${baseURL}/users/update`,test);
   }
 }

@@ -24,6 +24,7 @@ import { InstructionsComponent } from './pages/user/instructions/instructions.co
 import { StartTestComponent } from './pages/user/start-test/start-test.component';
 import { ViewTestComponent } from './pages/user/view-test/view-test.component';
 import { ViewUsersComponent } from './pages/admin/view-users/view-users.component';
+import { UpdateUserComponent } from './pages/admin/update-user/update-user.component';
 export const routes: Routes = [
     {
         path: '',
@@ -125,6 +126,10 @@ export const routes: Routes = [
             {
                 path:"users",
                 component: ViewUsersComponent
+            },
+            {
+                path:'users/update/:userId',
+                component: UpdateUserComponent
             }
         ]
     },
