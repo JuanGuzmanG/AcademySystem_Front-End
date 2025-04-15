@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { RolService } from '../../../services/rol.service';
 
 @Component({
   selector: 'app-update-user',
@@ -12,40 +14,84 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './update-user.component.css'
 })
 export class UpdateUserComponent {
+  userForm!: FormGroup;
   userId : any;
   user: any;
-  subjects:any;
-  rols: any = [
-    { id: 1, name: 'ADMIN' },
-    { id: 2, name: 'USER' },
-    { id: 3, name: 'PROFESSOR' },
-  ]
   countries: string[] = [];
   types = ['Cedula', 'Identity Card', 'Passport', 'PPT'];
   BT = ['-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   customGender = '';
   genders = ['Male','Female',"I'd rather not say"];
+  rol: any;
+  rols: any[] = [];
+  selectedRols: any[] = [];
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
+    private rolservice: RolService
   ){
     this.getCountries();
+  }
+
+  ngOnInit() {
     this.userId = this.route.snapshot.params['userId'];
-    this.userService.get(this.userId).subscribe(
-      (data)=> {
-        this.user = data;
-        if(!this.genders.includes(this.user.gender)){
-          this.customGender = this.user.gender;
-          this.user.gender = 'Other';
-        }
-        console.log(this.user.countryBirth);
+
+    this.userForm = this.fb.group({
+      documentType: ['', Validators.required],
+      document: ['', Validators.required],
+      firstName: ['', Validators.required],
+      middleName: [''],
+      lastName: ['', Validators.required],
+      secondLastName: [''],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', Validators.required],
+      gender: ['', Validators.required],
+      customGender: [''],
+      countryBirth: ['', Validators.required],
+      bloodType: [''],
+      birthDate: ['', Validators.required],
+      rols: [[],Validators.required]
+    });
+
+    this.rolservice.getAllRols().subscribe(
+      (rolData: any) => {
+        this.rols = rolData;
+
+        this.userService.get(this.userId).subscribe((user: any) => {
+          user.rols = user.rols ?? [];
+  
+          if (!this.genders.includes(user.gender)) {
+            this.customGender = user.gender;
+            user.gender = 'Other';
+          }
+
+          const selectedRols = this.rols.filter((rol: any) =>
+            user.rols.some((r: any) => r.idRol === rol.idRol)
+          );
+  
+          this.userForm.patchValue({
+            documentType: user.documentType,
+            document: user.document,
+            firstName: user.firstName,
+            middleName: user.middleName,
+            lastName: user.lastName,
+            secondLastName: user.secondLastName,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            gender: user.gender,
+            customGender: this.customGender,
+            countryBirth: user.countryBirth,
+            bloodType: user.bloodType,
+            birthDate: user.birthDate,
+            rols: selectedRols
+          });
+        });
       },
-      (error)=>{
-        console.log(error);
-      }
-    )
+      error => console.error(error)
+    );
   }
 
   getCountries() {
@@ -61,17 +107,26 @@ export class UpdateUserComponent {
 
   updateUser() {
     
-    if(this.user.gender==='Other' && this.customGender?.trim()){
-      this.user.gender = this.customGender.trim();
+    if(this.userForm.invalid){
+      Swal.fire('Error', 'Fill out the required fields', 'error');
+      return;
     }
 
-    this.userService.updateUser(this.user).subscribe(
-      (data) => {
-        this.router.navigate(['/admin/view-users']);
+    const formValue = this.userForm.value;
+
+    if (formValue.gender === 'Other' && formValue.customGender?.trim()) {
+      formValue.gender = formValue.customGender.trim();
+    }
+
+    delete formValue.customGender;
+
+    this.userService.updateUser(formValue).subscribe(
+      () => {
         Swal.fire('Success', 'User updated successfully', 'success');
       },
-      (error) => {
+      error => {
         console.log(error);
+        Swal.fire('Error', 'Something went wrong', 'error');
       }
     );
   }

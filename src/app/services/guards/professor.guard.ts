@@ -1,17 +1,17 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { LoginService } from './login.service';
+import { LoginService } from '../login.service';
 
-export const adminGuard: CanActivateFn = (route, state) => {
+export const userGuard: CanActivateFn = (route, state) => {
   const loginService = inject(LoginService);
   const router = inject(Router);
 
-  if(loginService.isLoggedIn() &&
-  loginService.getUserRole() === 'ADMIN') {
+
+  if(loginService.isLoggedIn() && 
+  loginService.getUserRole() === 'PROFESSOR') {
     return true;
   }
 
   router.navigate(['/login']);
-  console.log('Access Denied! Admins only');
   return false;
 };

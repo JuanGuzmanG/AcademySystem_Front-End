@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { LoginService } from './login.service';
+import { LoginService } from '../login.service';
 
 export const userGuard: CanActivateFn = (route, state) => {
   const loginService = inject(LoginService);
@@ -8,7 +8,7 @@ export const userGuard: CanActivateFn = (route, state) => {
 
 
   if(loginService.isLoggedIn() && 
-  loginService.getUserRole() === 'PROFESSOR') {
+  loginService.getUserRole() === 'USER') {
     return true;
   }
 

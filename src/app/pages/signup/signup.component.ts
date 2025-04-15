@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { materialImports } from '../../material.imports';
 import Swal from 'sweetalert2';
 import { UserService } from '../../services/user.service';
@@ -27,22 +27,23 @@ export class SignupComponent {
     private fb: FormBuilder
   ) {
     this.getCountries();
+
     this.signupForm = this.fb.group({
       documentType: ['', Validators.required],
       document: ['', Validators.required],
-      firstName: ['', Validators.required],
-      middleName: [''],
-      lastName: ['', Validators.required],
-      secondLastName: [''],
+      firstName: ['', Validators.required,Validators.maxLength(30)],
+      middleName: ['',Validators.maxLength(30)],
+      lastName: ['', Validators.required,Validators.maxLength(30)],
+      secondLastName: ['',Validators.maxLength(30)],
       birthDate: [''],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       countryBirth: [''],
-      phoneNumber: [''],
+      phoneNumber: ['',Validators.maxLength(14)],
       gender: [''],
       bloodType: [''],
       photo: [''],
-      customGender: ['']
+      customGender: ['',Validators.maxLength(20)],
     });
   }
 

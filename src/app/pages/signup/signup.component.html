@@ -11,7 +11,6 @@
           <form [formGroup]="signupForm" novalidate>
             <div class="row">
               <div class="col-md-6">
-                <!-- Document Type -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Document Type</mat-label>
                   <mat-select formControlName="documentType">
@@ -24,7 +23,6 @@
                   </mat-error>
                 </mat-form-field>
 
-                <!-- Document -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Document</mat-label>
                   <input formControlName="document" matInput type="text" placeholder="Document" />
@@ -33,7 +31,6 @@
                   </mat-error>
                 </mat-form-field>
 
-                <!-- First Name -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Name</mat-label>
                   <input formControlName="firstName" matInput type="text" placeholder="Name" />
@@ -42,13 +39,11 @@
                   </mat-error>
                 </mat-form-field>
 
-                <!-- Middle Name -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Middle Name</mat-label>
                   <input formControlName="middleName" matInput type="text" placeholder="Middle Name" />
                 </mat-form-field>
 
-                <!-- Last Name -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Last Name</mat-label>
                   <input formControlName="lastName" matInput type="text" placeholder="Last Name" />
@@ -57,13 +52,11 @@
                   </mat-error>
                 </mat-form-field>
 
-                <!-- Second Last Name -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Second Last Name</mat-label>
                   <input formControlName="secondLastName" matInput type="text" placeholder="Second Last Name" />
                 </mat-form-field>
 
-                <!-- Blood Type -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Blood Type</mat-label>
                   <mat-select formControlName="bloodType">
@@ -75,7 +68,6 @@
               </div>
 
               <div class="col-md-6">
-                <!-- Email -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Email</mat-label>
                   <input formControlName="email" matInput type="email" placeholder="Email" />
@@ -84,7 +76,6 @@
                   </mat-error>
                 </mat-form-field>
 
-                <!-- Password -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Password</mat-label>
                   <input formControlName="password" matInput type="password" placeholder="Password" />
@@ -93,19 +84,16 @@
                   </mat-error>
                 </mat-form-field>
 
-                <!-- Phone -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Phone</mat-label>
                   <input formControlName="phoneNumber" matInput type="text" placeholder="Phone" />
                 </mat-form-field>
 
-                <!-- Birth Date -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Birth Date</mat-label>
                   <input formControlName="birthDate" matInput type="date" />
                 </mat-form-field>
 
-                <!-- Country of Birth -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Country of Birth</mat-label>
                   <mat-select formControlName="countryBirth">
@@ -115,13 +103,11 @@
                   </mat-select>
                 </mat-form-field>
 
-                <!-- Rol (disabled input) -->
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Rol</mat-label>
                   <input matInput type="text" value="New User" disabled />
                 </mat-form-field>
 
-                <!-- Gender -->
                 <div class="container row mb-3">
                   <div class="col-1 m-auto">
                     <mat-label class="container px-0 px-3">Gender</mat-label>
