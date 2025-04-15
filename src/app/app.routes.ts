@@ -4,10 +4,8 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
-import { TeacherDashboardComponent } from './pages/teacher/teacher-dashboard/teacher-dashboard.component';
 import { userGuard } from './services/guards/user.guard';
 import { adminGuard } from './services/guards/admin.guard';
-import { teacherGuard } from './services/teacher.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WelcomeAdminComponent } from './pages/admin/welcome-admin/welcome-admin.component';
 import { ViewCategoriesComponent } from './pages/admin/view-categories/view-categories.component';
@@ -25,6 +23,9 @@ import { StartTestComponent } from './pages/user/start-test/start-test.component
 import { ViewTestComponent } from './pages/user/view-test/view-test.component';
 import { ViewUsersComponent } from './pages/admin/view-users/view-users.component';
 import { UpdateUserComponent } from './pages/admin/update-user/update-user.component';
+import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
+import { professorGuard } from './services/guards/professor.guard';
+import { DashboardProfessorComponent } from './pages/professor/dashboard-professor/dashboard-professor.component';
 export const routes: Routes = [
     {
         path: '',
@@ -53,6 +54,10 @@ export const routes: Routes = [
             {
                 path:'profile',
                 component:ProfileComponent,
+            },
+            {
+                path:'profile/update/:userId',
+                component: UpdateProfileComponent,
             },
             {
                 path:':subjectID',
@@ -86,6 +91,10 @@ export const routes: Routes = [
             {
                 path:'profile',
                 component: ProfileComponent,
+            },
+            {
+                path:'profile/update/:userId',
+                component: UpdateProfileComponent,
             },
             {
                 path:'',
@@ -134,9 +143,9 @@ export const routes: Routes = [
         ]
     },
     {
-        path:'teacher',
-        component:TeacherDashboardComponent,
+        path:'professor',
+        component:DashboardProfessorComponent,
         pathMatch:'full',
-        canActivate: [teacherGuard]
+        canActivate: [professorGuard],
     }
 ];
