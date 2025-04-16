@@ -1,8 +1,8 @@
 <mat-card>
-    <h1>Update Test</h1>
+    <h1>Add New Test</h1>
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <form action="" *ngIf="test">
+            <form action="">
                 <mat-form-field class="w-100" appearance="fill">
                     <mat-label>Name</mat-label>
                     <input
@@ -70,9 +70,11 @@
                 </mat-form-field>
 
                 <div class="container text-center">
-                    <button (click)="updateTest()" mat-raised-button color="primary">Add</button>
+                    <button (click)="saveTest()" mat-raised-button color="primary">Add</button>
                 </div>
             </form>
         </div>
     </div>
 </mat-card>
+
+{{test | json}}

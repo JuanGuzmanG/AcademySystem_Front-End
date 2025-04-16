@@ -26,6 +26,12 @@ import { UpdateUserComponent } from './pages/admin/update-user/update-user.compo
 import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 import { professorGuard } from './services/guards/professor.guard';
 import { DashboardProfessorComponent } from './pages/professor/dashboard-professor/dashboard-professor.component';
+import { ViewTestProfessorComponent } from './pages/professor/view-test-professor/view-test-professor.component';
+import { UpdateTestProfessorComponent } from './pages/professor/update-test-professor/update-test-professor.component';
+import { ViewTestQuestionsProfessorComponent } from './pages/professor/view-test-questions-professor/view-test-questions-professor.component';
+import { UpdateQuestionProfessorComponent } from './pages/professor/update-question-professor/update-question-professor.component';
+import { HomeProfessorComponent } from './pages/professor/home-professor/home-professor.component';
+import { AddTestProfessorComponent } from './pages/professor/add-test-professor/add-test-professor.component';
 export const routes: Routes = [
     {
         path: '',
@@ -148,11 +154,32 @@ export const routes: Routes = [
         canActivate: [professorGuard],
         children:[
             {
+                path:'home',
+                component: HomeProfessorComponent
+            },
+            {
                 path:'profile',
                 component: ProfileComponent
             },
             {
-                
+                path:'view_tests',
+                component: ViewTestProfessorComponent
+            },
+            {
+                path:'add_test',
+                component: AddTestProfessorComponent
+            },
+            {
+                path:'update_test/:testId',
+                component: UpdateTestProfessorComponent
+            },
+            {
+                path:'view_test_questions/:testName/:testId',
+                component: ViewTestQuestionsProfessorComponent
+            },
+            {
+                path:'view_test_questions/update/:testName/questionId',
+                component: UpdateQuestionProfessorComponent
             }
         ]
     }
