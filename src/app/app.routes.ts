@@ -145,7 +145,15 @@ export const routes: Routes = [
     {
         path:'professor',
         component:DashboardProfessorComponent,
-        pathMatch:'full',
         canActivate: [professorGuard],
+        children:[
+            {
+                path:'profile',
+                component: ProfileComponent
+            },
+            {
+                
+            }
+        ]
     }
 ];
