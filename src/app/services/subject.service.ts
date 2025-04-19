@@ -13,6 +13,10 @@ export class SubjectService {
     return this.http.get(`${baseURL}/subjects/subjectslist`)
   }
 
+  public getsubjectById(subjectId:any) {
+    return this.http.get(`${baseURL}/subjects/${subjectId}`)
+  }
+
   public addSubject(subject:any) {
     return this.http.post(`${baseURL}/subjects/add`, subject)
   }

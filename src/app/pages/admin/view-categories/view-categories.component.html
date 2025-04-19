@@ -1,7 +1,7 @@
 <mat-card>
     <mat-list style="margin: 10px;">
         <div mat-subheader>All categories</div>
-        <mat-list-item *ngFor="let c of subjects"
+        <mat-list-item *ngFor="let s of subjects"
             class="h-100"
             style="border-radius:30px; margin-bottom: 10px; background-color: rgb(201, 201, 201);">
             <div class="row w-100 p-1">
@@ -9,13 +9,13 @@
                     <mat-icon>category</mat-icon>
                 </div>
                 <div class="col-8 m-auto">
-                    <div class="text-start fs-5" mat-line>{{ c.nameSubject }}</div>
+                    <div class="text-start fs-5" mat-line>{{ s.nameSubject }}</div>
                     <mat-divider></mat-divider>
-                    <div class="text-wrap" mat-line>{{ c.descriptionSubject }}</div>
+                    <div class="text-wrap" mat-line>{{ s.descriptionSubject }}</div>
                 </div>
                 <div class="col-2 m-auto">
-                    <button mat-raised-button  color="primary" class="me-2">Update</button>
-                    <button mat-raised-button  color="warn">Delete</button>
+                    <button mat-raised-button [routerLink]="'/admin/update-subject/'+s.idSubject" color="primary" class="me-2">Update</button>
+                    <button mat-raised-button (click)="deleteSubject(s.idSubject)" color="warn">Delete</button>
                 </div>
             </div>
 

@@ -33,6 +33,7 @@ import { UpdateQuestionProfessorComponent } from './pages/professor/update-quest
 import { HomeProfessorComponent } from './pages/professor/home-professor/home-professor.component';
 import { AddTestProfessorComponent } from './pages/professor/add-test-professor/add-test-professor.component';
 import { AddQuestionProfessorComponent } from './pages/professor/add-question-professor/add-question-professor.component';
+import { UpdateSubjectComponent } from './pages/admin/update-subject/update-subject.component';
 export const routes: Routes = [
     {
         path: '',
@@ -114,6 +115,10 @@ export const routes: Routes = [
                 component: AddCategoryComponent
             },
             {
+                path:'update-subject/:subjectId',
+                component: UpdateSubjectComponent
+            },
+            {
                 path:'view-tests',
                 component: ViewTestsComponent,
             },
@@ -152,7 +157,7 @@ export const routes: Routes = [
         canActivate: [professorGuard],
         children:[
             {
-                path:'home',
+                path:'',
                 component: HomeProfessorComponent
             },
             {

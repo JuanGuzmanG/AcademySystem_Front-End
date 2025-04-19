@@ -40,7 +40,8 @@ export class ViewCategoriesComponent {
       if (result.isConfirmed) {
         this.categoryService.deleteSubject(subjectId).subscribe(
           (data) => {
-            this.subjects = this.subjects.filter((subject) => subject.id !== subjectId);
+            this.subjects = this.subjects.filter(
+              (subject) => subject.id !== subjectId);
             Swal.fire(
               'Deleted!',
               'Your category has been deleted.',
