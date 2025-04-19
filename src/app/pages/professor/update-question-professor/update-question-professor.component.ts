@@ -1,11 +1,52 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { QuestionService } from '../../../services/question.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
+import { materialImports } from '../../../material.imports';
+import { TestService } from '../../../services/test.service';
 
 @Component({
   selector: 'app-update-question-professor',
-  imports: [],
+  imports: [materialImports()],
   templateUrl: './update-question-professor.component.html',
   styleUrl: './update-question-professor.component.css'
 })
 export class UpdateQuestionProfessorComponent {
+  testId: any;
+  questionId: any;
+  testName: any;
+  question: any={};
+  constructor(
+    private route: ActivatedRoute,
+    private testService: TestService,
+    private router: Router,
+    private questionService: QuestionService
+  ){
+    this.testId = this.route.snapshot.params['idTest'];
+    this.questionId = this.route.snapshot.params['idQuestion'];
+    this.testName = this.route.snapshot.params['testName'];
+    console.log(this.testId);
+    console.log(this.questionId);
+    console.log(this.testName);
+    this.questionService.getQuestion(this.questionId).subscribe(
+      (data)=> {
+        this.question = data;
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
 
+  onSubmit(){
+    this.questionService.updateQuestion(this.question).subscribe(
+      (data) => {
+        this.router.navigate(['/professor/view-tests/'+this.testName+'/'+this.testId+'/questions']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }

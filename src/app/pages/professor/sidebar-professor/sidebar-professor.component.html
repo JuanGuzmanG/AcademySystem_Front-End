@@ -11,9 +11,12 @@
             <mat-icon></mat-icon>
         </button>
         <button
-        routerLink="/professor/view_tests"
+        [routerLink]="'/professor/view-tests/'+0"
         mat-list-item>
             <mat-icon mat-list-icon>quiz</mat-icon> All Tests
+        </button>
+        <button [routerLink]="'/professor/view-tests/'+s.idSubject"  mat-list-item *ngFor="let s of subjects">
+            <mat-icon mat-list-icon>category</mat-icon> {{s.nameSubject}}
         </button>
     </mat-action-list>
 </mat-card>

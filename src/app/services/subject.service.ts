@@ -16,4 +16,12 @@ export class SubjectService {
   public addSubject(subject:any) {
     return this.http.post(`${baseURL}/subjects/add`, subject)
   }
+
+  public updateSubject(subject:any) {
+    return this.http.put(`${baseURL}/subjects/update`, subject)
+  }
+
+  public deleteSubject(subjectId:any) {
+    return this.http.delete(`${baseURL}/subjects/delete/${subjectId}`)
+  }
 }

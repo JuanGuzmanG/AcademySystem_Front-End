@@ -26,4 +26,37 @@ export class ViewCategoriesComponent {
       }
     );
   }
+
+  deleteSubject(subjectId: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.categoryService.deleteSubject(subjectId).subscribe(
+          (data) => {
+            this.subjects = this.subjects.filter((subject) => subject.id !== subjectId);
+            Swal.fire(
+              'Deleted!',
+              'Your category has been deleted.',
+              'success'
+            );
+          },
+          (error) => {
+            console.error('Error deleting category:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Failed to delete category. Please try again later.',
+            });
+          }
+        );
+      }
+    })
+  }
 }

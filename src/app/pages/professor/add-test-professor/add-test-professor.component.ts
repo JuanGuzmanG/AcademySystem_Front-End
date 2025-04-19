@@ -49,7 +49,7 @@ export class AddTestProfessorComponent {
 
     this.testService.addTest(this.test).subscribe(
       (data)=>{
-        this.router.navigate(['/professor/view_tests']);
+        this.router.navigate(['/professor/view-tests/'+this.test.subject.idSubject]);
         Swal.fire('Success', 'Test added successfully', 'success').then((e) => {
           this.test = {
             testName: '',

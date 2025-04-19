@@ -32,6 +32,7 @@ import { ViewTestQuestionsProfessorComponent } from './pages/professor/view-test
 import { UpdateQuestionProfessorComponent } from './pages/professor/update-question-professor/update-question-professor.component';
 import { HomeProfessorComponent } from './pages/professor/home-professor/home-professor.component';
 import { AddTestProfessorComponent } from './pages/professor/add-test-professor/add-test-professor.component';
+import { AddQuestionProfessorComponent } from './pages/professor/add-question-professor/add-question-professor.component';
 export const routes: Routes = [
     {
         path: '',
@@ -48,8 +49,7 @@ export const routes: Routes = [
         component:LoginComponent,
         pathMatch:'full'
     },
-    {
-        path:'user',
+    {path:'user',
         component:UserDashboardComponent,
         canActivate: [userGuard],
         children: [
@@ -89,8 +89,7 @@ export const routes: Routes = [
         component: StartTestComponent, 
         canActivate: [userGuard]
     },
-    {
-        path:'admin',
+    {path:'admin',
         component:AdminDashboardComponent,
         canActivate: [adminGuard],
         children: [
@@ -148,8 +147,7 @@ export const routes: Routes = [
             }
         ]
     },
-    {
-        path:'professor',
+    {path:'professor',
         component:DashboardProfessorComponent,
         canActivate: [professorGuard],
         children:[
@@ -162,24 +160,28 @@ export const routes: Routes = [
                 component: ProfileComponent
             },
             {
-                path:'view_tests',
+                path:'view-tests/:idSubject',
                 component: ViewTestProfessorComponent
             },
             {
-                path:'add_test',
+                path:'view-tests/:idSubject/add-test',
                 component: AddTestProfessorComponent
             },
             {
-                path:'update_test/:testId',
+                path:'view-tests/update-test/:idTest',
                 component: UpdateTestProfessorComponent
             },
             {
-                path:'view_test_questions/:testName/:testId',
+                path:'view-tests/:testName/:idTest/questions',
                 component: ViewTestQuestionsProfessorComponent
             },
             {
-                path:'view_test_questions/update/:testName/questionId',
+                path:'update/:idTest/:testName/:idQuestion',
                 component: UpdateQuestionProfessorComponent
+            },
+            {
+                path:':testName/:idTest/questions/add',
+                component: AddQuestionProfessorComponent
             }
         ]
     }

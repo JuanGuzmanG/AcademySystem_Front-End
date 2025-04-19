@@ -35,7 +35,7 @@ export class AddCategoryComponent {
         this.subject.nameSubject = '';
         this.subject.descriptionSubject = '';
         Swal.fire('success', 'Category added successfully', 'success');
-        this.router.navigate(['/admin/categories']);
+        this.router.navigate(['/admin/subjects']);
       },
       (error) => {
         Swal.fire('error', 'Error in adding category', 'error');
