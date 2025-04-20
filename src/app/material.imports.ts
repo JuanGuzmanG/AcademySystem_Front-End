@@ -17,6 +17,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {MatTableModule} from '@angular/material/table';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 export function materialImports() {
   return [
@@ -38,6 +39,7 @@ export function materialImports() {
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     NgxUiLoaderModule,
-    MatTableModule
+    MatTableModule,
+    MatSidenavModule
   ];
 }
