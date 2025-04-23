@@ -34,13 +34,13 @@ import { HomeProfessorComponent } from './pages/professor/home-professor/home-pr
 import { AddTestProfessorComponent } from './pages/professor/add-test-professor/add-test-professor.component';
 import { AddQuestionProfessorComponent } from './pages/professor/add-question-professor/add-question-professor.component';
 import { UpdateSubjectComponent } from './pages/admin/update-subject/update-subject.component';
+
 export const routes: Routes = [
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'register', component: SignupComponent, pathMatch: 'full' },
     { path: 'login', component: LoginComponent, pathMatch: 'full' },
     { path: 'start/test/:testId',component: StartTestComponent,canActivate: [userGuard]},
 
-  // User Routers
     {path: 'user',
     component: UserDashboardComponent,
     canActivate: [userGuard],
@@ -48,13 +48,13 @@ export const routes: Routes = [
         { path: '', component: WelcomeUserComponent },
         { path: 'profile', component: ProfileComponent },
         { path: 'profile/update/:userId', component: UpdateProfileComponent },
+
         { path: ':subjectID', component: LoadTestComponent },
         { path: 'view-test/:testId', component: ViewTestComponent },
         { path: 'instructions/:testId', component: InstructionsComponent },
         { path: 'instructions/start/test/:testId',component: StartTestComponent,canActivate: [userGuard]},
         ],
     },
-  // admin Routers
     {path: 'admin',
         component: AdminDashboardComponent,
         canActivate: [adminGuard],
@@ -62,27 +62,28 @@ export const routes: Routes = [
         { path: '', component: WelcomeAdminComponent },
         { path: 'profile', component: ProfileComponent },
         { path: 'profile/update/:userId', component: UpdateProfileComponent },
+
         { path: 'subjects', component: ViewCategoriesComponent },
-        { path: 'add-category', component: AddCategoryComponent },
-        { path: 'update-subject/:subjectId', component: UpdateSubjectComponent },
         { path: 'view-tests', component: ViewTestsComponent },
-        { path: 'add-test', component: AddTestComponent },
-        { path: 'update-test/:testId', component: UpdateTestComponent },
-        {path: 'questions/:testName/:testId',component: ViewTestQuestionsComponent,},
-        {path: 'add-question/:testName/:idTest',component: AddQuestionComponent,},
-        {path: 'update-question/:testName/:idTest/:questionId',component: UpdateQuestionComponent},
         { path: 'users', component: ViewUsersComponent },
+        {path: 'questions/:testName/:testId',component: ViewTestQuestionsComponent,},
+        { path: 'add-category', component: AddCategoryComponent },
+        { path: 'add-test', component: AddTestComponent },
+        {path: 'add-question/:testName/:idTest',component: AddQuestionComponent,},
+        { path: 'update-subject/:subjectId', component: UpdateSubjectComponent },
+        { path: 'update-test/:testId', component: UpdateTestComponent },
+        {path: 'update-question/:testName/:idTest/:questionId',component: UpdateQuestionComponent},
         { path: 'users/update/:userId', component: UpdateUserComponent },
         ],
     },
-
-    // Professor Routers
     {path: 'professor',
         component: DashboardProfessorComponent,
         canActivate: [professorGuard],
         children: [
         { path: '', component: HomeProfessorComponent},
         { path: 'profile', component: ProfileComponent},
+        { path: 'profile/update/:userId', component: UpdateProfileComponent},
+        
         { path: 'view-tests/:idSubject', component: ViewTestProfessorComponent},
         { path: 'view-tests/:idSubject/add-test',component: AddTestProfessorComponent},
         { path: 'view-tests/update-test/:idTest',component: UpdateTestProfessorComponent},
