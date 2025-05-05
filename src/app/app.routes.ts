@@ -48,9 +48,9 @@ export const routes: Routes = [
         { path: '', component: WelcomeUserComponent },
         { path: 'profile', component: ProfileComponent },
         { path: 'profile/update/:userId', component: UpdateProfileComponent },
+        { path: 'view-tests/:testId', component: ViewTestComponent },
 
         { path: ':subjectID', component: LoadTestComponent },
-        { path: 'view-test/:testId', component: ViewTestComponent },
         { path: 'instructions/:testId', component: InstructionsComponent },
         { path: 'instructions/start/test/:testId',component: StartTestComponent,canActivate: [userGuard]},
         ],
@@ -62,10 +62,10 @@ export const routes: Routes = [
         { path: '', component: WelcomeAdminComponent },
         { path: 'profile', component: ProfileComponent },
         { path: 'profile/update/:userId', component: UpdateProfileComponent },
-
-        { path: 'subjects', component: ViewCategoriesComponent },
         { path: 'view-tests', component: ViewTestsComponent },
+        { path: 'subjects', component: ViewCategoriesComponent },
         { path: 'users', component: ViewUsersComponent },
+        
         {path: 'questions/:testName/:testId',component: ViewTestQuestionsComponent,},
         { path: 'add-category', component: AddCategoryComponent },
         { path: 'add-test', component: AddTestComponent },
@@ -83,8 +83,8 @@ export const routes: Routes = [
         { path: '', component: HomeProfessorComponent},
         { path: 'profile', component: ProfileComponent},
         { path: 'profile/update/:userId', component: UpdateProfileComponent},
-        
-        { path: 'view-tests/:idSubject', component: ViewTestProfessorComponent},
+        { path: ':idSubject', component: ViewTestProfessorComponent},
+
         { path: 'view-tests/:idSubject/add-test',component: AddTestProfessorComponent},
         { path: 'view-tests/update-test/:idTest',component: UpdateTestProfessorComponent},
         { path: 'view-tests/:testName/:idTest/questions',component: ViewTestQuestionsProfessorComponent},

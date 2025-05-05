@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { materialImports } from '../../../material.imports';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-user-dashboard',
-  imports: [materialImports(), SidebarComponent],
+  imports: [materialImports()],
   templateUrl: './user-dashboard.component.html',
   styleUrl: './user-dashboard.component.css',
 })

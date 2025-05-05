@@ -12,6 +12,11 @@ import Swal from 'sweetalert2';
 export class ViewCategoriesComponent {
   subjects: any[] = [];
   constructor(private categoryService: SubjectService) {
+    this.loadSubjects();
+
+  }
+
+  loadSubjects() {
     this.categoryService.listSubjects().subscribe(
       (data: any) => {
         this.subjects = data;
@@ -47,6 +52,7 @@ export class ViewCategoriesComponent {
               'Your category has been deleted.',
               'success'
             );
+            this.loadSubjects();
           },
           (error) => {
             console.error('Error deleting category:', error);
