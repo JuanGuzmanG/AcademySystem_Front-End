@@ -40,6 +40,7 @@ export class AuthInterceptor implements HttpInterceptor {
             Swal.fire('error', 'Session expired', 'error')
             this.loginService.logout();
             this.router.navigate(['/login']);
+            window.location.reload();
           }
           return throwError(()=> error)
         }),

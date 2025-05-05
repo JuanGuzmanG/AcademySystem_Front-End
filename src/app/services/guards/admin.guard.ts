@@ -12,6 +12,5 @@ export const adminGuard: CanActivateFn = (route, state) => {
   }
 
   router.navigate(['/login']);
-  console.log('Access Denied! Admins only');
   return false;
 };

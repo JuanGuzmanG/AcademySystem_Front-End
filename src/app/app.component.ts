@@ -9,7 +9,6 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
   imports: [RouterOutlet,SidenavComponent,materialImports()],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
-
 })
 
 export class AppComponent {
