@@ -42,6 +42,8 @@ export class UpdateUserComponent {
     this.userForm = this.fb.group({
       documentType: ['', Validators.required],
       document: ['', Validators.required],
+      username: [''],
+      password: [''],
       firstName: ['', Validators.required],
       middleName: [''],
       lastName: ['', Validators.required],
@@ -62,7 +64,7 @@ export class UpdateUserComponent {
 
         this.userService.get(this.userId).subscribe((user: any) => {
           user.rols = user.rols ?? [];
-  
+
           if (!this.genders.includes(user.gender)) {
             this.customGender = user.gender;
             user.gender = 'Other';
@@ -75,7 +77,9 @@ export class UpdateUserComponent {
           this.userForm.patchValue({
             documentType: user.documentType,
             document: user.document,
+            username: user.document,
             firstName: user.firstName,
+            password: user.password,
             middleName: user.middleName,
             lastName: user.lastName,
             secondLastName: user.secondLastName,
@@ -122,6 +126,7 @@ export class UpdateUserComponent {
 
     this.userService.updateUser(formValue).subscribe(
       () => {
+        this.router.navigate(['/admin/users']);
         Swal.fire('Success', 'User updated successfully', 'success');
       },
       error => {

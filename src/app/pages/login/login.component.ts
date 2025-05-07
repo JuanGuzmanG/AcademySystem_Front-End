@@ -50,7 +50,6 @@ export class LoginComponent {
         this.loginService.getCurrentUser().subscribe(
           (user: any) => {
             this.loginService.setUser(user);
-    
             switch (this.loginService.getUserRole()) {
               case 'ADMIN':
                 this.router.navigate(['admin']);

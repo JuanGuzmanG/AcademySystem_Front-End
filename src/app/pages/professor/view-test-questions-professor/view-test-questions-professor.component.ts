@@ -23,8 +23,6 @@ export class ViewTestQuestionsProfessorComponent {
   ) {
     this.idTest = this.route.snapshot.params['idTest'];
     this.testName = this.route.snapshot.params['testName'];
-    console.log(this.idTest);
-    console.log(this.testName);
     this.questionService.listQuestionsOfTest(this.idTest).subscribe(
       (data) => {
         this.questions = data;

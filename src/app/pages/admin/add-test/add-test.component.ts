@@ -39,7 +39,6 @@ export class AddTestComponent {
   }
   
   saveTest() {
-    console.log(this.test);
     if(this.test.testName.trim() =='' || this.test.testName == null){
       this.snack.open('Test name is required', '',{
         duration:3000

@@ -81,9 +81,17 @@ export class LoginService {
     }
   }
 
-  getUserRole(){
+  public getUserRole(){
     let user = this.getUser();
-    return user.authorities[0].authority;
+    let roles = user.authorities.map((a: any) => a.authority);
+    if(roles.includes("ADMIN")){
+      return "ADMIN";
+    }else if(roles.includes("PROFESSOR")){
+      return "PROFESSOR";
+    }else if(roles.includes("USER")){
+      return "USER";
+    }
+    return null;
   }  
 
   public getCurrentUser(){

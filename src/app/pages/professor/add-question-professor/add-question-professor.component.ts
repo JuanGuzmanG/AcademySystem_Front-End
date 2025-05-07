@@ -32,7 +32,6 @@ export class AddQuestionProfessorComponent {
     this.idTest = this.route.snapshot.params['idTest'];
     this.testName = this.route.snapshot.params['testName'];
     this.question.test['idTest'] = this.idTest;
-    console.log(this.idTest, this.testName,this.question.test['idTest']);
   }
 
   onSubmit() {

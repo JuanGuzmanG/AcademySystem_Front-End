@@ -17,11 +17,9 @@ export class ViewTestProfessorComponent {
   constructor(private route: ActivatedRoute, private testService: TestService) {
     this.route.params.subscribe((params) => {
       this.idSubject = params['idSubject'];
-      console.log("idsubject: "+this.idSubject);
       if (this.idSubject == 0) {
         this.testService.listTestByState().subscribe(
           (data) => {
-            console.log(data);
             this.tests = data;
           },
           (error) => {

@@ -26,9 +26,6 @@ export class UpdateQuestionProfessorComponent {
     this.testId = this.route.snapshot.params['idTest'];
     this.questionId = this.route.snapshot.params['idQuestion'];
     this.testName = this.route.snapshot.params['testName'];
-    console.log(this.testId);
-    console.log(this.questionId);
-    console.log(this.testName);
     this.questionService.getQuestion(this.questionId).subscribe(
       (data)=> {
         this.question = data;
