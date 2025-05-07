@@ -16,7 +16,7 @@ export class AppComponent {
     isLoggedIn = false;
     user:any = null;
     collapsed = signal(false);
-    sideNavWidth = computed(() => (this.collapsed() ? '60px' : '250px'));
+    sideNavWidth = computed(() => (this.collapsed() ? '58px' : '250px'));
   
     constructor(public login:LoginService) { }
   

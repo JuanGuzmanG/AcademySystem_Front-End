@@ -18,10 +18,8 @@ export class UpdateSubjectComponent {
     private router: Router
   ) { 
     this.idSubject = this.route.snapshot.params['subjectId'];
-    console.log("id: "+this.idSubject);
     this.subjectservice.getsubjectById(this.idSubject).subscribe((data: any) => {
       this.subject = data;
-      console.log(this.subject);
     },
     (error) => {
       console.log(error);

@@ -1,10 +1,12 @@
-<div class="sidenav-header">
-    <img [width]="profilePicSize()" [height]="profilePicSize()" src="/assets/adduser.png"  alt="">
-    <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
-        <h2>{{user.firstName+" "+user.lastName}}</h2>
-        <h3>{{rolName}}</h3>
+<mat-nav-list class="sidenav-list text-center">
+    <div class="sidenav-header">
+        <img [width]="profilePicSize()" [height]="profilePicSize()" src="/assets/perfil.png"  alt="">
+        <div class="header-text text-white" [class.hide-header-text]="sideNavCollapsed()">
+            <h2>{{user.firstName+" "+user.lastName}}</h2>
+            <h3>{{rolName}}</h3>
+        </div>
     </div>
-    <mat-nav-list>
+    <div class="sidenav-content">
         <a mat-list-item 
         *ngFor="let item of menuItems()" 
         [routerLink]="item.route"
@@ -12,8 +14,8 @@
         #rla="routerLinkActive"
         [activated]="rla.isActive"
         class="text-start">
-            <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
-            <span matListItemTitle *ngIf="!sideNavCollapsed()">{{item.name}}</span>
+            <mat-icon class="text-white" matListItemIcon>{{item.icon}}</mat-icon>
+            <span class="text-white" matListItemTitle *ngIf="!sideNavCollapsed()">{{item.name}}</span>
         </a>
         <div *ngIf="rolName == 'user' || rolName == 'professor'">
             <div class="container" [class.hide-header-text]="sideNavCollapsed()">
@@ -24,12 +26,15 @@
             <a mat-list-item 
             *ngFor="let s of subjects" 
             [routerLink]="rolName+'/'+s.idSubject" 
-            class="text-start">
-                <mat-icon matListItemIcon>category</mat-icon> {{s.nameSubject}}
+            class="text-start text-white">
+                <mat-icon matListItemIcon>category</mat-icon> <span>{{s.nameSubject}}</span>
             </a>
         </div>
-        <a mat-list-item (click)="logout()" class="text-start">
-            <mat-icon matListItemIcon>logout</mat-icon><span [class.hide-header-text]="sideNavCollapsed()">logout</span>
-        </a>
-    </mat-nav-list>
-</div>
+        <div class="logout-button">
+            <a mat-list-item (click)="logout()" class="text-start">
+                <mat-icon class="text-white" matListItemIcon>logout</mat-icon>
+                <span [class.hide-header-text]="sideNavCollapsed()"><span class="text-white">logout</span></span>
+            </a>
+        </div>
+    </div>
+</mat-nav-list>

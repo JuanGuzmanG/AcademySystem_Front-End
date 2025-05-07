@@ -2,13 +2,26 @@ mat-toolbar{
     position: relative;
     z-index: 5;
 }
+.menu-icon{
+    position: absolute;
+    left: 5px;
+}
 .content {
     padding: 24px;
 }
 mat-sidenav-container{
     height: calc(100vh - 64px);
 }
-
 mat-sidenav, mat-sidenav-content {
     transition: all 0.5s ease-in-out !important;
+}
+mat-sidenav-container{
+    background-color: rgb(231, 231, 231);
+}
+mat-sidenav{
+    background-color: #3f66b5;
+}
+.shadow {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    z-index: 10;
 }

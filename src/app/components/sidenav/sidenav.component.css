@@ -20,6 +20,22 @@
     }
   }
 }
+
+.sidenav-list{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.sidenav-content{
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.logout-button{
+  margin-top: auto;
+}
+
 .hide-header-text {
   opacity: 0;
   display: none;
