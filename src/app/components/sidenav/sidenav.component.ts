@@ -47,6 +47,9 @@ export class SidenavComponent {
         { name: 'Tests', icon: 'menu_book', route: '/'+this.rolName+'/'+0 }
       ]);
       break;
+    default:
+      this.menuItems = signal<MenuItem[]>([]);
+      break;
     }
   }
 

@@ -42,6 +42,8 @@ export class UpdateProfileComponent {
       this.userForm = this.fb.group({
         documentType: ['', Validators.required],
         document: ['', Validators.required],
+        username: [''],
+        password: [''],
         firstName: ['', Validators.required],
         middleName: [''],
         lastName: ['', Validators.required],
@@ -64,7 +66,7 @@ export class UpdateProfileComponent {
   
           this.userService.get(this.userId).subscribe((user: any) => {
             user.rols = user.rols ?? [];
-    
+            this.user = user;
             if (!this.genders.includes(user.gender)) {
               this.customGender = user.gender;
               user.gender = 'Other';
@@ -77,6 +79,8 @@ export class UpdateProfileComponent {
             this.userForm.patchValue({
               documentType: user.documentType,
               document: user.document,
+              username: user.username,
+              password: user.password,
               firstName: user.firstName,
               middleName: user.middleName,
               lastName: user.lastName,
@@ -119,12 +123,12 @@ export class UpdateProfileComponent {
       if (formValue.gender === 'Other' && formValue.customGender?.trim()) {
         formValue.gender = formValue.customGender.trim();
       }
-  
+      this.rol = this.user?.rols?.[0]?.nameRol;
       delete formValue.customGender;
-      this.rol = this.selectedRols.map((rol: any) => rol.nameRol);
+      this.rol = this.user?.rols?.[0]?.nameRol || null;
       this.userService.updateUser(formValue).subscribe(
         () => {
-          this.router.navigate(['/'+this.selectedRols[0]+'/profile']);
+          this.router.navigate(['/'+this.rol+'/profile']);
           Swal.fire('Success', 'User updated successfully', 'success');
         },
         error => {
