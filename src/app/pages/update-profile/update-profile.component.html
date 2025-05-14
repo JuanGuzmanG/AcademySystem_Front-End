@@ -12,17 +12,6 @@
         <div class="col-md-8 offset-md-2">
             <form [formGroup]="userForm" (ngSubmit)="updateUser()">
                 <div class="row">
-                    <div class="col-md-12 my-4">
-                        <div class="row text-center">
-                            <div class="col-md-6">
-                                <button mat-raised-button color="primary">Change the Password</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button mat-raised-button color="primary">Change the photo</button>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Document Type</mat-label>
@@ -142,12 +131,22 @@
                         </mat-form-field>
                     </div>
                 </div>
-
                 <div class="container my-3 text-center">
                     <button mat-raised-button color="primary" type="submit"
                         [disabled]="userForm.invalid">Update</button>
                 </div>
             </form>
+            <div class="col-md-12 my-4">
+                <div class="row text-center">
+                    <div class="col-md-6">
+                        <button mat-raised-button color="primary" (click)="openChangePasswordDialog()">
+                            Change the Password</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button mat-raised-button color="primary">Change the photo</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </mat-card>

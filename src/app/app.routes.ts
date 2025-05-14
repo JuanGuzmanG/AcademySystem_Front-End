@@ -48,7 +48,7 @@ export const routes: Routes = [
         { path: '', component: WelcomeUserComponent },
         { path: 'profile', component: ProfileComponent },
         { path: 'profile/update/:userId', component: UpdateProfileComponent },
-        { path: 'view-tests/:testId', component: ViewTestComponent },
+        { path: 'view-test/:testId', component: ViewTestComponent },
 
         { path: ':subjectID', component: LoadTestComponent },
         { path: 'instructions/:testId', component: InstructionsComponent },

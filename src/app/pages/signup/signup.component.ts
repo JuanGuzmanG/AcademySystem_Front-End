@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +25,8 @@ export class SignupComponent {
     private userService: UserService,
     private snack: MatSnackBar,
     private http: HttpClient,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.getCountries();
 
@@ -71,10 +73,10 @@ export class SignupComponent {
       });
       return;
     }
-
     this.userService.addUser(this.signupForm.value).subscribe(
       (data) => {
         Swal.fire('User saved successfully', 'User saved in the system', 'success');
+            this.router.navigate(['/login']);
       },
       (error) => {
         this.snack.open('System Error, Try later', 'OK', {

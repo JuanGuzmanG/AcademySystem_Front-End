@@ -1,57 +1,35 @@
 <mat-card>
-    <h1>Add New Test</h1>
+
     <div class="row">
+        <div class="col-md-12 py-4">
+            <h1 class="text-center">Add test</h1>
+        </div>
         <div class="col-md-8 offset-md-2">
             <form action="">
                 <mat-form-field class="w-100" appearance="fill">
                     <mat-label>Name</mat-label>
-                    <input
-                    matInput
-                    type="text"
-                    name="testName"
-                    [(ngModel)]="test.testName"
-                    placeholder="Enter test name"
-                    required
-                    >
+                    <input matInput type="text" name="testName" [(ngModel)]="test.testName"
+                        placeholder="Enter test name" required>
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="fill">
                     <mat-label>Description</mat-label>
-                    <textarea
-                    matInput
-                    type="text"
-                    name="descriptionTest"
-                    [(ngModel)]="test.descriptionTest"
-                    placeholder="Enter test description"
-                    rows="5"
-                    required
-                    ></textarea>
+                    <textarea matInput type="text" name="descriptionTest" [(ngModel)]="test.descriptionTest"
+                        placeholder="Enter test description" rows="5" required></textarea>
                 </mat-form-field>
 
                 <div class="row">
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="fill">
                             <mat-label>Max Points</mat-label>
-                            <input
-                            matInput
-                            type="text"
-                            name="maxPoints"
-                            [(ngModel)]="test.maxPoints"
-                            placeholder="Enter test price"
-                            required
-                            >
+                            <input matInput type="text" name="maxPoints" [(ngModel)]="test.maxPoints"
+                                placeholder="Enter test price" required>
                         </mat-form-field>
                     </div>
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="fill">
                             <mat-label>Number of Questions</mat-label>
-                            <input
-                            matInput
-                            type="text"
-                            name="cantQuestions"
-                            [(ngModel)]="test.cantQuestions"
-                            placeholder="Enter test duration"
-                            required
-                            >
+                            <input matInput type="text" name="cantQuestions" [(ngModel)]="test.cantQuestions"
+                                placeholder="Enter test duration" required>
                         </mat-form-field>
                     </div>
                 </div>
@@ -69,12 +47,10 @@
                     </mat-select>
                 </mat-form-field>
 
-                <div class="container text-center">
-                    <button (click)="saveTest()" mat-raised-button color="primary">Add</button>
+                <div class="container text-center pb-4">
+                    <button (click)="saveTest()" mat-raised-button color="primary">Add Test</button>
                 </div>
             </form>
         </div>
     </div>
 </mat-card>
-
-{{test | json}}

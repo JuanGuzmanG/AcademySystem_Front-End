@@ -40,6 +40,6 @@ export function materialImports() {
     MatProgressSpinnerModule,
     NgxUiLoaderModule,
     MatTableModule,
-    MatSidenavModule
+    MatSidenavModule,
   ];
 }

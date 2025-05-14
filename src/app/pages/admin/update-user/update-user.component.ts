@@ -11,17 +11,17 @@ import { RolService } from '../../../services/rol.service';
   selector: 'app-update-user',
   imports: [materialImports()],
   templateUrl: './update-user.component.html',
-  styleUrl: './update-user.component.css'
+  styleUrl: './update-user.component.css',
 })
 export class UpdateUserComponent {
   userForm!: FormGroup;
-  userId : any;
+  userId: any;
   user: any;
   countries: string[] = [];
   types = ['Cedula', 'Identity Card', 'Passport', 'PPT'];
   BT = ['-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   customGender = '';
-  genders = ['Male','Female',"I'd rather not say"];
+  genders = ['Male', 'Female', "I'd rather not say"];
   rol: any;
   rols: any[] = [];
   selectedRols: any[] = [];
@@ -32,7 +32,7 @@ export class UpdateUserComponent {
     private router: Router,
     private fb: FormBuilder,
     private rolservice: RolService
-  ){
+  ) {
     this.getCountries();
   }
 
@@ -55,7 +55,7 @@ export class UpdateUserComponent {
       countryBirth: ['', Validators.required],
       bloodType: [''],
       birthDate: ['', Validators.required],
-      rols: [[],Validators.required]
+      rols: [[], Validators.required],
     });
 
     this.rolservice.getAllRols().subscribe(
@@ -73,7 +73,7 @@ export class UpdateUserComponent {
           const selectedRols = this.rols.filter((rol: any) =>
             user.rols.some((r: any) => r.idRol === rol.idRol)
           );
-  
+
           this.userForm.patchValue({
             documentType: user.documentType,
             document: user.document,
@@ -90,11 +90,11 @@ export class UpdateUserComponent {
             countryBirth: user.countryBirth,
             bloodType: user.bloodType,
             birthDate: user.birthDate,
-            rols: selectedRols
+            rols: selectedRols,
           });
         });
       },
-      error => console.error(error)
+      (error) => console.error(error)
     );
   }
 
@@ -110,8 +110,7 @@ export class UpdateUserComponent {
   }
 
   updateUser() {
-    
-    if(this.userForm.invalid){
+    if (this.userForm.invalid) {
       Swal.fire('Error', 'Fill out the required fields', 'error');
       return;
     }
@@ -129,7 +128,7 @@ export class UpdateUserComponent {
         this.router.navigate(['/admin/users']);
         Swal.fire('Success', 'User updated successfully', 'success');
       },
-      error => {
+      (error) => {
         console.log(error);
         Swal.fire('Error', 'Something went wrong', 'error');
       }

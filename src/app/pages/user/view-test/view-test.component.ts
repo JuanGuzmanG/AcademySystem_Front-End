@@ -16,13 +16,12 @@ export class ViewTestComponent {
   constructor(
     private testService: TestService,
     private route: ActivatedRoute
-  ){
+  ){}
+
+  ngOnInit() {
     this.testId = this.route.snapshot.params['testId'];
     this.test = this.testService.getTest(this.testId).subscribe((data) => {
       this.test = data;
     });
-
   }
-
-
 }
