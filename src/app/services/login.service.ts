@@ -97,4 +97,8 @@ export class LoginService {
   public getCurrentUser(){
     return this.http.get(`${baseURL}/users/userlogged`);
   }
+
+  public changePassword(currentPassword: string, newPassword: string){
+    return this.http.post(`${baseURL}/auth/change_password`,{currentPassword,newPassword});
+  }
 }

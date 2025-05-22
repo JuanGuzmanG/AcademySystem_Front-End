@@ -122,7 +122,7 @@ export class UpdateUserComponent {
     }
 
     delete formValue.customGender;
-
+    console.log(formValue);
     this.userService.updateUser(formValue).subscribe(
       () => {
         this.router.navigate(['/admin/users']);

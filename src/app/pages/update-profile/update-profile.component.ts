@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { materialImports } from '../../material.imports';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -17,16 +17,16 @@ import { ChangePasswordDialogComponent } from '../../components/change-password-
 })
 export class UpdateProfileComponent {
   userForm!: FormGroup;
-  userDocument: any;
+  userId: any;
   user: any;
   countries: string[] = [];
   types = ['Cedula', 'Identity Card', 'Passport', 'PPT'];
   BT = ['-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-  customGender = '';
   genders = ['Male', 'Female', "I'd rather not say"];
-  rol: any;
+  customGender = '';
   rols: any[] = [];
   selectedRols: any[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
@@ -34,19 +34,17 @@ export class UpdateProfileComponent {
     private router: Router,
     private fb: FormBuilder,
     private rolservice: RolService,
-    private dialog: MatDialog 
+    private dialog: MatDialog,
   ) {
     this.getCountries();
   }
 
   ngOnInit() {
-    this.userDocument = this.route.snapshot.params['userId'];
+    this.userId = this.route.snapshot.params['userId'];
 
     this.userForm = this.fb.group({
       documentType: ['', Validators.required],
       document: ['', Validators.required],
-      username: [''],
-      password: [''],
       firstName: ['', Validators.required],
       middleName: [''],
       lastName: ['', Validators.required],
@@ -59,13 +57,14 @@ export class UpdateProfileComponent {
       bloodType: [''],
       birthDate: ['', Validators.required],
       rols: [[], Validators.required],
+      username: [''],
     });
 
     this.rolservice.getAllRols().subscribe(
       (rolData: any) => {
         this.rols = rolData;
 
-        this.userService.get(this.userDocument).subscribe((user: any) => {
+        this.userService.get(this.userId).subscribe((user: any) => {
           user.rols = user.rols ?? [];
           this.user = user;
           if (!this.genders.includes(user.gender)) {
@@ -81,7 +80,6 @@ export class UpdateProfileComponent {
             documentType: user.documentType,
             document: user.document,
             username: user.username,
-            password: user.password,
             firstName: user.firstName,
             middleName: user.middleName,
             lastName: user.lastName,
@@ -123,12 +121,10 @@ export class UpdateProfileComponent {
     if (formValue.gender === 'Other' && formValue.customGender?.trim()) {
       formValue.gender = formValue.customGender.trim();
     }
-    this.rol = this.user?.rols?.[0]?.nameRol;
     delete formValue.customGender;
-    this.rol = this.user?.rols?.[0]?.nameRol || null;
     this.userService.updateUser(formValue).subscribe(
       () => {
-        this.router.navigate(['/' + this.rol + '/profile']);
+        this.router.navigate(['/' + this.rols[0].nameRol + '/profile']);
         Swal.fire('Success', 'User updated successfully', 'success');
       },
       (error) => {
@@ -150,12 +146,6 @@ export class UpdateProfileComponent {
       if (result && result.newPassword) {
         // Aquí 'result' es lo que devolvió el diálogo al cerrarse con éxito (ej. { newPassword: '...' })
         // Ahora puedes llamar al servicio para actualizar la contraseña del usuario en el backend
-        console.log(
-          'Nueva contraseña (simulado):',
-          result.newPassword,
-          'para el usuario:',
-          this.userDocument
-        );
         // this.userService.updateUserPassword(this.userId, result.newPassword).subscribe(...);
         Swal.fire(
           'Success',
