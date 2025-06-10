@@ -1,4 +1,5 @@
-<mat-card class="mt-10" *ngFor="let test of tests">
+<mat-card>
+    <mat-card class="m-2" appearance="outlined" *ngFor="let test of tests">
     <mat-card-header>
         <div mat-card-avatar class="mt-2 my-auto"><mat-icon>category</mat-icon></div>
         <mat-card-title>
@@ -23,3 +24,4 @@
 <div class="contanier text-center mt-3">
     <button mat-raised-button routerLink="/admin/add-test" color="primary">Add Test</button>
 </div>
+</mat-card>

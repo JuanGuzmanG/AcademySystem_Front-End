@@ -3,6 +3,8 @@ import { materialImports } from '../../../material.imports';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../../../services/question.service';
 import Swal from 'sweetalert2';
+import { ResultsService } from '../../../services/results.service';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-start-test',
@@ -13,6 +15,7 @@ import Swal from 'sweetalert2';
 export class StartTestComponent {
   testId: any;
   questions: any;
+  user: any = null;
 
   pointsEarned: number = 0;
   correctAnswers: number = 0;
@@ -24,11 +27,27 @@ export class StartTestComponent {
   constructor(
     private route: ActivatedRoute,
     private questionsService: QuestionService,
-    private router: Router
-  ) {
+    private router: Router,
+    private resultService: ResultsService,
+    private loginService: LoginService
+  ) {}
+
+  ngOnInit(): void {
     this.testId = this.route.snapshot.params['testId'];
+    this.user = this.loginService.getUser();
     this.denyRollback();
     this.loadQuestions();
+
+    this.resultService
+      .getAttempCount(this.user.document, this.testId)
+      .subscribe(
+        (data: any) => {
+          this.attempts = data;
+        },
+        (error) => {
+          console.error('Error fetching attempt count:', error);
+        }
+      );
   }
 
   loadQuestions() {
@@ -51,7 +70,6 @@ export class StartTestComponent {
 
   denyRollback() {
     history.pushState(null, '', window.location.href);
-
     window.addEventListener('popstate', () => {
       history.pushState(null, '', window.location.href);
     });
@@ -74,19 +92,45 @@ export class StartTestComponent {
     });
   }
 
-  evaluateTest(){
-    this.questionsService.evaluateTest(this.questions).subscribe(
-      (data:any) => {
+  evaluateTest() {
+    this.questionsService
+      .evaluateTest(this.questions)
+      .subscribe((data: any) => {
         this.pointsEarned = data.maxPoints;
         this.correctAnswers = data.cantCorrect;
-        this.attempts = data.attempts;
 
-        this.sendTest = true;
-      }
-    );
+        const resultData = {
+          score: this.pointsEarned,
+          user: {
+            document: this.user.document,
+          },
+          test: {
+            idTest: this.testId,
+          },
+        };
+
+        this.resultService.saveResult(resultData).subscribe(
+          (data) => {
+            this.attempts++;
+            this.sendTest = true;
+            console.log('Test submitted successfully:', data);
+          },
+          (error) => {
+            console.error('Error submitting test:', error);
+          }
+        );
+      },
+      (error) => {
+        console.error('Error evaluating test:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'There was an error evaluating the test. Please try again later.',
+        });
+      });
   }
 
-  startTimer(){
+  startTimer() {
     let t = window.setInterval(() => {
       if (this.timer <= 0) {
         clearInterval(t);
@@ -104,7 +148,7 @@ export class StartTestComponent {
       seconds < 10 ? '0' : ''
     }${seconds}`;
   }
-  
+
   printResult() {
     window.print();
   }

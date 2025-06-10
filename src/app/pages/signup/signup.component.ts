@@ -21,6 +21,9 @@ export class SignupComponent {
 
   signupForm: FormGroup;
 
+  selectedFile: File | null = null;
+  photoPreview: string | ArrayBuffer | null = null;
+
   constructor(
     private userService: UserService,
     private snack: MatSnackBar,
@@ -33,9 +36,9 @@ export class SignupComponent {
     this.signupForm = this.fb.group({
       documentType: ['', Validators.required],
       document: ['', Validators.required],
-      firstName: ['', Validators.required,Validators.maxLength(30)],
+      firstName: ['',[Validators.required,Validators.maxLength(30)]],
       middleName: ['',Validators.maxLength(30)],
-      lastName: ['', Validators.required,Validators.maxLength(30)],
+      lastName: ['', [Validators.required,Validators.maxLength(30)]],
       secondLastName: ['',Validators.maxLength(30)],
       birthDate: [''],
       email: ['', [Validators.required, Validators.email]],
@@ -44,13 +47,27 @@ export class SignupComponent {
       phoneNumber: ['',Validators.maxLength(14)],
       gender: [''],
       bloodType: [''],
-      photo: [''],
       customGender: ['',Validators.maxLength(20)],
     });
   }
 
+  onFileSelected(event: Event): void { // Cambiado el tipo de evento a Event
+    const element = event.currentTarget as HTMLInputElement;
+    const fileList: FileList | null = element.files;
+
+    if (fileList && fileList.length > 0) {
+      this.selectedFile = fileList[0];
+      const reader = new FileReader();
+      reader.onload = e => this.photoPreview = reader.result;
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.selectedFile = null;
+      this.photoPreview = null;
+    }
+  }
+
   getCountries() {
-    this.http.get<any[]>('https://restcountries.com/v3.1/all').subscribe(
+    this.http.get<any[]>('https://restcountries.com/v3.1/all?fields=name').subscribe(
       (data) => {
         this.countries = data.map((c) => c.name.common).sort();
       },
@@ -73,10 +90,15 @@ export class SignupComponent {
       });
       return;
     }
-    this.userService.addUser(this.signupForm.value).subscribe(
+
+    const userData = {...this.signupForm.value};
+    console.log(userData);
+    this.userService.addUser(userData, this.selectedFile ?? undefined).subscribe(
       (data) => {
+        console.log("file:"+this.selectedFile);
+        console.log("data: "+data);
         Swal.fire('User saved successfully', 'User saved in the system', 'success');
-            this.router.navigate(['/login']);
+        this.router.navigate(['/login']);
       },
       (error) => {
         this.snack.open('System Error, Try later', 'OK', {
@@ -90,5 +112,7 @@ export class SignupComponent {
   clear() {
     this.signupForm.reset();
     this.customGender = '';
+    this.selectedFile = null;
+    this.photoPreview = null;
   }
 }

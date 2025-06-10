@@ -10,6 +10,22 @@
         <div class="container text-center">
           <form [formGroup]="signupForm" novalidate>
             <div class="row">
+              <div class="col-md-12">
+                <div class="full-width mb-3">
+                  <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
+                    <mat-icon>attach_file</mat-icon>
+                    Seleccionar Foto de Perfil
+                  </button>
+                  <input hidden type="file" #fileInput (change)="onFileSelected($event)" accept="image/*">
+                  <span *ngIf="selectedFile" class="file-name-display">{{ selectedFile.name }}</span>
+                </div>
+
+                <div *ngIf="photoPreview" class="image-preview mb-3">
+                  <p>Vista previa:</p>
+                  <img [src]="photoPreview" alt="Vista previa de la foto"
+                    style="max-width: 200px; max-height: 200px; border-radius: 8px; object-fit: cover;">
+                </div>
+              </div>
               <div class="col-md-6">
                 <mat-form-field class="w-100" appearance="outline">
                   <mat-label>Document Type</mat-label>
@@ -112,10 +128,8 @@
                   <div class="col-1 m-auto">
                     <mat-label class="container px-0 px-3">Gender</mat-label>
                   </div>
-                  <div
-                    class="gender-container col-11"
-                    [ngClass]="{ 'other-selected': signupForm.get('gender')?.value === 'Other' }"
-                  >
+                  <div class="gender-container col-11"
+                    [ngClass]="{ 'other-selected': signupForm.get('gender')?.value === 'Other' }">
                     <mat-radio-group formControlName="gender" class="gender-radio-group">
                       <mat-radio-button value="Male">Male</mat-radio-button>
                       <mat-radio-button value="Female">Female</mat-radio-button>
@@ -123,11 +137,8 @@
                       <mat-radio-button value="Other">Other</mat-radio-button>
                     </mat-radio-group>
 
-                    <mat-form-field
-                      *ngIf="signupForm.get('gender')?.value === 'Other'"
-                      class="gender-input"
-                      appearance="outline"
-                    >
+                    <mat-form-field *ngIf="signupForm.get('gender')?.value === 'Other'" class="gender-input"
+                      appearance="outline">
                       <mat-label>Specify Gender</mat-label>
                       <input formControlName="customGender" matInput type="text" placeholder="Enter your gender" />
                     </mat-form-field>
@@ -140,13 +151,7 @@
                 <button mat-flat-button color="primary" (click)="formSubmit()">
                   Registrar
                 </button>
-                <button
-                  mat-stroked-button
-                  style="margin-left: 20px"
-                  color="warn"
-                  type="reset"
-                  (click)="clear()"
-                >
+                <button mat-stroked-button style="margin-left: 20px" color="warn" type="reset" (click)="clear()">
                   Limpiar
                 </button>
               </div>
