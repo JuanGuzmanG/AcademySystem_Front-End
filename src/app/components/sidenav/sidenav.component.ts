@@ -29,7 +29,8 @@ export class SidenavComponent {
     switch (this.rolName) {
     case 'admin':
       this.menuItems = signal<MenuItem[]>([
-        { name: 'Profile', icon: 'persons', route: '/'+this.rolName+'/profile' },
+        { name: 'Welcome',icon: 'home', route: '/'+this.rolName },
+        { name: 'Profile', icon: 'person', route: '/'+this.rolName+'/profile' },
         { name: 'Tests', icon: 'menu_book', route: '/'+this.rolName+'/view-tests' },
         { name: 'Subjects', icon: 'checklist', route: '/'+this.rolName+'/subjects' },
         { name: 'Users', icon: 'people', route: '/'+this.rolName+'/users' },
@@ -37,13 +38,15 @@ export class SidenavComponent {
       break;
     case 'professor':
       this.menuItems = signal<MenuItem[]>([
-        { name: 'Profile', icon: 'people', route: '/'+this.rolName+'/profile' },
+        { name: 'Welcome',icon: 'home', route: '/'+this.rolName },
+        { name: 'Profile', icon: 'person', route: '/'+this.rolName+'/profile' },
         { name: 'Tests', icon: 'menu_book', route: '/'+this.rolName+'/'+0 },
       ]);
       break;
     case 'user':
       this.menuItems = signal<MenuItem[]>([
-        { name: 'Profile', icon: 'people', route: '/'+this.rolName+'/profile' },
+        { name: 'Welcome',icon: 'home', route: '/'+this.rolName },
+        { name: 'Profile', icon: 'person', route: '/'+this.rolName+'/profile' },
         { name: 'Tests', icon: 'menu_book', route: '/'+this.rolName+'/'+0 }
       ]);
       break;

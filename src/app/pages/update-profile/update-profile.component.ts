@@ -8,6 +8,7 @@ import { RolService } from '../../services/rol.service';
 import { MatDialog } from '@angular/material/dialog'; // Importa MatDialog
 import Swal from 'sweetalert2';
 import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -26,6 +27,7 @@ export class UpdateProfileComponent {
   customGender = '';
   rols: any[] = [];
   selectedRols: any[] = [];
+  rolCurrentUser: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +37,7 @@ export class UpdateProfileComponent {
     private fb: FormBuilder,
     private rolservice: RolService,
     private dialog: MatDialog,
+    private loginService: LoginService
   ) {
     this.getCountries();
   }
@@ -76,6 +79,7 @@ export class UpdateProfileComponent {
             user.rols.some((r: any) => r.idRol === rol.idRol)
           );
 
+          this.rolCurrentUser = this.loginService.getUserRole();
           this.userForm.patchValue({
             documentType: user.documentType,
             document: user.document,

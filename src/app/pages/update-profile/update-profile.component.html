@@ -126,8 +126,9 @@
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Roles</mat-label>
-                            <mat-select formControlName="rols" multiple required>
-                                <mat-option *ngFor="let rol of rols" [value]="rol">
+                            <mat-label *ngIf="rolCurrentUser!='ADMIN'"> - Only admins</mat-label>
+                            <mat-select formControlName="rols" multiple>
+                                <mat-option *ngFor="let rol of rols" [value]="rol" [disabled]="rolCurrentUser!='ADMIN'">
                                     {{ rol.nameRol }}
                                 </mat-option>
                             </mat-select>
