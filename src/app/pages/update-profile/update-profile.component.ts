@@ -29,6 +29,9 @@ export class UpdateProfileComponent {
   selectedRols: any[] = [];
   rolCurrentUser: any;
 
+  selectedFile: File | null = null;
+  photoPreview: string | ArrayBuffer | null = null;
+
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
@@ -103,8 +106,23 @@ export class UpdateProfileComponent {
     );
   }
 
+  onFileSelected(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    const fileList: FileList | null = element.files;
+
+    if (fileList && fileList.length > 0) {
+      this.selectedFile = fileList[0];
+      const reader = new FileReader();
+      reader.onload = (e) => (this.photoPreview = reader.result);
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.selectedFile = null;
+      this.photoPreview = null;
+    }
+  }
+
   getCountries() {
-    this.http.get<any[]>('https://restcountries.com/v3.1/all').subscribe(
+    this.http.get<any[]>('https://restcountries.com/v3.1/all?fields=name').subscribe(
       (data) => {
         this.countries = data.map((c) => c.name.common).sort();
       },
@@ -126,8 +144,12 @@ export class UpdateProfileComponent {
       formValue.gender = formValue.customGender.trim();
     }
     delete formValue.customGender;
-    this.userService.updateUser(formValue).subscribe(
-      () => {
+
+    const userData = {...this.userForm.value};
+    console.log("foto:", this.selectedFile);
+    this.userService.updateUser(formValue, this.selectedFile ?? undefined).subscribe(
+      (data) => {
+        console.log('User updated successfully:', data);
         this.router.navigate(['/' + this.rols[0].nameRol + '/profile']);
         Swal.fire('Success', 'User updated successfully', 'success');
       },

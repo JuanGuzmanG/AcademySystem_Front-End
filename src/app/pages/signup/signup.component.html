@@ -19,7 +19,6 @@
                   <input hidden type="file" #fileInput (change)="onFileSelected($event)" accept="image/*">
                   <span *ngIf="selectedFile" class="file-name-display">{{ selectedFile.name }}</span>
                 </div>
-
                 <div *ngIf="photoPreview" class="image-preview mb-3">
                   <p>Vista previa:</p>
                   <img [src]="photoPreview" alt="Vista previa de la foto"

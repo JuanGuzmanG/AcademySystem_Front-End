@@ -9,8 +9,15 @@
                         Change the Password</button>
                 </div>
                 <div class="col-md-6">
-                    <button mat-raised-button color="primary">
+                    <button mat-raised-button color="primary" (click)="fileInput.click()">
                         Change the photo</button>
+                    <input hidden type="file" #fileInput (change)="onFileSelected($event)" accept="image/*">
+                    <span *ngIf="selectedFile" class="file-name-display">{{selectedFile.name}}</span>
+                </div>
+                <div *ngIf="photoPreview" class="image-preview mb-3">
+                    <p>Preview:</p>
+                    <img [src]="photoPreview" alt="Photo preview"
+                        style="max-width: 200px; max-height: 200px; border-radius: 8px; object-fit: cover;">
                 </div>
             </div>
             <form [formGroup]="userForm" (ngSubmit)="updateUser()">
