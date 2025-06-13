@@ -14,8 +14,15 @@
                     <div class="my-1" mat-line>{{ s.descriptionSubject }}</div>
                 </div>
                 <div class="col-2 m-auto">
-                    <button mat-raised-button [routerLink]="'/admin/update-subject/'+s.idSubject" color="primary" class="me-2">Update</button>
-                    <button mat-raised-button (click)="deleteSubject(s.idSubject)" color="warn">Delete</button>
+                    <button 
+                    mat-raised-button 
+                    [routerLink]="'/admin/update-subject/'+s.idSubject" 
+                    color="primary">Update</button>
+                    <button 
+                    mat-raised-button
+                    (click)="deleteSubject(s.idSubject)"
+                    class="m-1"
+                    color="warn">Delete</button>
                 </div>
             </div>
         </mat-card>

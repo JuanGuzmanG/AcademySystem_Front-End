@@ -66,6 +66,10 @@ export class UpdateProfileComponent {
       username: [''],
     });
 
+    this.updateRols();
+  }
+
+  updateRols() {
     this.rolservice.getAllRols().subscribe(
       (rolData: any) => {
         this.rols = rolData;
@@ -122,14 +126,16 @@ export class UpdateProfileComponent {
   }
 
   getCountries() {
-    this.http.get<any[]>('https://restcountries.com/v3.1/all?fields=name').subscribe(
-      (data) => {
-        this.countries = data.map((c) => c.name.common).sort();
-      },
-      (error) => {
-        console.error('Error fetching countries');
-      }
-    );
+    this.http
+      .get<any[]>('https://restcountries.com/v3.1/all?fields=name')
+      .subscribe(
+        (data) => {
+          this.countries = data.map((c) => c.name.common).sort();
+        },
+        (error) => {
+          console.error('Error fetching countries');
+        }
+      );
   }
 
   updateUser() {
@@ -145,19 +151,27 @@ export class UpdateProfileComponent {
     }
     delete formValue.customGender;
 
-    const userData = {...this.userForm.value};
-    console.log("foto:", this.selectedFile);
-    this.userService.updateUser(formValue, this.selectedFile ?? undefined).subscribe(
-      (data) => {
-        console.log('User updated successfully:', data);
-        this.router.navigate(['/' + this.rols[0].nameRol + '/profile']);
-        Swal.fire('Success', 'User updated successfully', 'success');
-      },
-      (error) => {
-        console.log(error);
-        Swal.fire('Error', 'Something went wrong', 'error');
-      }
-    );
+    const userData = { ...this.userForm.value };
+    this.userService
+      .updateUser(userData, this.selectedFile ?? undefined)
+      .subscribe(
+        (data) => {
+          this.loginService.setUser(data);
+          this.user = data;
+          this.updateRols();
+          window.location.reload();
+          this.router.navigate([
+            '/' +
+              this.loginService.getUserRole()?.toLocaleLowerCase() +
+              '/profile',
+          ]);
+          Swal.fire('Success', 'User updated successfully', 'success');
+        },
+        (error) => {
+          console.log(error);
+          Swal.fire('Error', 'Something went wrong', 'error');
+        }
+      );
   }
 
   openChangePasswordDialog(): void {

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { materialImports } from '../../../material.imports';
 import { TestService } from '../../../services/test.service';
 import Swal from 'sweetalert2';
+import { SubjectService } from '../../../services/subject.service';
 
 @Component({
   selector: 'app-view-tests',
@@ -11,8 +12,14 @@ import Swal from 'sweetalert2';
 })
 export class ViewTestsComponent {
   tests: any = [];
+  subjects: any[] = [];
 
-  constructor(private testService: TestService) {
+  constructor(
+    private testService: TestService,
+    private subjectService: SubjectService
+  ) {}
+
+  ngOnInit() {
     this.testService.listTests().subscribe(
       (data) => {
         this.tests = data;
@@ -20,6 +27,22 @@ export class ViewTestsComponent {
       (error) => {
         console.log(error);
         Swal.fire('Error', 'Error in landing data', 'error');
+      }
+    );
+    this.loadSubjects();
+  }
+
+  loadSubjects() {
+    this.subjectService.listSubjects().subscribe(
+      (data: any) => {
+        this.subjects = data;
+        if (this.subjects.length === 0) {
+          Swal.fire('Info', 'No subjects available, Add Subjects First', 'info');
+        }
+      },
+      (error) => {
+        console.log(error);
+        Swal.fire('Error', 'Error in loading subjects', 'error');
       }
     );
   }
@@ -38,13 +61,12 @@ export class ViewTestsComponent {
         this.testService.deleteTest(idTest).subscribe(
           (data) => {
             this.tests = this.tests.filter(
-              (test: any) => test.testId != idTest);
-            Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
-            this.testService.listTests().subscribe(
-              (data) => {
-                this.tests = data;
-              },
+              (test: any) => test.testId != idTest
             );
+            Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+            this.testService.listTests().subscribe((data) => {
+              this.tests = data;
+            });
           },
           (error) => {
             console.log(error);

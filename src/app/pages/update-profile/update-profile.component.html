@@ -3,6 +3,10 @@
 
     <div class="row">
         <div class="col-md-8 offset-md-2">
+            <div *ngIf="photoPreview" class="text-center image-preview my-3">
+                <img class="rounded-circle" [src]="photoPreview" alt="Photo preview"
+                    style="max-width: 200px; max-height: 200px; object-fit: cover;">
+            </div>
             <div class="row text-center my-4">
                 <div class="col-md-6">
                     <button mat-raised-button color="primary" (click)="openChangePasswordDialog()">
@@ -12,12 +16,6 @@
                     <button mat-raised-button color="primary" (click)="fileInput.click()">
                         Change the photo</button>
                     <input hidden type="file" #fileInput (change)="onFileSelected($event)" accept="image/*">
-                    <span *ngIf="selectedFile" class="file-name-display">{{selectedFile.name}}</span>
-                </div>
-                <div *ngIf="photoPreview" class="image-preview mb-3">
-                    <p>Preview:</p>
-                    <img [src]="photoPreview" alt="Photo preview"
-                        style="max-width: 200px; max-height: 200px; border-radius: 8px; object-fit: cover;">
                 </div>
             </div>
             <form [formGroup]="userForm" (ngSubmit)="updateUser()">

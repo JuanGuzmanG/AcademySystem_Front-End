@@ -13,7 +13,6 @@ export class ViewCategoriesComponent {
   subjects: any[] = [];
   constructor(private categoryService: SubjectService) {
     this.loadSubjects();
-
   }
 
   loadSubjects() {
@@ -44,7 +43,7 @@ export class ViewCategoriesComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.categoryService.deleteSubject(subjectId).subscribe(
-          (data) => {
+          () => {
             this.subjects = this.subjects.filter(
               (subject) => subject.id !== subjectId);
             Swal.fire(

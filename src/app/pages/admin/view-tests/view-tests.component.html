@@ -1,4 +1,5 @@
 <mat-card>
+    <h2 class="text-center">ALL TESTS</h2>
     <mat-card class="m-2" appearance="outlined" *ngFor="let test of tests">
     <mat-card-header>
         <div mat-card-avatar class="mt-2 my-auto"><mat-icon>category</mat-icon></div>
@@ -12,7 +13,7 @@
     <mat-card-content>
         <mat-card-actions>
             <button class="mx-1" [routerLink]="'/admin/questions/'+test.testName+'/'+test.idTest" mat-flat-button color="primary">Questions</button>
-            <button class="mx-1" mat-stroked-button color="primary"> Num. Questions: {{test.cantQuestions}}</button>
+            <button class="mx-1" mat-stroked-button color="primary"> Questions: {{test.cantQuestions}}</button>
             <button class="mx-1" mat-stroked-button color="primary">Max Points {{test.maxPoints}}</button>
             <button [routerLink]="'/admin/update-test/'+test.idTest" class="mx-2" mat-flat-button color="primary">Update</button>
             <button class="mx-1" mat-flat-button color="primary">attempts</button>
@@ -21,7 +22,10 @@
     </mat-card-content>
 </mat-card>
 
-<div class="contanier text-center mt-3">
+<div *ngIf="subjects.length > 0" class="contanier text-center my-3">
     <button mat-raised-button routerLink="/admin/add-test" color="primary">Add Test</button>
+</div>
+<div *ngIf="subjects.length < 1" class="text-center my-3">
+    Add subjects first to create tests.
 </div>
 </mat-card>
