@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { materialImports } from '../../../material.imports';
-import { SubjectService } from '../../../services/subject.service';
+import { Subject as RxjSubject } from 'rxjs';
 import Swal from 'sweetalert2';
 
+import { SubjectService } from '../../../services/subject.service';
+import { materialImports } from '../../../material.imports';
 @Component({
   selector: 'app-view-categories',
   imports: [materialImports()],
@@ -10,22 +11,31 @@ import Swal from 'sweetalert2';
   styleUrl: './view-categories.component.css',
 })
 export class ViewCategoriesComponent {
-  subjects: any[] = [];
-  constructor(private categoryService: SubjectService) {
+  public subjects: any[] = [];
+  private readonly destoy$ = new RxjSubject<void>();
+
+  constructor(private readonly subjectService: SubjectService) {}
+
+  ngOnInit() {
     this.loadSubjects();
   }
 
-  loadSubjects() {
-    this.categoryService.listSubjects().subscribe(
+  ngOnDestroy() {
+    this.destoy$.next();
+    this.destoy$.complete();
+  }
+
+  loadSubjects(): void {
+    this.subjectService.listSubjects().subscribe(
       (data: any) => {
         this.subjects = data;
       },
       (error) => {
-        console.error('Error fetching categories:', error);
+        console.error('Error fetching subjects:', error);
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Failed to load categories. Please try again later.',
+          text: 'Failed to load subjects. Please try again later.',
         });
       }
     );
@@ -34,23 +44,20 @@ export class ViewCategoriesComponent {
   deleteSubject(subjectId: any) {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
+      text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.categoryService.deleteSubject(subjectId).subscribe(
+        this.subjectService.deleteSubject(subjectId).subscribe(
           () => {
             this.subjects = this.subjects.filter(
-              (subject) => subject.id !== subjectId);
-            Swal.fire(
-              'Deleted!',
-              'Your category has been deleted.',
-              'success'
+              (subject) => subject.id !== subjectId
             );
+            Swal.fire('Deleted!', 'Your category has been deleted.', 'success');
             this.loadSubjects();
           },
           (error) => {
@@ -63,6 +70,6 @@ export class ViewCategoriesComponent {
           }
         );
       }
-    })
+    });
   }
 }
