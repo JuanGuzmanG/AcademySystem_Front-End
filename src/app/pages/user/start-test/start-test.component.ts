@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
-import { materialImports } from '../../../material.imports';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionService } from '../../../services/question.service';
 import Swal from 'sweetalert2';
+
+import { materialImports } from '../../../material.imports';
+import { QuestionService } from '../../../services/question.service';
 import { ResultsService } from '../../../services/results.service';
 import { LoginService } from '../../../services/login.service';
+import { Subject, takeUntil } from 'rxjs';
+import { Question } from '../../../interfaces/Question.interface';
 
 @Component({
   selector: 'app-start-test',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule, materialImports()],
   templateUrl: './start-test.component.html',
   styleUrl: './start-test.component.css',
 })
-export class StartTestComponent {
+export class StartTestComponent implements OnInit, OnDestroy {
   testId: any;
   questions: any;
   user: any = null;
@@ -23,6 +28,8 @@ export class StartTestComponent {
 
   sendTest: boolean = false;
   timer: number = 0;
+
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -40,32 +47,51 @@ export class StartTestComponent {
 
     this.resultService
       .getAttempCount(this.user.document, this.testId)
-      .subscribe(
-        (data: any) => {
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data: any) => {
           this.attempts = data;
         },
-        (error) => {
+        error: (error) => {
           console.error('Error fetching attempt count:', error);
-        }
-      );
+        },
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+    // Clear the timer if the component is destroyed
+    if (this.timer > 0) {
+      clearInterval(this.timer);
+    }
   }
 
   loadQuestions() {
-    this.questionsService.listQuestionsOfTest(this.testId).subscribe(
-      (data) => {
-        this.questions = data;
+    this.questionsService
+      .listQuestionsOfTest(this.testId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data: Question[]) => {
+          this.questions = data;
 
-        this.timer = this.questions.length * 2 * 60;
+          this.timer = this.questions.length * 2 * 60;
 
-        this.questions.forEach((question: any) => {
-          question['selectedAnswer'] = null;
-        });
-        this.startTimer();
-      },
-      (error) => {
-        console.error('Error loading questions:', error);
-      }
-    );
+          this.questions.forEach((question: any) => {
+            question['selectedAnswer'] = null;
+          });
+          this.startTimer();
+        },
+        error: (error) => {
+          console.error('Error loading questions:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'There was an error loading the questions. Please try again later.',
+          });
+          this.router.navigate(['/user/tests']);
+        },
+      });
   }
 
   denyRollback() {
@@ -95,39 +121,50 @@ export class StartTestComponent {
   evaluateTest() {
     this.questionsService
       .evaluateTest(this.questions)
-      .subscribe((data: any) => {
-        this.pointsEarned = data.maxPoints;
-        this.correctAnswers = data.cantCorrect;
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+          next: (data: any) => {
+            this.pointsEarned = data.maxPoints;
+            this.correctAnswers = data.cantCorrect;
 
-        const resultData = {
-          score: this.pointsEarned,
-          user: {
-            document: this.user.document,
-          },
-          test: {
-            idTest: this.testId,
-          },
-        };
+            const resultData = {
+              score: this.pointsEarned,
+              user: {
+                document: this.user.document,
+              },
+              test: {
+                idTest: this.testId,
+              },
+            };
 
-        this.resultService.saveResult(resultData).subscribe(
-          (data) => {
-            this.attempts++;
-            this.sendTest = true;
-            console.log('Test submitted successfully:', data);
+            this.resultService.saveResult(resultData)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe({
+              next: (data: any) =>{
+                this.attempts++;
+                this.sendTest = true;
+                console.log('Test submitted successfully:', data);
+              },
+              error: (error) => {
+                console.error('Error saving result:', error);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'There was an error saving your result. Please try again later.',
+                });
+              },
+            });
           },
-          (error) => {
-            console.error('Error submitting test:', error);
-          }
-        );
-      },
-      (error) => {
-        console.error('Error evaluating test:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'There was an error evaluating the test. Please try again later.',
-        });
-      });
+          error: (error) => {
+            console.error('Error evaluating test:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'There was an error evaluating the test. Please try again later.',
+            });
+          },
+        },
+      );
   }
 
   startTimer() {

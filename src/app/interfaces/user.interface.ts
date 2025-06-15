@@ -4,7 +4,7 @@ export interface Rol {
 }
 
 export interface User {
-    document: number;
+    document: string;
     username?: string;
     password?: string;
     firstName: string;
@@ -20,11 +20,4 @@ export interface User {
     photo?: string;
     documentType: string;
     rols?: Rol[];
-}
-
-export interface Result{
-    score: number;
-    date: Date;
-    user: User;
-    test: any;
 }

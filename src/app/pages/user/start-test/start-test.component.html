@@ -65,8 +65,8 @@
                     <h3>Attempts: {{attempts}}</h3>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-raised-button (click)="printResult()" color="primary">Print</button>
-                    <button mat-raised-button color="warn" [routerLink]="'/user/'+0">Quit</button>
+                    <button mat-raised-button class="me-2" (click)="printResult()" color="primary">Print</button>
+                    <button mat-raised-button class="fw-bold" color="warn" [routerLink]="'/user/'+0">Quit</button>
                 </mat-card-actions>
             </mat-card>
         </div>

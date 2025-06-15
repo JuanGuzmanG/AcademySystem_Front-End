@@ -5,10 +5,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { materialImports } from '../../material.imports';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { LoginService } from '../../services/login.service';
+import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+
+import { LoginService } from '../../services/login.service';
+import { materialImports } from '../../material.imports';
 
 function passwordMatchValidator(
   control: AbstractControl
@@ -27,7 +29,8 @@ function passwordMatchValidator(
 
 @Component({
   selector: 'app-change-password-dialog',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule,materialImports()],
   templateUrl: './change-password-dialog.component.html',
   styleUrl: './change-password-dialog.component.css',
 })

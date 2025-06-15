@@ -2,10 +2,14 @@ import { Test } from "./Test.interface";
 import { User } from "./User.interface";
 
 export interface Result{
-    idResult: number;
+    idResult?: number;
     score: number;
-    date: string | Date;
+    date: Date;
 
-    user: User;
-    test: Test;
+    user: {
+        document: string;
+    };
+    test: {
+        idTest: number;
+    };
 }

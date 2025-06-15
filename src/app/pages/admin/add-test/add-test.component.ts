@@ -30,7 +30,7 @@ export class AddTestComponent implements OnInit, OnDestroy {
     },
   };
 
-  private destroy$ = new RxjSubject<void>();
+  private readonly destroy$ = new RxjSubject<void>();
 
   constructor(
     private subjectService: SubjectService,
