@@ -1,4 +1,4 @@
-import { Test } from './test.interface';
+import { Test } from './Test.interface';
 
 export interface Subject {
   idSubject: number;

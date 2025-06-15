@@ -1,21 +1,25 @@
-import { Component } from '@angular/core';
-import { materialImports } from '../../../material.imports';
-import { SubjectService } from '../../../services/subject.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TestService } from '../../../services/test.service';
+import { Subject as RxjSubject, takeUntil } from 'rxjs';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
+import { materialImports } from '../../../material.imports';
+import { SubjectService } from '../../../services/subject.service';
+import { TestService } from '../../../services/test.service';
+import { Subject } from '../../../interfaces/subject.interface';
+import { Test } from '../../../interfaces/Test.interface';
 @Component({
   selector: 'app-add-test-professor',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule,materialImports()],
   templateUrl: './add-test-professor.component.html',
   styleUrl: './add-test-professor.component.css'
 })
-export class AddTestProfessorComponent {
- subjects: any = [];
-
-  test = {
+export class AddTestProfessorComponent implements OnInit, OnDestroy {
+  public subjects: Subject[] = [];
+  public test = {
     testName: '',
     descriptionTest: '',
     maxPoints: 0,
@@ -24,48 +28,95 @@ export class AddTestProfessorComponent {
     subject: {
       idSubject: '',
     },
-  };
+  }
+  
+  private destroy$ = new RxjSubject<void>();
 
-  constructor(private subjectService: SubjectService, private snack: MatSnackBar, private testService: TestService,private router: Router) {
-    this.subjectService.listSubjects().subscribe(
-      (data: any) => {
-        this.subjects = data;
-      },
-      (error) => {
-        console.log(error);
-        Swal.fire('Error', 'Error loading subjects', 'error');
-      }
-    );
+  constructor(
+    private subjectService: SubjectService, 
+    private testService: TestService,
+    private snack: MatSnackBar,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loadSubjects();
   }
 
-  saveTest() {
-    if(this.test.testName.trim() =='' || this.test.testName == null){
-      this.snack.open('Test name is required', '',{
-        duration:3000
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  loadSubjects() {
+    this.subjectService.listSubjects()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (data: Subject[]) => {
+        this.subjects = data;
+        if (this.subjects.length === 0) {
+          Swal.fire({
+            title: 'No Subjects Found',
+            text: 'Please create a subject before adding a test.',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error loading subjects:', error);
+        this.snack.open('Error loading subjects', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+      }
+    });
+  }
+
+  public async saveTest(): Promise<void> {
+    if(!this.test || this.test.testName.trim() === '') {
+      this.snack.open('Please enter a test name', 'Close', {
+        duration: 3000,
+        panelClass: ['warning-snackbar']
       });
       return;
     }
 
-    this.testService.addTest(this.test).subscribe(
-      (data)=>{
-        this.router.navigate(['/professor/view-tests/'+this.test.subject.idSubject]);
-        Swal.fire('Success', 'Test added successfully', 'success').then((e) => {
-          this.test = {
-            testName: '',
-            descriptionTest: '',
-            maxPoints: 0,
-            cantQuestions: 0,
-            active: false,
-            subject: {
-              idSubject: '',
-            },
-          };
+    if(!this.test.subject || !this.test.subject.idSubject) {
+      this.snack.open('Please select a subject', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar']
+      });
+      return;
+    }
+
+    this.testService.addTest(this.test)
+    .pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: async (data: Test) => {
+        await Swal.fire({
+          title: 'Success',
+          text: 'Test created successfully',
+          icon: 'success',
+          confirmButtonText: 'OK'
         });
-      },
-      (error) =>{
-        console.log(error);
-        Swal.fire('Error', 'Error adding test', 'error');
+        this.router.navigate(['/professor/0']);
+        this.resetTestForm();
       }
-    )
+    });
+  }
+
+  private resetTestForm() {
+    this.test = {
+      testName: '',
+      descriptionTest: '',
+      maxPoints: 0,
+      cantQuestions: 0,
+      active: false,
+      subject: {
+        idSubject: '',
+      }
+    };
   }
 }

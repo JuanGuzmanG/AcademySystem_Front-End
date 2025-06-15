@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baseURL from './helper';
+import { Observable } from 'rxjs';
+import { Question } from '../interfaces/Question.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -9,27 +11,27 @@ export class QuestionService {
 
   constructor(private http:HttpClient) { }
 
-  public listQuestionsOfTest(testId: any){
-    return this.http.get(`${baseURL}/questions/test/${testId}`);
+  public listQuestionsOfTest(testId: number): Observable<Question[]>{
+    return this.http.get<Question[]>(`${baseURL}/questions/test/${testId}`);
   }
 
-  public addQuestion(question: any){
-    return this.http.post(`${baseURL}/questions/add`, question);
+  public addQuestion(question: Question): Observable<Question>{
+    return this.http.post<Question>(`${baseURL}/questions/add`, question);
   }
 
-  public deleteQuestion(questionId: any){
-    return this.http.delete(`${baseURL}/questions/delete/${questionId}`);
+  public deleteQuestion(questionId: number): Observable<any>{
+    return this.http.delete<any>(`${baseURL}/questions/delete/${questionId}`);
   }
 
-  public updateQuestion(question: any){
-    return this.http.put(`${baseURL}/questions/update`, question);
+  public updateQuestion(question: Question): Observable<Question>{
+    return this.http.put<Question>(`${baseURL}/questions/update`, question);
   }
 
-  public getQuestion(questionId: any){
-    return this.http.get(`http://localhost:8080/questions/${questionId}`);
+  public getQuestion(questionId: Question): Observable<Question>{
+    return this.http.get<Question>(`http://localhost:8080/questions/${questionId}`);
   }
 
-  public evaluateTest(questions:any){
-    return this.http.post("http://localhost:8080/questions/evaluateTest", questions);
+  public evaluateTest(questions:Question): Observable<Question>{
+    return this.http.post<Question>("http://localhost:8080/questions/evaluateTest", questions);
   }
 }

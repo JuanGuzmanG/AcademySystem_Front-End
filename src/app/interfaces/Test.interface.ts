@@ -1,11 +1,11 @@
-import { Question } from "./question.interface";
-import { Result } from "./result.interface";
+import { Question } from "./Question.interface";
+import { Result } from "./Result.interface";
 import { Subject } from "./subject.interface";
-
+// This file defines the Test interface used in the application.
 export interface Test {
   idTest: number;
   testName: string;
-  testDescription: string;
+  descriptionTest: string;
   maxPoints: number;
   cantQuestions: number;
   active: boolean;

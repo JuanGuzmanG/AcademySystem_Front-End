@@ -41,10 +41,10 @@
             </div>
         </div>
     </div>
-    <div class="container text-center pt-3">
-        <button *ngIf="questions.length < CantQuestions" mat-raised-button color="primary" [routerLink]="'/admin/add-question/'+testName+'/'+testId">
+    <div class="container text-center pt-3 mt-3">
+        <button *ngIf="questions.length < test.cantQuestions" mat-raised-button color="primary" [routerLink]="'/admin/add-question/'+testName+'/'+testId">
             Add Question
         </button>
-        <mat-label *ngIf="questions.length >= CantQuestions">LLegaste al limite de preguntas del test.</mat-label>
+        <mat-label class="fs-3 bg-danger rounded p-1 text-white" *ngIf="questions.length >= test.cantQuestions">LIMIT OF QUESTIONS REACHED</mat-label>
     </div>
 </mat-card>

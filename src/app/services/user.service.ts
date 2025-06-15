@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baseURL from './helper';
 import { Observable } from 'rxjs';
-import { User } from '../interfaces/user.interface';
+import { User } from '../interfaces/User.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,8 @@ import { User } from '../interfaces/user.interface';
 export class UserService {
 
   constructor(private httpClient:HttpClient) { }
-  public get(userId: any){
-    return this.httpClient.get(`${baseURL}/users/get_user_${userId}`);
-
+  public get(userId: number): Observable<User> {
+    return this.httpClient.get<User>(`${baseURL}/users/get_user_${userId}`);
   }
   public addUser(user: User, photoFile?: File): Observable<any> {
     const formData = new FormData();

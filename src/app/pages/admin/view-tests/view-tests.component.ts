@@ -1,79 +1,100 @@
-import { Component } from '@angular/core';
-import { materialImports } from '../../../material.imports';
-import { TestService } from '../../../services/test.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Subject as RxjSubject } from 'rxjs';
+import { finalize, takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import { SubjectService } from '../../../services/subject.service';
 
+
+import { TestService } from '../../../services/test.service';
+import { SubjectService } from '../../../services/subject.service';
+import { materialImports } from '../../../material.imports';
+import { Test } from '../../../interfaces/Test.interface';
+import { Subject } from '../../../interfaces/subject.interface';
 @Component({
   selector: 'app-view-tests',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule,materialImports()],
   templateUrl: './view-tests.component.html',
   styleUrl: './view-tests.component.css',
 })
-export class ViewTestsComponent {
-  tests: any = [];
-  subjects: any[] = [];
+export class ViewTestsComponent implements OnInit, OnDestroy {
+  public tests: Test[] = [];
+  public subjects: Subject[] = [];
+
+  private readonly destroy$ = new RxjSubject<void>();
 
   constructor(
-    private testService: TestService,
-    private subjectService: SubjectService
+    private readonly testService: TestService,
+    private readonly subjectService: SubjectService
   ) {}
 
   ngOnInit() {
-    this.testService.listTests().subscribe(
-      (data) => {
-        this.tests = data;
-      },
-      (error) => {
-        console.log(error);
-        Swal.fire('Error', 'Error in landing data', 'error');
-      }
-    );
+    this.loadTests();
     this.loadSubjects();
   }
 
-  loadSubjects() {
-    this.subjectService.listSubjects().subscribe(
-      (data: any) => {
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  loadTests(){
+    this.testService.listTests().pipe(
+      takeUntil(this.destroy$),
+      finalize(() => console.log('Tests loaded'))
+    ).subscribe({
+      next: (data: Test[]) => {
+        this.tests = data;
+      },
+      error: (error) => {
+        console.log(error);
+        Swal.fire('Error', 'Error in loading tests', 'error');
+      }
+    })
+  }
+
+  loadSubjects(): void {
+    this.subjectService.listSubjects().pipe(
+      takeUntil(this.destroy$),
+      finalize(() => console.log('Subjects loaded'))
+    ).subscribe({
+      next: (data: Subject[]) => {
         this.subjects = data;
         if (this.subjects.length === 0) {
           Swal.fire('Info', 'No subjects available, Add Subjects First', 'info');
         }
       },
-      (error) => {
+      error: (error) => {
         console.log(error);
         Swal.fire('Error', 'Error in loading subjects', 'error');
       }
-    );
+    });
   }
 
-  deleteTest(idTest: any) {
-    Swal.fire({
+  public async deleteTest(idTest: number): Promise<void> {
+    const result = await Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      text: 'You won\'t be able to revert this!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.testService.deleteTest(idTest).subscribe(
-          (data) => {
-            this.tests = this.tests.filter(
-              (test: any) => test.testId != idTest
-            );
-            Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
-            this.testService.listTests().subscribe((data) => {
-              this.tests = data;
-            });
-          },
-          (error) => {
-            console.log(error);
-            Swal.fire('Error', 'Error in deleting data', 'error');
-          }
-        );
-      }
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
     });
+    if (result.isConfirmed) {
+      this.testService.deleteTest(idTest).pipe(
+        takeUntil(this.destroy$),
+        finalize(() => console.log('Test deleted'))
+      ).subscribe({
+        next: () => {
+          this.tests = this.tests.filter(test => test.idTest !== idTest);
+          Swal.fire('Deleted!', 'Test has been deleted.', 'success');
+        },
+        error: (error) => {
+          console.log(error);
+          Swal.fire('Error', 'Error in deleting test', 'error');
+        }
+      });
+    }
   }
 }

@@ -1,5 +1,5 @@
-import { Test } from "./test.interface";
-import { User } from "./user.interface";
+import { Test } from "./Test.interface";
+import { User } from "./User.interface";
 
 export interface Result{
     idResult: number;
