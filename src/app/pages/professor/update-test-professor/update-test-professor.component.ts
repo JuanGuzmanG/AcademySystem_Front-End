@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+
 import { TestService } from '../../../services/test.service';
 import { SubjectService } from '../../../services/subject.service';
-import Swal from 'sweetalert2';
 import { materialImports } from '../../../material.imports';
 
 @Component({
   selector: 'app-update-test-professor',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule, materialImports()],
   templateUrl: './update-test-professor.component.html',
   styleUrl: './update-test-professor.component.css'
 })

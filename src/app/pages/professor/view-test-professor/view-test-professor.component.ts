@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { TestService } from '../../../services/test.service';
-import Swal from 'sweetalert2';
-import { materialImports } from '../../../material.imports';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+
+import { materialImports } from '../../../material.imports';
+import { TestService } from '../../../services/test.service';
 
 @Component({
   selector: 'app-view-test-professor',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule,materialImports()],
   templateUrl: './view-test-professor.component.html',
   styleUrl: './view-test-professor.component.css',
 })

@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
-import { materialImports } from '../../material.imports';
-import Swal from 'sweetalert2';
-import { UserService } from '../../services/user.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
+import { materialImports } from '../../material.imports';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-signup',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule,materialImports()],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })

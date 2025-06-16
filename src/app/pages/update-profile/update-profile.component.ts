@@ -1,18 +1,21 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { materialImports } from '../../material.imports';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RolService } from '../../services/rol.service';
-import { MatDialog } from '@angular/material/dialog'; // Importa MatDialog
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
+
 import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
 import { LoginService } from '../../services/login.service';
+import { UserService } from '../../services/user.service';
+import { materialImports } from '../../material.imports';
+import { RolService } from '../../services/rol.service';
 
 @Component({
   selector: 'app-update-profile',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule, materialImports()],
   templateUrl: './update-profile.component.html',
   styleUrl: './update-profile.component.css',
 })

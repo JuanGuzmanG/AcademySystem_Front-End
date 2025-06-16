@@ -1,26 +1,37 @@
-import { Component } from '@angular/core';
-import { materialImports } from '../../material.imports';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginService } from '../../services/login.service';
+import { Component, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+
+import { materialImports } from '../../material.imports';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule, materialImports()],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy{
   loginData = {
     username: '',
     password: '',
   };
+
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
     private snak: MatSnackBar,
     private loginService: LoginService,
     private router: Router
   ) {}
+  
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   clear() {
     this.loginData.username = '';

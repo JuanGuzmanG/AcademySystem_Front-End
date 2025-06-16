@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionService } from '../../../services/question.service';
+import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+
+import { QuestionService } from '../../../services/question.service';
 import { materialImports } from '../../../material.imports';
 
 @Component({
   selector: 'app-add-question-professor',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule, materialImports()],
   templateUrl: './add-question-professor.component.html',
   styleUrl: './add-question-professor.component.css'
 })

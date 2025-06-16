@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 import { QuestionService } from '../../../services/question.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import Swal from 'sweetalert2';
 import { materialImports } from '../../../material.imports';
 import { TestService } from '../../../services/test.service';
 
 @Component({
   selector: 'app-update-question-professor',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule, materialImports()],
   templateUrl: './update-question-professor.component.html',
   styleUrl: './update-question-professor.component.css'
 })

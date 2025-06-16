@@ -1,19 +1,23 @@
-import { Component } from '@angular/core';
-import { materialImports } from '../../../material.imports';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../../services/user.service';
-import Swal from 'sweetalert2';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+
+import { UserService } from '../../../services/user.service';
+import { materialImports } from '../../../material.imports';
 import { RolService } from '../../../services/rol.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-update-user',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule, materialImports()],
   templateUrl: './update-user.component.html',
   styleUrl: './update-user.component.css',
 })
-export class UpdateUserComponent {
+export class UpdateUserComponent implements OnInit, OnDestroy {
   userForm!: FormGroup;
   userId: any;
   user: any;
@@ -25,6 +29,9 @@ export class UpdateUserComponent {
   rol: any;
   rols: any[] = [];
   selectedRols: any[] = [];
+
+  private readonly destroy$ = new Subject<void>();
+
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
@@ -32,11 +39,10 @@ export class UpdateUserComponent {
     private router: Router,
     private fb: FormBuilder,
     private rolservice: RolService
-  ) {
-    this.getCountries();
-  }
+  ) {}
 
   ngOnInit() {
+    this.getCountries();
     this.userId = this.route.snapshot.params['userId'];
 
     this.userForm = this.fb.group({
@@ -98,6 +104,11 @@ export class UpdateUserComponent {
     );
   }
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   getCountries() {
     this.http.get<any[]>('https://restcountries.com/v3.1/all').subscribe(
       (data) => {
@@ -114,7 +125,7 @@ export class UpdateUserComponent {
       Swal.fire('Error', 'Fill out the required fields', 'error');
       return;
     }
-
+    
     const formValue = this.userForm.value;
 
     if (formValue.gender === 'Other' && formValue.customGender?.trim()) {

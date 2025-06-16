@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionService } from '../../../services/question.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+
+import { QuestionService } from '../../../services/question.service';
 import { materialImports } from '../../../material.imports';
 
 @Component({
   selector: 'app-view-test-questions-professor',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule, materialImports()],
   templateUrl: './view-test-questions-professor.component.html',
   styleUrl: './view-test-questions-professor.component.css'
 })

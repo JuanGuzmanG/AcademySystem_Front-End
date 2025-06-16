@@ -9,7 +9,7 @@ import { adminGuard } from './services/guards/admin.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WelcomeAdminComponent } from './pages/admin/welcome-admin/welcome-admin.component';
 import { ViewCategoriesComponent } from './pages/admin/view-categories/view-categories.component';
-import { AddCategoryComponent } from './pages/admin/add-category/add-category.component';
+import { AddCategoryComponent } from './pages/admin/add-subject/add-subject.component';
 import { ViewTestsComponent } from './pages/admin/view-tests/view-tests.component';
 import { AddTestComponent } from './pages/admin/add-test/add-test.component';
 import { UpdateTestComponent } from './pages/admin/update-test/update-test.component';

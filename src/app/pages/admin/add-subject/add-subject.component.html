@@ -1,38 +1,35 @@
 <mat-card class="mt-3 mb-5 shadow rounded-3">
     <div class="m-auto mt-3">
-        <h1>Add New Category</h1>
+        <h1>ADD NEW SUBJECT</h1>
     </div>
     <mat-card-content>
         <div class="container mt-5 mb-5">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <form action="">
+                    <form action="" [formGroup]="subjectForm">
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Title</mat-label>
                             <input
                             autofocus
                             required
-                            [(ngModel)]="subject.nameSubject"
+                            formControlName="nameSubject"
                             type="text"
-                            name="nameTest"
                             matInput
                             placeholder="Enter category name"
                             >
                         </mat-form-field>
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Description</mat-label>
-                            <input
-                            name="descriptionTest"
+                            <textarea
+                            formControlName="descriptionSubject"
                             matInput
                             required
-                            [(ngModel)]="subject.descriptionSubject"
-                            placeholder="Enter category description"
-                            rows="15"
                             >
+                            </textarea>
                         </mat-form-field>
 
                         <div class="container text-center mt-1 w-50">
-                            <button (click)="onSubmit()" mat-raised-button color="primary" class="w-100">Add Category</button>
+                            <button (click)="onSubmit()" mat-raised-button color="primary" class="w-100">ADD SUBJECT</button>
                         </div>
                     </form>
                 </div>

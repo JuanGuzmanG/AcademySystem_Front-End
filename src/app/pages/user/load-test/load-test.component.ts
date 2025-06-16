@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 import { TestService } from '../../../services/test.service';
 import { materialImports } from '../../../material.imports';
 
 @Component({
   selector: 'app-load-test',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule, materialImports()],
   templateUrl: './load-test.component.html',
   styleUrl: './load-test.component.css',
 })

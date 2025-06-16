@@ -6,3 +6,8 @@ export interface Subject {
   descriptionSubject: string;
   tests?: Test[];
 }
+
+export interface NewSubject{
+  nameSubject: string;
+  descriptionSubject: string;
+}

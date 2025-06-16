@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject as RxjSubject, takeUntil, finalize, switchMap } from 'rxjs';
+import { Subject as RxjSubject, takeUntil, switchMap } from 'rxjs';
 import Swal from 'sweetalert2';
 
 import { QuestionService } from '../../../services/question.service';
@@ -18,12 +18,20 @@ import { Test } from '../../../interfaces/Test.interface';
   templateUrl: './view-test-questions.component.html',
   styleUrl: './view-test-questions.component.css',
 })
-export class ViewTestQuestionsComponent {
+export class ViewTestQuestionsComponent implements OnInit, OnDestroy {
   public testId!: number;
   public testName!: any;
   public questions: Question[] = [];
-  public test!: Test;
   public CantQuestions!: number;
+  public test: Test ={
+      idTest: 0,
+      testName: '',
+      descriptionTest: '',
+      maxPoints: 0,
+      cantQuestions: 0,
+      active: false,
+      subject: {} as any,
+  };
 
   private readonly destroy$ = new RxjSubject<void>();
 

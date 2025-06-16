@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import { materialImports } from '../../../material.imports';
 
 @Component({
   selector: 'app-welcome-user',
-  imports: [materialImports()],
+  standalone: true,
+  imports: [CommonModule,materialImports()],
   templateUrl: './welcome-user.component.html',
   styleUrl: './welcome-user.component.css'
 })

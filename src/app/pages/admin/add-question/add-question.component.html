@@ -9,12 +9,11 @@
                     </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
-                    <form action="" class="mt-2">
+                    <form action="" class="mt-2" [formGroup]="questionForm">
                         <mat-form-field class="w-100">
                             <mat-label>Enter the content of the question</mat-label>
                             <textarea
-                            name="contentQuestion"
-                            [(ngModel)]="question.contentQuestion"
+                            formControlName="contentQuestion"
                             rows="8"
                             matInput
                             placeholder="Enter the content of the question"
@@ -25,9 +24,8 @@
                             <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                     <mat-label>Enter the option 1:</mat-label>
-                                    <input 
-                                    name="option1"
-                                    [(ngModel)]="question.option1"
+                                    <input
+                                    formControlName="option1"
                                     type="text"
                                     matInput>
                                 </mat-form-field>
@@ -35,9 +33,8 @@
                             <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                     <mat-label>Enter the option 2:</mat-label>
-                                    <input 
-                                    name="option2"
-                                    [(ngModel)]="question.option2"
+                                    <input
+                                    formControlName="option2"
                                     type="text" 
                                     matInput>
                                 </mat-form-field>
@@ -46,8 +43,7 @@
                                 <mat-form-field class="w-100">
                                     <mat-label>Enter the option 3:</mat-label>
                                     <input
-                                    name="option3"
-                                    [(ngModel)]="question.option3"
+                                    formControlName="option3"
                                     type="text" 
                                     matInput>
                                 </mat-form-field>
@@ -55,9 +51,8 @@
                             <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                     <mat-label>Enter the option 4:</mat-label>
-                                    <input 
-                                    name="option4"
-                                    [(ngModel)]="question.option4"
+                                    <input
+                                    formControlName="option4"
                                     type="text" 
                                     matInput>
                                 </mat-form-field>
@@ -65,11 +60,11 @@
                         </div>
                         <mat-form-field class="w-100">
                             <mat-label>Select the Correct Answer</mat-label>
-                            <mat-select [(ngModel)]="question.correctOption" name="correctAnswer">
-                                <mat-option *ngIf="question.option1" [value]="question.option1">{{question.option1}}</mat-option>
-                                <mat-option *ngIf="question.option2" [value]="question.option2">{{question.option2}}</mat-option>
-                                <mat-option *ngIf="question.option3" [value]="question.option3">{{question.option3}}</mat-option>
-                                <mat-option *ngIf="question.option4" [value]="question.option4">{{question.option4}}</mat-option>
+                            <mat-select formControlName="correctOption">
+                                <mat-option *ngIf="questionForm.get('option1')?.value" [value]="questionForm.get('option1')?.value">{{questionForm.get('option1')?.value}}</mat-option>
+                                <mat-option *ngIf="questionForm.get('option2')?.value" [value]="questionForm.get('option2')?.value">{{questionForm.get('option2')?.value}}</mat-option>
+                                <mat-option *ngIf="questionForm.get('option3')?.value" [value]="questionForm.get('option3')?.value">{{questionForm.get('option3')?.value}}</mat-option>
+                                <mat-option *ngIf="questionForm.get('option4')?.value" [value]="questionForm.get('option4')?.value">{{questionForm.get('option4')?.value}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                         <div class="container text-center">
