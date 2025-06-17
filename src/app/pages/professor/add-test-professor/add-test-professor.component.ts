@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import { materialImports } from '../../../material.imports';
 import { SubjectService } from '../../../services/subject.service';
 import { TestService } from '../../../services/test.service';
-import { Subject } from '../../../interfaces/subject.interface';
+import { Subject } from '../../../interfaces/Subject.interface';
 import { Test } from '../../../interfaces/Test.interface';
 @Component({
   selector: 'app-add-test-professor',

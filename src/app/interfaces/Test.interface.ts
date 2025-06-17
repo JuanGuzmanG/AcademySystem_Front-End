@@ -1,6 +1,6 @@
 import { Question } from "./Question.interface";
 import { Result } from "./Result.interface";
-import { Subject } from "./subject.interface";
+import { Subject } from "./Subject.interface";
 // This file defines the Test interface used in the application.
 export interface Test {
   idTest: number;

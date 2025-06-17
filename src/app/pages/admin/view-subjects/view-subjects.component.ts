@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 import { SubjectService } from '../../../services/subject.service';
 import { materialImports } from '../../../material.imports';
-import { Subject } from '../../../interfaces/subject.interface';
+import { Subject } from '../../../interfaces/Subject.interface';
 @Component({
   selector: 'app-view-categories',
   standalone: true,

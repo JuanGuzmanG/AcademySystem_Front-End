@@ -8,7 +8,7 @@ import { SubjectService } from '../../../services/subject.service';
 import { materialImports } from '../../../material.imports';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NewSubject } from '../../../interfaces/subject.interface';
+import { NewSubject } from '../../../interfaces/Subject.interface';
 
 @Component({
   selector: 'app-add-category',

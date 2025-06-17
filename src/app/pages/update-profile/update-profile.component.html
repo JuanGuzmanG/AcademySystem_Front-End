@@ -1,7 +1,9 @@
 <mat-card>
-    <h1 class="text-center p-3">Modifying user</h1>
+    <h1 class="text-center fs-1 fw-bold p-3">MODIFYING PROFILE</h1>
 
     <div class="row">
+        <div class="col-md-12 text-center">
+            <img style="height: 200px; width: 200px;" class="rounded-circle" src="{{ user.photo }}" alt=""></div>
         <div class="col-md-8 offset-md-2">
             <div *ngIf="photoPreview" class="text-center image-preview my-3">
                 <img class="rounded-circle" [src]="photoPreview" alt="Photo preview"
@@ -10,11 +12,11 @@
             <div class="row text-center my-4">
                 <div class="col-md-6">
                     <button mat-raised-button color="primary" (click)="openChangePasswordDialog()">
-                        Change the Password</button>
+                        CHANGE PASSWORD</button>
                 </div>
                 <div class="col-md-6">
                     <button mat-raised-button color="primary" (click)="fileInput.click()">
-                        Change the photo</button>
+                        CHANGE PROFILE PHOTO</button>
                     <input hidden type="file" #fileInput (change)="onFileSelected($event)" accept="image/*">
                 </div>
             </div>
@@ -23,8 +25,9 @@
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Document Type</mat-label>
+                            <mat-label *ngIf="rolCurrentUser!='ADMIN'"> - Only Admins</mat-label>
                             <mat-select formControlName="documentType">
-                                <mat-option *ngFor="let type of types" [value]="type">
+                                <mat-option *ngFor="let type of types" [value]="type" [disabled]="rolCurrentUser!='ADMIN'">
                                     {{ type }}
                                 </mat-option>
                             </mat-select>
@@ -35,7 +38,10 @@
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="fill">
                             <mat-label>Document</mat-label>
-                            <input matInput formControlName="document" placeholder="Enter document" />
+                            <mat-label *ngIf="rolCurrentUser!='ADMIN'"> - Only Admins</mat-label>
+                            <input matInput formControlName="document" 
+                            placeholder="Enter document" 
+                            [disabled]="rolCurrentUser!='ADMIN'"/>
                         </mat-form-field>
                     </div>
 
@@ -124,7 +130,9 @@
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Birth Date</mat-label>
-                            <input matInput type="date" formControlName="birthDate" />
+                            <mat-label *ngIf="rolCurrentUser!='ADMIN'"> - Only admins</mat-label>
+                            <input matInput type="date" formControlName="birthDate" 
+                            [disabled]="rolCurrentUser!='ADMIN'"/>
                         </mat-form-field>
                     </div>
 
@@ -142,7 +150,7 @@
                 </div>
                 <div class="container my-3 text-center">
                     <button mat-raised-button color="primary" type="submit"
-                        [disabled]="userForm.invalid">Update</button>
+                        [disabled]="userForm.invalid">UPDATE PROFILE</button>
                 </div>
             </form>
         </div>

@@ -69,10 +69,10 @@ export class UpdateProfileComponent {
       username: [''],
     });
 
-    this.updateRols();
+    this.CurrentUser();
   }
 
-  updateRols() {
+  CurrentUser() {
     this.rolservice.getAllRols().subscribe(
       (rolData: any) => {
         this.rols = rolData;
@@ -148,26 +148,26 @@ export class UpdateProfileComponent {
     }
 
     const formValue = this.userForm.value;
-
+    console.log('formValue', formValue);
     if (formValue.gender === 'Other' && formValue.customGender?.trim()) {
       formValue.gender = formValue.customGender.trim();
     }
     delete formValue.customGender;
 
     const userData = { ...this.userForm.value };
+    console.log('userdata', userData);
     this.userService
       .updateUser(userData, this.selectedFile ?? undefined)
       .subscribe(
         (data) => {
+          console.log('data',data)
           this.loginService.setUser(data);
           this.user = data;
-          this.updateRols();
           this.router.navigate([
             '/' +
               this.loginService.getUserRole()?.toLocaleLowerCase() +
               '/profile',
           ]);
-          window.location.reload();
           Swal.fire('Success', 'User updated successfully', 'success');
         },
         (error) => {

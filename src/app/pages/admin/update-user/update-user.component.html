@@ -1,5 +1,5 @@
 <mat-card>
-    <h1 class="text-center">Modifying user:
+    <h1 class="text-center fs-4 my-2">MODIFING USER:
         <b class="fs-3">
             {{ userForm.get('firstName')?.value + " " +
             userForm.get('middleName')?.value + " " +
@@ -9,6 +9,7 @@
     </h1>
 
     <div class="row">
+        <div class="col-md-12"></div>
         <div class="col-md-8 offset-md-2">
             <form [formGroup]="userForm" (ngSubmit)="updateUser()">
                 <div class="row">

@@ -9,7 +9,7 @@ import { TestService } from '../../../services/test.service';
 import { SubjectService } from '../../../services/subject.service';
 import { materialImports } from '../../../material.imports';
 import { Test } from '../../../interfaces/Test.interface';
-import { Subject } from '../../../interfaces/subject.interface';
+import { Subject } from '../../../interfaces/Subject.interface';
 @Component({
   selector: 'app-view-tests',
   standalone: true,
