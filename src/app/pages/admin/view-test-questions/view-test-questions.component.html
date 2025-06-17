@@ -1,5 +1,5 @@
 <mat-card class="p-3">
-    <h1 class="text-center">Questions of {{testName}}</h1>
+    <h1 class="text-center fs-1 my-2">QUESTIONS OF <span class="fw-bold">{{testName}}</span></h1>
     <mat-divider></mat-divider>
     <div class="bootstrap-wrapper">
         <div class="row mt-3">
@@ -13,22 +13,22 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p>1)<b>{{q.option1}}</b></p>
+                                    <p>1)<b> {{q.option1}}</b></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>2)<b>{{q.option2}}</b></p>
+                                    <p>2)<b> {{q.option2}}</b></p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p>3)<b>{{q.option3}}</b></p>
+                                    <p>3)<b> {{q.option3}}</b></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>4)<b>{{q.option4}}</b></p>
+                                    <p>4)<b> {{q.option4}}</b></p>
                                 </div>
                             </div>
                             <mat-divider></mat-divider>
-                            <p class="mt-2">
+                            <p class="my-3 fs-5">
                                 <b>Correct Answer: {{q.correctOption}}</b>
                             </p>
                             <button [routerLink]="'/admin/update-question/'+testName+'/'+testId+'/'+q.idQuestion"

@@ -162,12 +162,12 @@ export class UpdateProfileComponent {
           this.loginService.setUser(data);
           this.user = data;
           this.updateRols();
-          window.location.reload();
           this.router.navigate([
             '/' +
               this.loginService.getUserRole()?.toLocaleLowerCase() +
               '/profile',
           ]);
+          window.location.reload();
           Swal.fire('Success', 'User updated successfully', 'success');
         },
         (error) => {

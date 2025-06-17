@@ -1,6 +1,6 @@
 <mat-card>
     <div class="m-3">
-        <h2 class="text-center fs-3">All Subjects</h2>
+        <h2 class="text-center fs-3 fw-bold">ALL SUBJECTS</h2>
         <mat-divider></mat-divider>
         <mat-card *ngFor="let s of subjects"
             class="h-100 m-2">
@@ -30,6 +30,6 @@
     </div>
 
     <div class="container text-center my-3">
-        <button routerLink="/admin/add-category" mat-raised-button color="primary">Add Category</button>
+        <button class="fw-bold" routerLink="/admin/add-category" mat-raised-button color="primary">ADD SUBJECT</button>
     </div>
 </mat-card>

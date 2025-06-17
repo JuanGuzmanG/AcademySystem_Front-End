@@ -8,7 +8,7 @@ import { userGuard } from './services/guards/user.guard';
 import { adminGuard } from './services/guards/admin.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WelcomeAdminComponent } from './pages/admin/welcome-admin/welcome-admin.component';
-import { ViewCategoriesComponent } from './pages/admin/view-categories/view-categories.component';
+import { ViewsubjectsComponent } from './pages/admin/view-subjects/view-subjects.component';
 import { AddCategoryComponent } from './pages/admin/add-subject/add-subject.component';
 import { ViewTestsComponent } from './pages/admin/view-tests/view-tests.component';
 import { AddTestComponent } from './pages/admin/add-test/add-test.component';
@@ -63,7 +63,7 @@ export const routes: Routes = [
         { path: 'profile', component: ProfileComponent },
         { path: 'profile/update/:userId', component: UpdateProfileComponent },
         { path: 'view-tests', component: ViewTestsComponent },
-        { path: 'subjects', component: ViewCategoriesComponent },
+        { path: 'subjects', component: ViewsubjectsComponent },
         { path: 'users', component: ViewUsersComponent },
         
         {path: 'questions/:testName/:testId',component: ViewTestQuestionsComponent,},

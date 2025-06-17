@@ -11,10 +11,10 @@ import { Subject } from '../../../interfaces/subject.interface';
   selector: 'app-view-categories',
   standalone: true,
   imports: [CommonModule, materialImports()],
-  templateUrl: './view-categories.component.html',
-  styleUrl: './view-categories.component.css',
+  templateUrl: './view-subjects.component.html',
+  styleUrl: './view-subjects.component.css',
 })
-export class ViewCategoriesComponent implements OnInit, OnDestroy {
+export class ViewsubjectsComponent implements OnInit, OnDestroy {
   public subjects: Subject[] = [];
   private readonly destoy$ = new RxjSubject<void>();
 
