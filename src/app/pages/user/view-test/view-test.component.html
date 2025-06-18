@@ -1,19 +1,21 @@
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <mat-card-content>
-                <mat-card-title class="fs-3">{{test?.testName}}</mat-card-title><br>
-                <mat-card-subtitle>{{test?.descriptionTest}}</mat-card-subtitle>
-                <mat-divider></mat-divider>
-                <br>
-                <ul>
-                    <li>This test contain <b>{{test?.cantQuestions}}</b> questions</li>
-                    <li *ngIf="test?.subject">This test about <b> {{test?.subject?.nameSubject}} </b></li>
-                </ul>
-                <mat-card-actions>
-                    <button mat-raised-button color="warn" [routerLink]="'/user/'+0">Back</button>
-                </mat-card-actions>
-            </mat-card-content>
+<mat-card>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <mat-card-content>
+                    <mat-card-title class="fs-2 fw-bold">{{test?.testName}}</mat-card-title>
+                    <mat-card-subtitle>{{test?.descriptionTest}}</mat-card-subtitle>
+                    <mat-divider></mat-divider>
+                    <br>
+                    <ul>
+                        <li>This test contain <b>{{test?.cantQuestions}}</b> questions</li>
+                        <li *ngIf="test?.subject">This test about <b> {{test?.subject?.nameSubject}} </b></li>
+                    </ul>
+                    <mat-card-actions>
+                        <button mat-raised-button color="warn" [routerLink]="'/user/'+0">Back</button>
+                    </mat-card-actions>
+                </mat-card-content>
+            </div>
         </div>
     </div>
-</div>
+</mat-card>

@@ -50,7 +50,7 @@ export class UpdateProfileComponent {
 
   ngOnInit() {
     this.userId = this.route.snapshot.params['userId'];
-
+    this.rolCurrentUser = this.loginService.getUserRole();
     this.userForm = this.fb.group({
       documentType: ['', Validators.required],
       document: ['', Validators.required],
@@ -69,7 +69,24 @@ export class UpdateProfileComponent {
       username: [''],
     });
 
+    this.applyFieldsPermissions();
     this.CurrentUser();
+  }
+
+  private applyFieldsPermissions() {
+    const isAdmin = this.rolCurrentUser === 'ADMIN';
+
+    this.userForm.get('documentType')?.setErrors(null)
+    this.userForm.get('documentType')?.[isAdmin ? 'enable' : 'disable']();
+    
+    this.userForm.get('document')?.setErrors(null)
+    this.userForm.get('document')?.[isAdmin ? 'enable' : 'disable']();
+
+    this.userForm.get('birthDate')?.setErrors(null)
+    this.userForm.get('birthDate')?.[isAdmin ? 'enable' : 'disable']();
+
+    this.userForm.get('rols')?.setErrors(null);
+    this.userForm.get('rols')?.[isAdmin ? 'enable' : 'disable']();
   }
 
   CurrentUser() {
@@ -154,13 +171,11 @@ export class UpdateProfileComponent {
     }
     delete formValue.customGender;
 
-    const userData = { ...this.userForm.value };
-    console.log('userdata', userData);
+    const userData = { ...this.userForm.getRawValue() };
     this.userService
       .updateUser(userData, this.selectedFile ?? undefined)
       .subscribe(
         (data) => {
-          console.log('data',data)
           this.loginService.setUser(data);
           this.user = data;
           this.router.navigate([

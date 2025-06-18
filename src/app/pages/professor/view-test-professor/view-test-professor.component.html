@@ -1,26 +1,33 @@
-<mat-card class="mt-10" *ngFor="let test of tests">
-    <mat-card-header>
-        <div mat-card-avatar class="mt-2 my-auto"><mat-icon>category</mat-icon></div>
-        <mat-card-title>
-            {{test.testName}}
-        </mat-card-title>
-        <mat-card-subtitle>
-            {{test.subject.nameSubject}}
-        </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-card-actions>
-            <button class="mx-1" [routerLink]="'/professor/view-tests/'+test.testName+'/'+test.idTest+'/questions'" mat-flat-button color="primary">Questions</button>
-            <button class="mx-1" mat-stroked-button color="primary"> Num. Questions: {{test.cantQuestions}}</button>
-            <button class="mx-1" mat-stroked-button color="primary">Max Points {{test.maxPoints}}</button>
-            <button [routerLink]="'/professor/update_test/'+test.idTest" class="mx-2" mat-flat-button color="primary">Update</button>
-            <button class="mx-1" mat-flat-button color="primary">attempts</button>
-            <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.idTest)">Delete Test</button>
-        </mat-card-actions>
-    </mat-card-content>
+<mat-card>
+    <mat-card-title class="text-center fs-1 fw-bold my-3">ALL TESTS</mat-card-title>
+    <mat-card class="m-2" appearance="outlined" *ngFor="let test of tests">
+        <mat-card-header>
+            <div mat-card-avatar class="mt-2 my-auto"><mat-icon>category</mat-icon></div>
+            <mat-card-title>
+                {{test.testName}}
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{test.subject.nameSubject}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-card-actions>
+                <button class="mx-1" [routerLink]="'/professor/view-tests/'+test.testName+'/'+test.idTest+'/questions'"
+                    mat-flat-button color="primary">Questions</button>
+                <button class="mx-1" mat-stroked-button color="primary"> Num. Questions: {{test.cantQuestions}}</button>
+                <button class="mx-1" mat-stroked-button color="primary">Max Points {{test.maxPoints}}</button>
+                <button [routerLink]="'/professor/update_test/'+test.idTest" class="mx-2" mat-flat-button
+                    color="primary">Update</button>
+                <button class="mx-1" mat-flat-button color="primary">attempts</button>
+                <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.idTest)">Delete Test</button>
+            </mat-card-actions>
+        </mat-card-content>
+    </mat-card>
+
+    <div *ngIf="subjects.length > 0" class="contanier text-center my-3">
+        <button mat-raised-button routerLink="/admin/add-test" color="primary">Add Test</button>
+    </div>
+    <div *ngIf="subjects.length < 1" class="text-center my-3">
+        Add subjects first to create tests.
+    </div>
 </mat-card>
-
-<div class="contanier text-center mt-3">
-    <button mat-raised-button [routerLink]="'/professor/view-tests/'+idSubject+'/add-test'" color="primary">Add Test</button>
-</div>
-

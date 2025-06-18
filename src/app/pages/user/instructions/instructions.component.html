@@ -3,18 +3,19 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="mt-1">
-                    <mat-card-header>
-                        <mat-card-title>
-                            Read the instructions carefully
-                        </mat-card-title>
-                    </mat-card-header>
                     <mat-card>
-                        <mat-card-subtitle class="ms-4">One more step</mat-card-subtitle>
-                        <mat-card-content class="ms-1">
-                            <h1>{{test.testName}}</h1>
-                            <p>{{test.descriptionTest}}</p>
+                        <mat-card-header>
+                            <mat-card-title class="fs-1 fw-bold">{{test.testName}}</mat-card-title>
+                            <mat-card-subtitle>{{test.descriptionTest}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <mat-divider class="my-1"></mat-divider>
+                            <mat-card-title class="fw-bold">
+                                Read the instructions carefully
+                            </mat-card-title>
+                            <mat-card-subtitle>One more step</mat-card-subtitle>
+                        
                             <mat-divider></mat-divider>
-                            <br>
                             <h1>Important Instructions</h1>
                             <ul>
                                 <li>This test is for practice only.</li>
@@ -23,7 +24,6 @@
                                 <li>There are <b>{{test.maxPoints/test.cantQuestions}} points</b> per question.</li>
                             </ul>
                             <mat-divider></mat-divider>
-                            <br>
                             <h2>attempts of test</h2>
                             <ul>
                                 <li>press the <b>Start</b> button to begin the test</li>

@@ -4,6 +4,8 @@
             <div class="col-md-2">
                 <mat-card>
                     <mat-card-content>
+                        <mat-card-title>Test: {{test?.testName}}</mat-card-title>
+                        <mat-divider></mat-divider>
                         <h3>Instructions</h3>
                         <ul>
                             <li>Don't minimize the test.</li>
@@ -14,11 +16,7 @@
                 </mat-card>
             </div>
             <div class="col-md-8">
-                <ng-container *ngIf="questions">
-                    <h1 class="mt-1">In process <b>{{questions[0].test.nameTest}}</b></h1>
-                </ng-container>
-
-                <mat-card *ngFor="let q of questions; let i = index">
+                <mat-card class="mb-2" *ngFor="let q of questions; let i = index">
                     <mat-card-content>
                         <p><b>{{i+1}}) </b><span innerHTML="q.content">{{q.contentQuestion}}</span></p>
                         <mat-divider></mat-divider>

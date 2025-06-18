@@ -30,7 +30,7 @@ import { ViewTestProfessorComponent } from './pages/professor/view-test-professo
 import { UpdateTestProfessorComponent } from './pages/professor/update-test-professor/update-test-professor.component';
 import { ViewTestQuestionsProfessorComponent } from './pages/professor/view-test-questions-professor/view-test-questions-professor.component';
 import { UpdateQuestionProfessorComponent } from './pages/professor/update-question-professor/update-question-professor.component';
-import { HomeProfessorComponent } from './pages/professor/home-professor/home-professor.component';
+import { HomeProfessorComponent } from './pages/professor/welcome-professor/welcome-professor.component';
 import { AddTestProfessorComponent } from './pages/professor/add-test-professor/add-test-professor.component';
 import { AddQuestionProfessorComponent } from './pages/professor/add-question-professor/add-question-professor.component';
 import { UpdateSubjectComponent } from './pages/admin/update-subject/update-subject.component';

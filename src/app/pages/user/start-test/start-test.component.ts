@@ -9,6 +9,9 @@ import { ResultsService } from '../../../services/results.service';
 import { LoginService } from '../../../services/login.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Question } from '../../../interfaces/Question.interface';
+import { Test } from '../../../interfaces/Test.interface';
+import { TestService } from '../../../services/test.service';
+import { get } from 'http';
 
 @Component({
   selector: 'app-start-test',
@@ -21,6 +24,7 @@ export class StartTestComponent implements OnInit, OnDestroy {
   testId: any;
   questions: any;
   user: any = null;
+  test?: Test;
 
   pointsEarned: number = 0;
   correctAnswers: number = 0;
@@ -36,11 +40,26 @@ export class StartTestComponent implements OnInit, OnDestroy {
     private questionsService: QuestionService,
     private router: Router,
     private resultService: ResultsService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private testService: TestService
   ) {}
 
   ngOnInit(): void {
     this.testId = this.route.snapshot.params['testId'];
+    
+    this.testService
+      .getTest(this.testId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data: Test) => {
+          this.test = data;
+        },
+        error: (error) => {
+          console.error('Error fetching test:', error);
+        },
+      })
+      
+
     this.user = this.loginService.getUser();
     this.denyRollback();
     this.loadQuestions();

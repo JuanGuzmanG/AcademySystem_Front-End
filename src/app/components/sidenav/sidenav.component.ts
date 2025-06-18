@@ -42,7 +42,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
       this.subjects = data;
     });
 
-    this.rolName = this.user?.rols?.[0]?.nameRol || 'null';
+    this.rolName = this.loginservice.getUserRole()?.toLocaleLowerCase();
     
     switch (this.rolName) {
       case 'admin':

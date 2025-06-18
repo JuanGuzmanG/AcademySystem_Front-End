@@ -110,7 +110,7 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
   }
 
   getCountries() {
-    this.http.get<any[]>('https://restcountries.com/v3.1/all').subscribe(
+    this.http.get<any[]>('https://restcountries.com/v3.1/all?fields=name').subscribe(
       (data) => {
         this.countries = data.map((c) => c.name.common).sort();
       },

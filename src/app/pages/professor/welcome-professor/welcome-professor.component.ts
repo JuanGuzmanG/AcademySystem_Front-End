@@ -6,8 +6,8 @@ import { materialImports } from '../../../material.imports';
   selector: 'app-home-professor',
   standalone: true,
   imports: [CommonModule, materialImports()],
-  templateUrl: './home-professor.component.html',
-  styleUrl: './home-professor.component.css'
+  templateUrl: './welcome-professor.component.html',
+  styleUrl: './welcome-professor.component.css'
 })
 export class HomeProfessorComponent {
 

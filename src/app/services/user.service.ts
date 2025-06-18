@@ -24,7 +24,7 @@ export class UserService {
   public getusers(){
     return this.httpClient.get(`${baseURL}/users/all_users`);
   }
-  public updateUser(user:User, photoFile?: File): Observable<any> {
+  public updateUser(userId: number,user:User, photoFile?: File): Observable<any> {
     const formData = new FormData();
     const userToUpdate = {...user};
     
@@ -32,7 +32,7 @@ export class UserService {
     if (photoFile) {
       formData.append('file', photoFile, photoFile.name);
     }
-    return this.httpClient.put(`${baseURL}/users/update`,formData);
+    return this.httpClient.put(`${baseURL}/users/update/${userId}`,formData);
   }
   public deleteUser(userId: any){
     return this.httpClient.delete(`${baseURL}/users/delete/${userId}`); 
