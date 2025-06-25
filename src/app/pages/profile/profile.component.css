@@ -11,12 +11,5 @@
     border: 1px solid #ddd;
     text-align: left;
     font-size: 14px;
-}
-mat-card-actions{
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-mat-card-actions button{
-    margin: 0 10px;
+    width: 50%;
 }

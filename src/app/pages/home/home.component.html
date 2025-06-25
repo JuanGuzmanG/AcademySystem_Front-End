@@ -8,7 +8,7 @@
     <h2 class="text-center">educational application that allows teachers to create quizzes and students to solve them.</h2>
     <p class="text-center">This is a application to demonstrate the use of Angular with Spring Boot.</p>
     <div class="container d-flex justify-content-center">
-        <button mat-raised-button color="primary" *ngIf="user;else login" [routerLink]="(user.authorities[0].authority | lowercase)+'/profile'">START</button>
+        <button mat-raised-button color="primary" *ngIf="user;else login" [routerLink]="(rol)+'/profile'">START</button>
         <ng-template #login>
             <button mat-raised-button color="primary" [routerLink]="['/login']">LOGIN</button>
         </ng-template>

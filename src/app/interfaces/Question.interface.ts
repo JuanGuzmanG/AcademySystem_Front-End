@@ -3,7 +3,6 @@ import { Test } from "./Test.interface";
 export interface Question {
     idQuestion: number;
     contentQuestion: string;
-    imageQuestion?: string;
     option1: string;
     option2: string;
     option3: string;
@@ -16,7 +15,6 @@ export interface Question {
 
 export interface NewQuestion {
     contentQuestion: string;
-    imageQuestion?: string;
     option1: string;
     option2: string;
     option3: string;

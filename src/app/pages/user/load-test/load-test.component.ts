@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +15,10 @@ import { materialImports } from '../../../material.imports';
 export class LoadTestComponent {
   subjectId: any;
   tests: any;
-  constructor(private route: ActivatedRoute, private testService: TestService) {
+  constructor(
+    private readonly route: ActivatedRoute= inject(ActivatedRoute), 
+    private readonly testService: TestService= inject(TestService)
+  ) {
     this.route.params.subscribe((params) => {
       this.subjectId = params['subjectID'];
 

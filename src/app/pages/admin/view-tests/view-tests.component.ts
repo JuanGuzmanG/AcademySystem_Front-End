@@ -1,15 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subject as RxjSubject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
+import { Subject as RxjSubject } from 'rxjs';
 import Swal from 'sweetalert2';
 
 
-import { TestService } from '../../../services/test.service';
 import { SubjectService } from '../../../services/subject.service';
+import { Subject } from '../../../interfaces/Subject.interface';
+import { TestService } from '../../../services/test.service';
 import { materialImports } from '../../../material.imports';
 import { Test } from '../../../interfaces/Test.interface';
-import { Subject } from '../../../interfaces/Subject.interface';
 @Component({
   selector: 'app-view-tests',
   standalone: true,
@@ -24,8 +24,8 @@ export class ViewTestsComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new RxjSubject<void>();
 
   constructor(
-    private readonly testService: TestService,
-    private readonly subjectService: SubjectService
+    private readonly testService: TestService = inject(TestService),
+    private readonly subjectService: SubjectService = inject(SubjectService)
   ) {}
 
   ngOnInit() {

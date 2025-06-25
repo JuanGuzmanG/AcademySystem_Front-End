@@ -20,7 +20,30 @@
                         <li>Manage Questions</li>
                     </ul>
                     <mat-divider></mat-divider>
-                    <br>
+                    <h2>You can do:</h2>
+                    <carousel [interval]="5000" [noWrap]="false" [showIndicators]="true">
+                        <slide class="border border-1 border-dark">
+                            <img src="/assets/AllTests.png" alt="slide 1" class="d-block w-100 h-50">
+                            <div class="carousel-caption d-none d-md-block bg-dark">
+                                <h5 class="fs-1 mb-4">VIEW TESTS</h5>
+                            </div>
+                        </slide>
+                        <slide class="border border-1 border-dark">
+                            <img src="/assets/AddTest.png" alt="slide 1" class="d-block w-100 h-50">
+                            <div class="carousel-caption d-none d-md-block bg-dark">
+                                <h5 class="fs-1 mb-4">ADD AND UPDATE TESTS</h5>
+                                <p>Add and Update test only if there are available subjects</p>
+                            </div>
+                        </slide>
+                        <slide class="border border-1 border-dark">
+                            <img src="/assets/UpdateQuestions.png" alt="slide 2" class="d-block w-100 h-50">
+                            <div class="carousel-caption d-none d-md-block bg-dark">
+                                <h5 class="fs-1 mb-4">ADD AND UPDATE QUESTIONS</h5>
+                                <p>Add and update questions per test created, select score and note that each test has a
+                                    limit of questions.</p>
+                            </div>
+                        </slide>
+                    </carousel>
                 </mat-card-content>
             </div>
         </div>

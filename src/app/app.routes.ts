@@ -62,14 +62,16 @@ export const routes: Routes = [
         { path: '', component: WelcomeAdminComponent },
         { path: 'profile', component: ProfileComponent },
         { path: 'profile/update/:userId', component: UpdateProfileComponent },
+
         { path: 'view-tests', component: ViewTestsComponent },
         { path: 'subjects', component: ViewsubjectsComponent },
         { path: 'users', component: ViewUsersComponent },
-        
         {path: 'questions/:testName/:testId',component: ViewTestQuestionsComponent,},
+
         { path: 'add-category', component: AddCategoryComponent },
         { path: 'add-test', component: AddTestComponent },
         {path: 'add-question/:testName/:idTest',component: AddQuestionComponent,},
+
         { path: 'update-subject/:subjectId', component: UpdateSubjectComponent },
         { path: 'update-test/:testId', component: UpdateTestComponent },
         {path: 'update-question/:testName/:idTest/:questionId',component: UpdateQuestionComponent},
@@ -83,13 +85,15 @@ export const routes: Routes = [
         { path: '', component: HomeProfessorComponent},
         { path: 'profile', component: ProfileComponent},
         { path: 'profile/update/:userId', component: UpdateProfileComponent},
+        
         { path: ':idSubject', component: ViewTestProfessorComponent},
+        { path: 'questions/:testName/:testId',component: ViewTestQuestionsProfessorComponent},
+        
+        { path: ':idSubject/add-test',component: AddTestProfessorComponent},
+        { path: 'add-question/:testName/:idTest',component: AddQuestionProfessorComponent},
 
-        { path: 'view-tests/:idSubject/add-test',component: AddTestProfessorComponent},
-        { path: 'view-tests/update-test/:idTest',component: UpdateTestProfessorComponent},
-        { path: 'view-tests/:testName/:idTest/questions',component: ViewTestQuestionsProfessorComponent},
-        { path: 'update/:idTest/:testName/:idQuestion',component: UpdateQuestionProfessorComponent},
-        { path: ':testName/:idTest/questions/add',component: AddQuestionProfessorComponent},
+        { path: 'update-test/:testId',component: UpdateTestProfessorComponent},
+        { path: 'update-question/:testName/:idTest/:questionId',component: UpdateQuestionProfessorComponent},
         ],
     },
 ];

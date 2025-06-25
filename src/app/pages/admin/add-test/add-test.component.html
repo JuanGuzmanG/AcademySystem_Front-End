@@ -1,8 +1,7 @@
 <mat-card>
-
     <div class="row">
         <div class="col-md-12 py-4">
-            <h1 class="text-center">Add test</h1>
+            <h1 class="text-center fw-bold fs-1">ADD TEST</h1>
         </div>
         <div class="col-md-8 offset-md-2">
             <form action="">
@@ -19,36 +18,48 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <mat-form-field class="w-100" appearance="fill">
+                        <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Max Points</mat-label>
-                            <input matInput type="text" name="maxPoints" [(ngModel)]="test.maxPoints"
-                                placeholder="Enter test price" required>
+                            <mat-select name="MaxPoints" 
+                            [(ngModel)]="test.maxPoints">
+                                <mat-option *ngFor="let option of MaxPointsOptions" [value]="option">
+                                    {{option}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="fill">
                             <mat-label>Number of Questions</mat-label>
-                            <input matInput type="text" name="cantQuestions" [(ngModel)]="test.cantQuestions"
-                                placeholder="Enter test duration" required>
+                            <input matInput type="text" 
+                            name="cantQuestions" 
+                            [(ngModel)]="test.cantQuestions"
+                            placeholder="Enter test duration" 
+                            required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-center m-auto">
+                        <mat-slide-toggle name="active" [(ngModel)]="test.active" color="primary">
+                            <span class="fs-3">Publication status</span>
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="fill" class="mt-2 w-100">
+                            <mat-label>Subjects</mat-label>
+                            <mat-select name="subject" [(ngModel)]="test.subject.idSubject">
+                                <mat-option *ngFor="let subject of subjects" [value]="subject.idSubject">
+                                    {{subject.nameSubject}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
 
-                <mat-slide-toggle class="mt-20" name="active" [(ngModel)]="test.active" color="primary">
-                    Publication status
-                </mat-slide-toggle>
-
-                <mat-form-field appearance="fill" class="mt-2 w-100">
-                    <mat-label>Subjects</mat-label>
-                    <mat-select name="subject" [(ngModel)]="test.subject.idSubject">
-                        <mat-option *ngFor="let subject of subjects" [value]="subject.idSubject">
-                            {{subject.nameSubject}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <div class="container text-center pb-4">
-                    <button (click)="saveTest()" mat-raised-button color="primary">Add Test</button>
+                <div class="d-flex w-100 mb-4">
+                    <button (click)="saveTest()" mat-raised-button color="primary" class="w-50 mx-2">Add Test</button>
+                    <button (click)="goBack()" mat-raised-button color="warn" class="w-50 mx-2">CANCEL</button>
                 </div>
             </form>
         </div>

@@ -1,17 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Subject, takeUntil } from 'rxjs';
 import Swal from 'sweetalert2';
 
-import { materialImports } from '../../../material.imports';
 import { QuestionService } from '../../../services/question.service';
 import { ResultsService } from '../../../services/results.service';
-import { LoginService } from '../../../services/login.service';
-import { Subject, takeUntil } from 'rxjs';
 import { Question } from '../../../interfaces/Question.interface';
-import { Test } from '../../../interfaces/Test.interface';
+import { LoginService } from '../../../services/login.service';
 import { TestService } from '../../../services/test.service';
-import { get } from 'http';
+import { materialImports } from '../../../material.imports';
+import { Test } from '../../../interfaces/Test.interface';
 
 @Component({
   selector: 'app-start-test',
@@ -27,6 +26,7 @@ export class StartTestComponent implements OnInit, OnDestroy {
   test?: Test;
 
   pointsEarned: number = 0;
+  totalPoints: number = 0;
   correctAnswers: number = 0;
   attempts: number = 0;
 
@@ -36,29 +36,29 @@ export class StartTestComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   constructor(
-    private route: ActivatedRoute,
-    private questionsService: QuestionService,
-    private router: Router,
-    private resultService: ResultsService,
-    private loginService: LoginService,
-    private testService: TestService
+    private readonly route: ActivatedRoute= inject(ActivatedRoute),
+    private readonly questionsService: QuestionService= inject(QuestionService),
+    private readonly router: Router= inject(Router),
+    private readonly resultService: ResultsService= inject(ResultsService),
+    private readonly loginService: LoginService= inject(LoginService),
+    private readonly testService: TestService= inject(TestService)
   ) {}
 
   ngOnInit(): void {
     this.testId = this.route.snapshot.params['testId'];
-    
+
     this.testService
       .getTest(this.testId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data: Test) => {
           this.test = data;
+          this.totalPoints = this.test?.maxPoints || 0;
         },
         error: (error) => {
           console.error('Error fetching test:', error);
         },
-      })
-      
+      });
 
     this.user = this.loginService.getUser();
     this.denyRollback();
@@ -80,7 +80,6 @@ export class StartTestComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    // Clear the timer if the component is destroyed
     if (this.timer > 0) {
       clearInterval(this.timer);
     }
@@ -142,24 +141,25 @@ export class StartTestComponent implements OnInit, OnDestroy {
       .evaluateTest(this.questions)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-          next: (data: any) => {
-            this.pointsEarned = data.maxPoints;
-            this.correctAnswers = data.cantCorrect;
+        next: (data: any) => {
+          this.pointsEarned = data.maxPoints;
+          this.correctAnswers = data.cantCorrect;
 
-            const resultData = {
-              score: this.pointsEarned,
-              user: {
-                document: this.user.document,
-              },
-              test: {
-                idTest: this.testId,
-              },
-            };
+          const resultData = {
+            score: this.pointsEarned,
+            user: {
+              document: this.user.document,
+            },
+            test: {
+              idTest: this.testId,
+            },
+          };
 
-            this.resultService.saveResult(resultData)
+          this.resultService
+            .saveResult(resultData)
             .pipe(takeUntil(this.destroy$))
             .subscribe({
-              next: (data: any) =>{
+              next: (data: any) => {
                 this.attempts++;
                 this.sendTest = true;
                 console.log('Test submitted successfully:', data);
@@ -173,17 +173,16 @@ export class StartTestComponent implements OnInit, OnDestroy {
                 });
               },
             });
-          },
-          error: (error) => {
-            console.error('Error evaluating test:', error);
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'There was an error evaluating the test. Please try again later.',
-            });
-          },
         },
-      );
+        error: (error) => {
+          console.error('Error evaluating test:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'There was an error evaluating the test. Please try again later.',
+          });
+        },
+      });
   }
 
   startTimer() {

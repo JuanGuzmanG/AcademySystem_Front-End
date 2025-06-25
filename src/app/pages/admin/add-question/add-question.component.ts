@@ -1,12 +1,12 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule,Location } from '@angular/common';
+import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 
 import { materialImports } from '../../../material.imports';
 import { QuestionService } from '../../../services/question.service';
-import { Subject } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Question } from '../../../interfaces/Question.interface';
 
 @Component({
@@ -25,10 +25,11 @@ export class AddQuestionComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   constructor(
-    private route: ActivatedRoute = inject(ActivatedRoute),
-    private questionService: QuestionService = inject(QuestionService),
-    private router: Router = inject(Router),
-    private fb: FormBuilder = inject(FormBuilder)
+    private readonly route: ActivatedRoute = inject(ActivatedRoute),
+    private readonly questionService: QuestionService = inject(QuestionService),
+    private readonly router: Router = inject(Router),
+    private readonly fb: FormBuilder = inject(FormBuilder),
+    private readonly location: Location = inject(Location)
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +52,10 @@ export class AddQuestionComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   onSubmit() {
     if (this.questionForm.invalid) {
       Swal.fire('Error', 'Please fill all the fields', 'error');
@@ -58,14 +63,14 @@ export class AddQuestionComponent implements OnInit, OnDestroy {
     }
     const newQuestion: Question = {
       ...this.questionForm.value,
-      test: { idTest: this.idTest }, // Assign the test ID
-      contentQuestion: '¿' + this.questionForm.value.contentQuestion + '?', // Add question marks
+      test: { idTest: this.idTest }, 
+      contentQuestion: '¿' + this.questionForm.value.contentQuestion + '?',
     };
 
     this.questionService.addQuestion(newQuestion).subscribe({
       next: () => {
         this.questionForm.reset();
-        this.questionForm.get('test')?.patchValue({ idTest: this.idTest }); // Re-set test ID if needed
+        this.questionForm.get('test')?.patchValue({ idTest: this.idTest });
         this.router.navigate(['/admin/questions', this.testName, this.idTest]);
       },
       error: (err) => {
@@ -73,5 +78,4 @@ export class AddQuestionComponent implements OnInit, OnDestroy {
       },
     });
   }
-  
 }

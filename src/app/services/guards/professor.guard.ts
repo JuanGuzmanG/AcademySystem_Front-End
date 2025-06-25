@@ -8,7 +8,7 @@ export const professorGuard: CanActivateFn = (route, state) => {
 
 
   if(loginService.isLoggedIn() && 
-  loginService.getUserRole() === 'PROFESSOR') {
+  loginService.getUserRole() === 'professor') {
     return true;
   }
 

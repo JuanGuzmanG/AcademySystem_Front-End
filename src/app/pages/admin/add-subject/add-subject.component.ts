@@ -1,14 +1,14 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-import { SubjectService } from '../../../services/subject.service';
-import { materialImports } from '../../../material.imports';
-import { CommonModule } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SubjectService } from '../../../services/subject.service';
 import { NewSubject } from '../../../interfaces/Subject.interface';
+import { materialImports } from '../../../material.imports';
+import { CommonModule, Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-category',
@@ -18,14 +18,21 @@ import { NewSubject } from '../../../interfaces/Subject.interface';
   styleUrl: './add-subject.component.css',
 })
 export class AddCategoryComponent implements OnDestroy {
-  private readonly destroy$ = new Subject<void>();
-  public subjectForm: FormGroup;
 
+  public subjectForm: FormGroup;
+  subject = {
+    nameSubject: '',
+    descriptionSubject: '',
+  };
+  
+  private readonly destroy$ = new Subject<void>();
+  
   constructor(
-    private subjectservice: SubjectService = inject(SubjectService),
-    private snack: MatSnackBar = inject(MatSnackBar),
-    private router: Router = inject(Router),
-    private fb: FormBuilder = inject(FormBuilder)
+    private readonly subjectservice: SubjectService = inject(SubjectService),
+    private readonly snack: MatSnackBar = inject(MatSnackBar),
+    private readonly router: Router = inject(Router),
+    private readonly fb: FormBuilder = inject(FormBuilder),
+    private readonly location: Location = inject(Location)
   ) {
     this.subjectForm = this.fb.group({
       nameSubject: ['', [Validators.required, Validators.minLength(3)]],
@@ -39,10 +46,9 @@ export class AddCategoryComponent implements OnDestroy {
     this.destroy$.complete();
   }
 
-  subject = {
-    nameSubject: '',
-    descriptionSubject: '',
-  };
+  goBack(): void {
+    this.location.back();
+  }
 
   onSubmit(): void {
     if (this.subjectForm.invalid) {

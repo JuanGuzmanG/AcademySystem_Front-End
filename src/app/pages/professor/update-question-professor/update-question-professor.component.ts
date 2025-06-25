@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule,Location } from '@angular/common';
 
 import { QuestionService } from '../../../services/question.service';
 import { materialImports } from '../../../material.imports';
-import { TestService } from '../../../services/test.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-update-question-professor',
@@ -13,38 +13,63 @@ import { TestService } from '../../../services/test.service';
   templateUrl: './update-question-professor.component.html',
   styleUrl: './update-question-professor.component.css'
 })
-export class UpdateQuestionProfessorComponent {
-  testId: any;
+export class UpdateQuestionProfessorComponent implements OnInit , OnDestroy {
+  testId: '' | null = null;
   questionId: any;
-  testName: any;
-  question: any={};
+  testName: '' | null = null;
+  question: any = {};
+
+  private readonly destroy$ = new Subject<void>();
+
   constructor(
-    private route: ActivatedRoute,
-    private testService: TestService,
-    private router: Router,
-    private questionService: QuestionService
-  ){
+    private readonly route: ActivatedRoute = inject(ActivatedRoute),
+    private readonly router: Router = inject(Router),
+    private readonly questionService: QuestionService = inject(QuestionService),
+    private readonly location: Location = inject(Location)
+  ) {}
+
+  ngOnInit(): void {
     this.testId = this.route.snapshot.params['idTest'];
-    this.questionId = this.route.snapshot.params['idQuestion'];
+    this.questionId = this.route.snapshot.params['questionId'];
     this.testName = this.route.snapshot.params['testName'];
-    this.questionService.getQuestion(this.questionId).subscribe(
-      (data)=> {
-        this.question = data;
+    this.questionService
+    .getQuestion(this.questionId)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (question) => {
+        this.question = question;
       },
-      (error)=>{
-        console.log(error);
-      }
-    )
+      error: (error) => {
+        console.error('Error fetching question:', error);
+        this.router.navigate([
+          '/admin/questions/' + this.testName + '/' + this.testId,
+        ]);
+      },
+    });
   }
 
-  onSubmit(){
-    this.questionService.updateQuestion(this.question).subscribe(
-      (data) => {
-        this.router.navigate(['/professor/view-tests/'+this.testName+'/'+this.testId+'/questions']);
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  onSubmit() {
+    this.questionService
+    .updateQuestion(this.question)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: () => {
+        this.router.navigate([
+          '/professor/questions/' + this.testName + '/' + this.testId,
+        ]);
       },
-      (error) => {
-        console.log(error);
-      }
-    );
+      error: (error) => {
+        console.error('Error updating question:', error);
+      },
+    });
   }
 }

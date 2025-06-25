@@ -41,10 +41,23 @@
             </div>
         </div>
     </div>
-    <div class="container text-center pt-3 mt-3">
-        <button *ngIf="questions.length < test.cantQuestions" mat-raised-button color="primary" [routerLink]="'/admin/add-question/'+testName+'/'+testId">
+    <div class="text-center p-3 d-flex justify-content-center">
+        <button *ngIf="questions.length < test.cantQuestions" 
+        mat-raised-button color="primary" 
+        [routerLink]="'/admin/add-question/'+testName+'/'+testId">
             Add Question
         </button>
-        <mat-label class="fs-3 bg-danger rounded p-1 text-white" *ngIf="questions.length >= test.cantQuestions">LIMIT OF QUESTIONS REACHED</mat-label>
+        
+        <button
+        mat-raised-button
+        class="fs-3 rounded text-white p-2 my-auto mx-2" 
+        color="accent"
+        *ngIf="questions.length >= test.cantQuestions"
+        >LIMIT OF QUESTIONS REACHED</button>
+
+        <button
+        [routerLink]="'/admin/view-tests'"
+        class="mx-2"
+        mat-flat-button color="warn">GO BACK</button>
     </div>
 </mat-card>

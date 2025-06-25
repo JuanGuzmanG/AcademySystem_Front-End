@@ -2,7 +2,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -28,11 +28,11 @@ export class SignupComponent {
   photoPreview: string | ArrayBuffer | null = null;
 
   constructor(
-    private userService: UserService,
-    private snack: MatSnackBar,
-    private http: HttpClient,
-    private fb: FormBuilder,
-    private router: Router
+    private readonly userService: UserService=inject(UserService),
+    private readonly snack: MatSnackBar=inject(MatSnackBar),
+    private readonly http: HttpClient=inject(HttpClient),
+    private readonly fb: FormBuilder=inject(FormBuilder),
+    private readonly router: Router=inject(Router)
   ) {
     this.getCountries();
 
@@ -54,7 +54,7 @@ export class SignupComponent {
     });
   }
 
-  onFileSelected(event: Event): void { // Cambiado el tipo de evento a Event
+  onFileSelected(event: Event): void { 
     const element = event.currentTarget as HTMLInputElement;
     const fileList: FileList | null = element.files;
 
@@ -103,7 +103,7 @@ export class SignupComponent {
         Swal.fire('User saved successfully', 'User saved in the system', 'success');
         this.router.navigate(['/login']);
       },
-      (error) => {
+      () => {
         this.snack.open('System Error, Try later', 'OK', {
           duration: 3000,
           verticalPosition: 'top',

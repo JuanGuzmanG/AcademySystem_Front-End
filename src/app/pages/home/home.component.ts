@@ -12,11 +12,12 @@ import { Subject } from 'rxjs';
 })
 export class HomeComponent implements OnDestroy {
   user: any;
-
+  rol: any;
   private readonly destroy$ = new Subject<void>();
 
   constructor(private login: LoginService) {
     this.user = this.login.getUser();
+    this.rol = this.login.getUserRole();
   }
 
   ngOnDestroy() {

@@ -40,14 +40,14 @@ export class ChangePasswordDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ChangePasswordDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { user: any }, // Recibes datos, como el userId
+    @Inject(MAT_DIALOG_DATA) public data: { user: any },
     private fb: FormBuilder,
-    private loginService: LoginService // Asegúrate de importar tu servicio de login
+    private loginService: LoginService
   ) {
     this.user = data.user;
     this.passwordForm = this.fb.group(
       {
-        currentPassword: [''], // Opcional, puedes añadir Validators.required si es necesario
+        currentPassword: [''],
         newPassword: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
       },
@@ -56,28 +56,26 @@ export class ChangePasswordDialogComponent {
   }
 
   onNoClick(): void {
-    this.dialogRef.close(); // Cierra el diálogo sin devolver nada
+    this.dialogRef.close();
   }
 
   onSubmit(): void {
     if (this.passwordForm.valid) {
-      // Aquí es donde llamarías a tu servicio para cambiar la contraseña
-      // Por ejemplo: this.userService.changePassword(this.userId, this.passwordForm.value)...
       this.loginService.changePassword(this.passwordForm.value.currentPassword, this.passwordForm.value.newPassword).subscribe(
         (response) => {
           console.log('Contraseña cambiada con éxito', response);
-          // Aquí puedes manejar la respuesta del servicio, como mostrar un mensaje de éxito
         },
-        (error) => {
+        () => {
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Error al cambiar la contraseña. Por favor, inténtalo de nuevo.',});
-          // Aquí puedes manejar el error, como mostrar un mensaje de error
-        });
+            text: 'Error al cambiar la contraseña. Por favor, inténtalo de nuevo.',
+          });
+        }
+      );
+
       this.dialogRef.close({
         newPassword: this.passwordForm.value.newPassword,
-        // No envíes currentPassword a menos que el componente padre lo necesite específicamente
       });
 
     } else {

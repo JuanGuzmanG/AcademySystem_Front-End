@@ -2,8 +2,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import Swal from 'sweetalert2';
 
 import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
@@ -35,15 +35,18 @@ export class UpdateProfileComponent {
   selectedFile: File | null = null;
   photoPreview: string | ArrayBuffer | null = null;
 
+  deletePhoto= false;
+
   constructor(
-    private route: ActivatedRoute,
-    private userService: UserService,
-    private http: HttpClient,
-    private router: Router,
-    private fb: FormBuilder,
-    private rolservice: RolService,
-    private dialog: MatDialog,
-    private loginService: LoginService
+    private readonly route: ActivatedRoute=inject(ActivatedRoute),
+    private readonly userService: UserService=inject(UserService),
+    private readonly http: HttpClient=inject(HttpClient),
+    private readonly router: Router=inject(Router),
+    private readonly fb: FormBuilder=inject(FormBuilder),
+    private readonly rolservice: RolService=inject(RolService),
+    private readonly dialog: MatDialog=inject(MatDialog),
+    private readonly loginService: LoginService=inject(LoginService),
+    private readonly location: Location=inject(Location)
   ) {
     this.getCountries();
   }
@@ -73,8 +76,12 @@ export class UpdateProfileComponent {
     this.CurrentUser();
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   private applyFieldsPermissions() {
-    const isAdmin = this.rolCurrentUser === 'ADMIN';
+    const isAdmin = this.rolCurrentUser === 'admin';
 
     this.userForm.get('documentType')?.setErrors(null)
     this.userForm.get('documentType')?.[isAdmin ? 'enable' : 'disable']();
@@ -152,7 +159,7 @@ export class UpdateProfileComponent {
         (data) => {
           this.countries = data.map((c) => c.name.common).sort();
         },
-        (error) => {
+        () => {
           console.error('Error fetching countries');
         }
       );
@@ -164,6 +171,11 @@ export class UpdateProfileComponent {
       return;
     }
 
+    const customGenderValue = this.userForm.get('customGender')?.value;
+    if (this.userForm.get('gender')?.value === 'Other' && customGenderValue.trim()) {
+      this.userForm.patchValue({ gender: customGenderValue.trim() });
+    }
+    console.log('userForm', this.selectedFile);
     const formValue = this.userForm.value;
     console.log('formValue', formValue);
     if (formValue.gender === 'Other' && formValue.customGender?.trim()) {
@@ -173,7 +185,7 @@ export class UpdateProfileComponent {
 
     const userData = { ...this.userForm.getRawValue() };
     this.userService
-      .updateUser(userData, this.selectedFile ?? undefined)
+      .updateUser(this.userId, userData, this.selectedFile ?? undefined)
       .subscribe(
         (data) => {
           this.loginService.setUser(data);
@@ -194,17 +206,14 @@ export class UpdateProfileComponent {
 
   openChangePasswordDialog(): void {
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent, {
-      width: '450px', // Ajusta el ancho según necesites
-      panelClass: 'custom-dialog-panel', // Clase CSS personalizada para el diálogo
-      disableClose: true, // Evita que se cierre al hacer clic fuera o presionar ESC (opcional)
-      data: { user: this.user }, // Pasa el userId al diálogo
+      width: '450px', 
+      panelClass: 'custom-dialog-panel', 
+      disableClose: true, 
+      data: { user: this.user },
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('El diálogo de cambiar contraseña se cerró');
       if (result && result.newPassword) {
-        // Aquí 'result' es lo que devolvió el diálogo al cerrarse con éxito (ej. { newPassword: '...' })
-        // Ahora puedes llamar al servicio para actualizar la contraseña del usuario en el backend
-        // this.userService.updateUserPassword(this.userId, result.newPassword).subscribe(...);
         Swal.fire(
           'Success',
           'Password change data received (implement actual update).',

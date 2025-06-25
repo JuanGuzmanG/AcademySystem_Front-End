@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subject as RxjSubject } from 'rxjs';
@@ -22,8 +22,8 @@ export class ViewTestComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new RxjSubject<void>();
 
   constructor(
-    private testService: TestService,
-    private route: ActivatedRoute
+    private readonly testService: TestService=inject(TestService),
+    private readonly route: ActivatedRoute=inject(ActivatedRoute)
   ){}
 
   ngOnInit() {

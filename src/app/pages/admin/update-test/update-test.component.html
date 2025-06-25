@@ -5,53 +5,31 @@
             <form action="" *ngIf="test">
                 <mat-form-field class="w-100" appearance="fill">
                     <mat-label>Name</mat-label>
-                    <input
-                    matInput
-                    type="text"
-                    name="testName"
-                    [(ngModel)]="test.testName"
-                    placeholder="Enter test name"
-                    required
-                    >
+                    <input matInput type="text" name="testName" [(ngModel)]="test.testName"
+                        placeholder="Enter test name" required>
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="fill">
                     <mat-label>Description</mat-label>
-                    <textarea
-                    matInput
-                    type="text"
-                    name="descriptionTest"
-                    [(ngModel)]="test.descriptionTest"
-                    placeholder="Enter test description"
-                    rows="5"
-                    required
-                    ></textarea>
+                    <textarea matInput type="text" name="descriptionTest" [(ngModel)]="test.descriptionTest"
+                        placeholder="Enter test description" rows="5" required></textarea>
                 </mat-form-field>
 
                 <div class="row">
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="fill">
                             <mat-label>Max Points</mat-label>
-                            <input
-                            matInput
-                            type="text"
-                            name="maxPoints"
-                            [(ngModel)]="test.maxPoints"
-                            placeholder="Enter test price"
-                            required
-                            >
+                            <mat-select name="maxPoints" [(ngModel)]="test.maxPoints">
+                                <mat-option *ngFor="let option of MaxPointsOptions" [value]="option">
+                                    {{option}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="fill">
                             <mat-label>Number of Questions</mat-label>
-                            <input
-                            matInput
-                            type="text"
-                            name="cantQuestions"
-                            [(ngModel)]="test.cantQuestions"
-                            placeholder="Enter test duration"
-                            required
-                            >
+                            <input matInput type="text" name="cantQuestions" [(ngModel)]="test.cantQuestions"
+                                placeholder="Enter test duration" required>
                         </mat-form-field>
                     </div>
                 </div>
@@ -69,8 +47,9 @@
                     </mat-select>
                 </mat-form-field>
 
-                <div class="container text-center mb-2">
-                    <button (click)="updateTest()" mat-raised-button color="primary">UPDATE</button>
+                <div class="d-flex w-100 text-center mb-2">
+                    <button class="w-50 mx-1" (click)="updateTest()" mat-raised-button color="primary">UPDATE</button>
+                    <button class="w-50 mx-1" (click)="goBack()" mat-raised-button color="warn">CANCEL</button>
                 </div>
             </form>
         </div>

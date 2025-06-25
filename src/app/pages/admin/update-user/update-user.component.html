@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-12"></div>
         <div class="col-md-8 offset-md-2">
-            <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+            <form [formGroup]="userForm">
                 <div class="row">
                     <div class="col-md-12 my-4">
                         <div class="row text-center">
@@ -144,9 +144,14 @@
                     </div>
                 </div>
 
-                <div class="container my-3 text-center">
+                <div class="d-flex w-100 my-3 text-center">
                     <button mat-raised-button color="primary" type="submit"
-                        [disabled]="userForm.invalid">Update</button>
+                        class="w-50 mx-1" (click)="updateUser()"
+                        [disabled]="userForm.invalid">UPDATE USER</button>
+                    <button (click)="goBack()" mat-raised-button color="warn"
+                        class="w-50 mx-1">
+                        CANCEL
+                    </button>
                 </div>
             </form>
         </div>

@@ -4,42 +4,46 @@
             <div class="col-md-12">
                 <div class="mt-1">
                     <mat-card>
-                        <mat-card-header>
-                            <mat-card-title class="fs-1 fw-bold">{{test.testName}}</mat-card-title>
+                        <mat-card-header class="mb-5">
+                            <mat-card-title class="fs-1 fw-bold mb-1">{{test.testName}}</mat-card-title>
                             <mat-card-subtitle>{{test.descriptionTest}}</mat-card-subtitle>
                         </mat-card-header>
                         <mat-card-content>
-                            <mat-divider class="my-1"></mat-divider>
-                            <mat-card-title class="fw-bold">
-                                Read the instructions carefully
-                            </mat-card-title>
-                            <mat-card-subtitle>One more step</mat-card-subtitle>
-                        
+                            <div class="mb-2">
+                                <mat-card-title class="fw-bold">
+                                    Read the instructions carefully
+                                </mat-card-title>
+                                <mat-card-subtitle>One more step</mat-card-subtitle>
+                            </div>
                             <mat-divider></mat-divider>
-                            <h1>Important Instructions</h1>
-                            <ul>
-                                <li>This test is for practice only.</li>
-                                <li>You must submit the test to: <b>{{test.cantQuestions *2}} minutes</b></li>
-                                <li>You can attempt the test as many times as you like.</li>
-                                <li>There are <b>{{test.maxPoints/test.cantQuestions}} points</b> per question.</li>
-                            </ul>
+                            <div class="my-3">
+                                <h2 class="fw-bold mb-1">Important Instructions</h2>
+                                <ul>
+                                    <li>This test is for practice only.</li>
+                                    <li>You must submit the test to: <b>{{test.cantQuestions *2}} minutes</b></li>
+                                    <li>You can attempt the test as many times as you like.</li>
+                                    <li>There are <b>{{test.maxPoints/test.cantQuestions}} points</b> per question.</li>
+                                </ul>
+                            </div>
                             <mat-divider></mat-divider>
-                            <h2>attempts of test</h2>
-                            <ul>
-                                <li>press the <b>Start</b> button to begin the test</li>
-                                <li>Time will start when you click the <b>Start</b> button</li>
-                                <li>you can not resume this test if it's interrupted for any reason</li>
-                                <li>Scroll down to move on the next question</li>
-                                <li>Click the submit button when you finish the test</li>
-                                <li>The test report will be automatically generated as a PDF</li>
-                            </ul>
+                            <div class="my-3">
+                                <h2 class="fw-bold mb-1">Attempts of test</h2>
+                                <ul>
+                                    <li>press the <b>Start</b> button to begin the test</li>
+                                    <li>Time will start when you click the <b>Start</b> button</li>
+                                    <li>you can not resume this test if it's interrupted for any reason</li>
+                                    <li>Scroll down to move on the next question</li>
+                                    <li>Click the submit button when you finish the test</li>
+                                    <li>The test report will be automatically generated as a PDF</li>
+                                </ul>
+                            </div>
                         </mat-card-content>
-                        <mat-card-actions class="text-center mb-2">
-                            <button     
-                            mat-raised-button 
-                            color="primary"
-                            (click)="onStartTest()">
-                                Start Test
+                        <mat-card-actions class="d-flex justify-content-center">
+                            <button mat-raised-button color="primary" (click)="onStartTest()">
+                                START TEST
+                            </button>
+                            <button class="m-2" mat-raised-button color="warn" (click)="goBack()">
+                                CANCEL
                             </button>
                         </mat-card-actions>
                     </mat-card>

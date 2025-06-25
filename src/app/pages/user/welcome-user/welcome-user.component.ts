@@ -6,7 +6,7 @@ import { materialImports } from '../../../material.imports';
 @Component({
   selector: 'app-welcome-user',
   standalone: true,
-  imports: [CommonModule,materialImports()],
+  imports: [CommonModule, materialImports()],
   templateUrl: './welcome-user.component.html',
   styleUrl: './welcome-user.component.css'
 })

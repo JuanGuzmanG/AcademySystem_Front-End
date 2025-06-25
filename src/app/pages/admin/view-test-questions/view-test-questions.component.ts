@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject as RxjSubject, takeUntil, switchMap } from 'rxjs';
+import { Subject as RxjSubject, takeUntil, switchMap, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 
 import { QuestionService } from '../../../services/question.service';
@@ -33,14 +33,14 @@ export class ViewTestQuestionsComponent implements OnInit, OnDestroy {
       subject: {} as any,
   };
 
-  private readonly destroy$ = new RxjSubject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
-    private route: ActivatedRoute,
-    private questionService: QuestionService,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private testservice: TestService
+    private readonly route: ActivatedRoute= inject(ActivatedRoute),
+    private readonly questionService: QuestionService= inject(QuestionService),
+    private readonly router: Router= inject(Router),
+    private readonly snackBar: MatSnackBar= inject(MatSnackBar),
+    private readonly testservice: TestService= inject(TestService)
   ) {}
 
   ngOnInit(): void {

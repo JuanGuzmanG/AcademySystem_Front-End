@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { materialImports } from '../../material.imports';
 import { LoginService } from '../../services/login.service';
-import { CommonModule } from '@angular/common'; // Importa CommonModule si es necesario
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -12,10 +12,10 @@ import { CommonModule } from '@angular/common'; // Importa CommonModule si es ne
 export class ProfileComponent {
   user: any = null;
   userDocument: any;
-  constructor(
-    private loginservice: LoginService = inject(LoginService),
-  ) {
+  userRol: string | null = null;
+  constructor(private loginservice: LoginService = inject(LoginService)) {
     this.user = loginservice.getUser();
     this.userDocument = this.user.document;
+    this.userRol = loginservice.getUserRole();
   }
 }

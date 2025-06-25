@@ -18,9 +18,15 @@
                                 [value]="subject.descriptionSubject" placeholder="Enter category description" rows="15">
                         </mat-form-field>
 
-                        <div class="container text-center mt-1 w-50">
-                            <button (click)="onSubmit()" mat-raised-button color="primary" class="w-100">UPDATE
+                        <div class="d-flex justify-content-center w-100">
+                            <button (click)="onSubmit()"
+                            mat-raised-button color="primary" class="w-50 mx-1">UPDATE
                                 SUBJECT</button>
+                            <button 
+                            (click)="goBack()"
+                            mat-raised-button color="warn" class="w-50 mx-1">
+                                CANCEL
+                            </button>
                         </div>
                     </form>
                 </div>

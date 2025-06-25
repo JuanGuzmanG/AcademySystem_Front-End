@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,10 @@ import Swal from 'sweetalert2';
 
 import { QuestionService } from '../../../services/question.service';
 import { materialImports } from '../../../material.imports';
+import { Question } from '../../../interfaces/Question.interface';
+import { Test } from '../../../interfaces/Test.interface';
+import { Subject, switchMap, takeUntil } from 'rxjs';
+import { TestService } from '../../../services/test.service';
 
 @Component({
   selector: 'app-view-test-questions-professor',
@@ -15,51 +19,100 @@ import { materialImports } from '../../../material.imports';
   styleUrl: './view-test-questions-professor.component.css'
 })
 export class ViewTestQuestionsProfessorComponent {
-  idTest: any;
-  testName: any;
-  questions: any;
+  public testId!: number;
+  public testName!: any;
+  public questions: Question[] = [];
+  public CantQuestions!: number;
+  public test: Test ={
+      idTest: 0,
+      testName: '',
+      descriptionTest: '',
+      maxPoints: 0,
+      cantQuestions: 0,
+      active: false,
+      subject: {} as any,
+  };
+
+  private readonly destroy$ = new Subject<void>();
+
   constructor(
-    private route: ActivatedRoute,
-    private questionService: QuestionService,
-    private router: Router,
-    private snackBar: MatSnackBar
-  ) {
-    this.idTest = this.route.snapshot.params['idTest'];
-    this.testName = this.route.snapshot.params['testName'];
-    this.questionService.listQuestionsOfTest(this.idTest).subscribe(
-      (data) => {
-        this.questions = data;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    private readonly route: ActivatedRoute= inject(ActivatedRoute),
+    private readonly questionService: QuestionService= inject(QuestionService),
+    private readonly router: Router= inject(Router),
+    private readonly snackBar: MatSnackBar= inject(MatSnackBar),
+    private readonly testservice: TestService= inject(TestService)
+  ) {}
+
+  ngOnInit(): void {
+    this.route.params
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((params) => {
+          this.testId = params['testId'];
+          this.testName = params['testName'];
+          return this.testservice.getTest(this.testId);
+        }),
+        switchMap((test: Test) => {
+          this.test = test;
+          this.CantQuestions = test.cantQuestions;
+          return this.questionService.listQuestionsOfTest(this.testId);
+        })
+      )
+      .subscribe({
+        next: (questionData: Question[]) => {
+          this.questions = questionData;
+        },
+        error: (error) => {
+          console.error('Error loading questions:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to load questions. Please try again later.',
+          });
+        }
+      });
   }
 
-  deleteQuestion(idQuestion: any) {
-    Swal.fire({
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  public async deleteQuestion(idQuestion: number): Promise<void> {
+    const result = await Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      text: 'This action cannot be undone.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.questionService.deleteQuestion(idQuestion).subscribe(
-          (data) => {
-            this.questions = this.questions.filter(
-              (question: any) => question.idQuestion != idQuestion
-            );
-            Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
-          },
-          (error) => {
-            console.error(error);
-          }
-        );
-      }
+      cancelButtonText: 'No, cancel!',
     });
+
+    if (result.isConfirmed) {
+      this.questionService.
+      deleteQuestion(idQuestion)
+      .pipe(
+        takeUntil(this.destroy$),
+        ).subscribe({
+          next:() => {
+            this.questions = this.questions.filter(
+              (question) => question.idQuestion !== idQuestion
+            );
+            this.snackBar.open('Question deleted successfully', 'Close', {
+              duration: 3000,
+            });
+            this.CantQuestions--;
+          },
+          error: (error) => {
+            console.error('Error deleting question:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Failed to delete the question. Please try again later.',
+            });
+          }
+        });
+    }
   }
 }
 

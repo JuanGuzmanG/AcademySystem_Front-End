@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule, Location } from '@angular/common';
 import { Subject as RxjSubject, takeUntil } from 'rxjs';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-import { materialImports } from '../../../material.imports';
 import { SubjectService } from '../../../services/subject.service';
-import { TestService } from '../../../services/test.service';
 import { Subject } from '../../../interfaces/Subject.interface';
+import { TestService } from '../../../services/test.service';
+import { materialImports } from '../../../material.imports';
 import { Test } from '../../../interfaces/Test.interface';
 @Component({
   selector: 'app-add-test-professor',
@@ -36,7 +36,8 @@ export class AddTestProfessorComponent implements OnInit, OnDestroy {
     private subjectService: SubjectService, 
     private testService: TestService,
     private snack: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +47,10 @@ export class AddTestProfessorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   loadSubjects() {

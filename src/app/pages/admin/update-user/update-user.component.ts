@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule,Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
 import { UserService } from '../../../services/user.service';
@@ -33,12 +33,13 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   constructor(
-    private route: ActivatedRoute,
-    private userService: UserService,
-    private http: HttpClient,
-    private router: Router,
-    private fb: FormBuilder,
-    private rolservice: RolService
+    private readonly route: ActivatedRoute= inject(ActivatedRoute),
+    private readonly userService: UserService= inject(UserService),
+    private readonly http: HttpClient= inject(HttpClient),
+    private readonly router: Router= inject(Router),
+    private readonly fb: FormBuilder= inject(FormBuilder),
+    private readonly rolservice: RolService= inject(RolService),
+    private readonly location: Location= inject(Location)
   ) {}
 
   ngOnInit() {
@@ -109,6 +110,10 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   getCountries() {
     this.http.get<any[]>('https://restcountries.com/v3.1/all?fields=name').subscribe(
       (data) => {
@@ -134,7 +139,7 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
 
     delete formValue.customGender;
     console.log(formValue);
-    this.userService.updateUser(formValue).subscribe(
+    this.userService.updateUser(this.userId, formValue).subscribe(
       () => {
         this.router.navigate(['/admin/users']);
         Swal.fire('Success', 'User updated successfully', 'success');

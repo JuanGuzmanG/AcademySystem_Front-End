@@ -67,12 +67,20 @@
                                 <mat-option *ngIf="questionForm.get('option4')?.value" [value]="questionForm.get('option4')?.value">{{questionForm.get('option4')?.value}}</mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <div class="container text-center">
+                        <div class="d-flex w-100 text-center">
                             <button
                             (click)="onSubmit()"
                             mat-raised-button
+                            class="w-50 mx-1"
                             color="primary"
-                            >Save</button>
+                            >SAVE QUESTION</button>
+                            <button
+                            mat-raised-button
+                            class="w-50 mx-1"
+                            color="warn"
+                            (click)="goBack()">
+                                CANCEL
+                            </button>
                         </div>
                     </form>
                 </mat-card-content>

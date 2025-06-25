@@ -28,7 +28,7 @@ fgsColor="black">
                 Logout
             </a>
             <button *ngIf="isLoggedIn && user" mat-button
-                [routerLink]="(user.authorities[0].authority | lowercase)+'/profile'">
+                [routerLink]="(user.rols[0])+'/profile'">
                 {{user.firstName}} {{user.lastName}}
             </button>
         </div>

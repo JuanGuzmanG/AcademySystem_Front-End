@@ -58,9 +58,12 @@
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <h2>Points Earned: {{pointsEarned}}</h2>
-                    <h2>Correct Answer: {{correctAnswers}}</h2>
-                    <h3>Attempts: {{attempts}}</h3>
+                    <h2 class="mb-0 mt-3">Points Earned: <strong class="text-primary">{{pointsEarned}}</strong> out of <strong>{{totalPoints}}</strong></h2>
+                    <mat-divider></mat-divider>
+                    <h2 class="mb-0 mt-3">Correct Answer: {{correctAnswers}}</h2>
+                    <mat-divider></mat-divider>
+                    <h2 class="mb-0 mt-3">Attempts: {{attempts}}</h2>
+                    <mat-divider></mat-divider>
                 </mat-card-content>
                 <mat-card-actions>
                     <button mat-raised-button class="me-2" (click)="printResult()" color="primary">Print</button>

@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule,Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 import { QuestionService } from '../../../services/question.service';
 import { materialImports } from '../../../material.imports';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { Question } from '../../../interfaces/Question.interface';
 
 @Component({
   selector: 'app-add-question-professor',
@@ -13,57 +16,67 @@ import { materialImports } from '../../../material.imports';
   templateUrl: './add-question-professor.component.html',
   styleUrl: './add-question-professor.component.css'
 })
-export class AddQuestionProfessorComponent {
-  idTest: any;
-  testName: any;
-  question: any = {
-    test: {},
-    contentQuestion: '',
-    imageQuestion: null,
-    option1: '',
-    option2: '',
-    option3: '',
-    option4: '',
-    correctOption: '',
-  };
+export class AddQuestionProfessorComponent implements OnInit, OnDestroy {
+  idTest: string | null = null;
+  testName: string | null = null;
+
+  questionForm!: FormGroup;
+
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
-    private route: ActivatedRoute,
-    private questionService: QuestionService,
-    private router: Router
-  ) {
+    private readonly route: ActivatedRoute = inject(ActivatedRoute),
+    private readonly questionService: QuestionService = inject(QuestionService),
+    private readonly router: Router = inject(Router),
+    private readonly fb: FormBuilder = inject(FormBuilder),
+    private readonly location: Location = inject(Location)
+  ) {}
+
+  ngOnInit(): void {
     this.idTest = this.route.snapshot.params['idTest'];
     this.testName = this.route.snapshot.params['testName'];
-    this.question.test['idTest'] = this.idTest;
+
+    this.questionForm = this.fb.group({
+      contentQuestion: ['', Validators.required],
+      option1: ['', Validators.required],
+      option2: ['', Validators.required],
+      option3: ['', Validators.required],
+      option4: ['', Validators.required],
+      correctOption: ['', Validators.required],
+      imageQuestion: [null],
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   onSubmit() {
-    if(this.question.contentQuestion.trim() == '' || 
-      this.question.correctOption.trim() == ''||
-      this.question.option1.trim() == '' ||
-      this.question.option2.trim() == '' ||
-      this.question.option3.trim() == '' ||
-      this.question.option4.trim() == ''
-    ) {
-      Swal.fire('Error', 'Please enter all options, correct answer and question', 'error');
+    if (this.questionForm.invalid) {
+      Swal.fire('Error', 'Please fill all the fields', 'error');
       return;
     }
-    this.question.contentQuestion = '¿' + this.question.contentQuestion + '?';
-    
-    this.questionService.addQuestion(this.question).subscribe(
-      (data) => {
-        Swal.fire('Sucess', 'Question added successfully', 'success');
-        this.question.contentQuestion = '';
-        this.question.option1 = '';
-        this.question.option2 = '';
-        this.question.option3 = '';
-        this.question.option4 = '';
-        this.question.correctOption = '';
-        this.question.test['idTest'] = this.idTest;
-        this.router.navigate(['/professor/view-tests/'+this.testName+'/'+this.idTest+'/questions']);
+    const newQuestion: Question = {
+      ...this.questionForm.value,
+      test: { idTest: this.idTest }, 
+      contentQuestion: '¿' + this.questionForm.value.contentQuestion + '?',
+    };
+
+    this.questionService.addQuestion(newQuestion).subscribe({
+      next: () => {
+        this.questionForm.reset();
+        this.questionForm.get('test')?.patchValue({ idTest: this.idTest });
+        this.router.navigate(['/professor/questions', this.testName, this.idTest]);
       },
-      (error) =>{Swal.fire('Error', 'Error adding question', 'error')}
-    );
+      error: (err) => {
+        console.error('Error adding question:', err);
+      },
+    });
   }
 }
 

@@ -1,15 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonModule } from '@angular/common';
+import { CommonModule,Location } from '@angular/common';
 import { Subject as RxjSubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-import { materialImports } from '../../../material.imports';
 import { SubjectService } from '../../../services/subject.service';
-import { TestService } from '../../../services/test.service';
 import { Subject } from '../../../interfaces/Subject.interface';
+import { TestService } from '../../../services/test.service';
+import { materialImports } from '../../../material.imports';
 @Component({
   selector: 'app-add-test',
   standalone: true,
@@ -29,14 +29,16 @@ export class AddTestComponent implements OnInit, OnDestroy {
       idSubject: '',
     },
   };
+  MaxPointsOptions = [10, 20, 50, 100, 150];
 
   private readonly destroy$ = new RxjSubject<void>();
 
   constructor(
-    private subjectService: SubjectService,
-    private testService: TestService,
-    private snack: MatSnackBar,
-    private router: Router
+    private readonly subjectService: SubjectService=inject(SubjectService),
+    private readonly testService: TestService=inject(TestService),
+    private readonly snack: MatSnackBar= inject(MatSnackBar),
+    private readonly location: Location= inject(Location),
+    private readonly router: Router= inject(Router)
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,10 @@ export class AddTestComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   private loadSubjects() {
@@ -82,6 +88,20 @@ export class AddTestComponent implements OnInit, OnDestroy {
 
     if (!this.test.subject.idSubject || !this.test.subject.idSubject) {
       this.snack.open('Please select a subject for the test', '', {
+        duration: 3000,
+      });
+      return;
+    }
+
+    if( this.test.maxPoints <= 0) {
+      this.snack.open('Please select a valid maximum points value', '', {
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (this.test.cantQuestions <= 0 || this.test.cantQuestions > 50) {
+      this.snack.open('Please enter a valid number of questions 0 - 50', '', {
         duration: 3000,
       });
       return;

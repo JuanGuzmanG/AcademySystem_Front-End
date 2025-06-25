@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import Swal from 'sweetalert2';
 
 import { materialImports } from '../../../material.imports';
@@ -17,12 +17,13 @@ import { Subject } from 'rxjs';
 export class ViewUsersComponent {
   users: any[] = [];
   userlogged: any;
+  userRole: string = '';
 
   private readonly destroy$ = new Subject<void>();
 
   constructor(
-    private loginService: LoginService,
-    private userService: UserService
+    private loginService: LoginService= inject(LoginService),
+    private userService: UserService= inject(UserService)
   ) {
     this.userlogged = this.loginService.getUser();
     this.userService.getusers().subscribe((data: any) => {

@@ -12,6 +12,8 @@ import { Subject as RxjSubject } from 'rxjs';
 import { materialImports } from '../../material.imports';
 import { LoginService } from '../../services/login.service';
 import { SubjectService } from '../../services/subject.service';
+import { Rol, User } from '../../interfaces/User.interface';
+import { Subject } from '../../interfaces/Subject.interface';
 
 export type MenuItem = {
   name: string;
@@ -28,13 +30,18 @@ export type MenuItem = {
   styleUrl: './sidenav.component.css',
 })
 export class SidenavComponent implements OnInit, OnDestroy {
-  user: any;
-  rols: any;
+  user: User | null = null;
+  rols: Rol[] = [];
   rolName: any;
   menuItems: any;
-  subjects: any;
+  subjects: Subject[] = [];
 
   private readonly destroy$ = new RxjSubject<void>();
+
+  constructor(
+    private loginservice: LoginService,
+    private subjectService: SubjectService
+  ) {}
 
   ngOnInit() {
     this.user = this.loginservice.getUser();
@@ -43,7 +50,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
     });
 
     this.rolName = this.loginservice.getUserRole()?.toLocaleLowerCase();
-    
+
     switch (this.rolName) {
       case 'admin':
         this.menuItems = signal<MenuItem[]>([
@@ -110,11 +117,6 @@ export class SidenavComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
-  constructor(
-    private loginservice: LoginService,
-    private subjectService: SubjectService
-  ) {}
 
   logout() {
     this.loginservice.logout();

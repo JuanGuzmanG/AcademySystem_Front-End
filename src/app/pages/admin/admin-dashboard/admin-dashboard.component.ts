@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
 import { materialImports } from '../../../material.imports';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,

@@ -11,7 +11,5 @@ import { materialImports } from '../../../material.imports';
   styleUrl: './user-dashboard.component.css',
 })
 export class UserDashboardComponent {
-  subjects: any;
-
   constructor(){}
 }

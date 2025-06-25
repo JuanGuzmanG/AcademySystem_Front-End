@@ -1,7 +1,7 @@
 <div class="bootstrap-wrapper">
     <div class="row">
         <div class="col-md-12">
-            <h1>Add Question of <span class="fw-bold">{{testName}}</span></h1>
+            <h1>UPDATE QUESTION OF <span class="fw-bold">{{testName}}</span></h1>
             <mat-card>
                 <mat-card-header>
                     <mat-card-subtitle>
@@ -72,12 +72,20 @@
                                 <mat-option *ngIf="question.option4" [value]="question.option4">{{question.option4}}</mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <div class="container text-center">
+                        <div class="d-flex text-center w-100">
                             <button
                             (click)="onSubmit()"
+                            class="w-50 mx-1"
                             mat-raised-button
                             color="primary"
                             >Save</button>
+                            <button
+                            (click)="goBack()"
+                            class="w-50 mx-1"
+                            mat-raised-button
+                            color="warn">
+                                CANCEL
+                            </button>
                         </div>
                     </form>
                 </mat-card-content>

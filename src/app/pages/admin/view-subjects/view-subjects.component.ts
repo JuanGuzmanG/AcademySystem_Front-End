@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule,Location } from '@angular/common';
 import { Subject as RxjSubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2';
@@ -18,7 +18,9 @@ export class ViewsubjectsComponent implements OnInit, OnDestroy {
   public subjects: Subject[] = [];
   private readonly destoy$ = new RxjSubject<void>();
 
-  constructor(private readonly subjectService: SubjectService) {}
+  constructor(
+    private readonly subjectService: SubjectService=inject(SubjectService)
+  ) {}
 
   ngOnInit() {
     this.loadSubjects();
@@ -30,22 +32,21 @@ export class ViewsubjectsComponent implements OnInit, OnDestroy {
   }
 
   loadSubjects(): void {
-    this.subjectService
-      .listSubjects()
-      .pipe(takeUntil(this.destoy$))
-      .subscribe({
-        next: (data) => {
-          this.subjects = data;
-        },
-        error: (error) => {
-          console.error('Error loading subjects:', error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Failed to load subjects. Please try again later.',
-          });
-        },
-      });
+  this.subjectService
+    .listSubjects()
+    .pipe(takeUntil(this.destoy$))
+    .subscribe({
+      next: (data) => {
+        this.subjects = data;
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load subjects. Please try again later.',
+        });
+      },
+    });
   }
 
 async deleteSubject(subjectId: number): Promise<void> {
@@ -73,7 +74,6 @@ async deleteSubject(subjectId: number): Promise<void> {
           });
         },
         error: (error) => {
-          console.error('Error deleting subject:', error);
           Swal.fire({
             icon: 'error',
             title: 'Error',

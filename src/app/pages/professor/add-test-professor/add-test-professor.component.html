@@ -1,5 +1,5 @@
 <mat-card>
-    <h1>Add New Test</h1>
+    <mat-card-title class="text-center fw-bold fs-1 my-3">ADD NEW TEST</mat-card-title>
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <form action="">
@@ -69,8 +69,9 @@
                     </mat-select>
                 </mat-form-field>
 
-                <div class="container text-center">
-                    <button (click)="saveTest()" mat-raised-button color="primary">Add</button>
+                <div class="container text-center m-1">
+                    <button class="m-1" (click)="saveTest()" mat-raised-button color="primary">ADD TEST</button>
+                    <button (click)="goBack()" mat-raised-button color="warn">CANCEL</button>
                 </div>
             </form>
         </div>
