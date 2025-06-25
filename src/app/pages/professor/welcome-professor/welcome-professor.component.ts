@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 import { materialImports } from '../../../material.imports';
 @Component({

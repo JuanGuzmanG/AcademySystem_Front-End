@@ -35,28 +35,28 @@ export class UpdateTestComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.testService
-    .getTest(this.testId)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe({
-      next: (data) => {
-        this.test = data;
-      },
-      error: (error) => {
-        console.error('Error fetching test:', error);
-      },
-    });
-
+      .getTest(this.testId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data) => {
+          this.test = data;
+          console.log(this.test);
+        },
+        error: (error) => {
+          console.error('Error fetching test:', error);
+        },
+      });
     this.subjectService
-    .listSubjects()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe({
-      next: (data) => {
-        this.subjects = data;
-      },
-      error: (error) => {
-        console.error('Error fetching subjects:', error);
-      },
-    });
+      .listSubjects()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data) => {
+          this.subjects = data;
+        },
+        error: (error) => {
+          console.error('Error fetching subjects:', error);
+        },
+      });
   }
 
   ngOnDestroy(): void {
@@ -65,15 +65,20 @@ export class UpdateTestComponent implements OnDestroy, OnInit {
   }
 
   updateTest() {
-    this.testService.updateTest(this.test).subscribe(
-      () => {
-        this.router.navigate(['/admin/view-tests']);
-        Swal.fire('Success', 'Test updated successfully', 'success');
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.testService
+      .updateTest(this.test)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data) => {
+          console.log("test enviado: ",data);
+          this.router.navigate(['/admin/view-tests']);
+          Swal.fire('Success', 'Test updated successfully', 'success');
+        },
+        error: (error) => {
+          console.error('Error updating test:', error);
+          Swal.fire('Error', 'Failed to update test', 'error');
+        },
+      });
   }
 
   goBack() {

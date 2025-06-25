@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Subject as RxjSubject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2';

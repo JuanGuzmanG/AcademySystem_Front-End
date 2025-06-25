@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { materialImports } from '../../material.imports';
 import { LoginService } from '../../services/login.service';
+import { materialImports } from '../../material.imports';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({

@@ -1,9 +1,9 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { materialImports } from './app/material.imports';
 import { authInterceptorProviders } from './app/services/auth.interceptor';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { materialImports } from './app/material.imports';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
 
 bootstrapApplication(AppComponent, {
   providers: [

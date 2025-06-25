@@ -1,15 +1,15 @@
-import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
 import { QuestionService } from '../../../services/question.service';
-import { materialImports } from '../../../material.imports';
 import { Question } from '../../../interfaces/Question.interface';
+import { TestService } from '../../../services/test.service';
+import { materialImports } from '../../../material.imports';
 import { Test } from '../../../interfaces/Test.interface';
 import { Subject, switchMap, takeUntil } from 'rxjs';
-import { TestService } from '../../../services/test.service';
 
 @Component({
   selector: 'app-view-test-questions-professor',

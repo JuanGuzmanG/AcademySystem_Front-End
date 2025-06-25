@@ -5,10 +5,10 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { LoginService } from './login.service';
 import { catchError, finalize, Observable, throwError } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { LoginService } from './login.service';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 

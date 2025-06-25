@@ -1,13 +1,13 @@
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-import { materialImports } from '../../material.imports';
 import { UserService } from '../../services/user.service';
+import { materialImports } from '../../material.imports';
 
 @Component({
   selector: 'app-signup',

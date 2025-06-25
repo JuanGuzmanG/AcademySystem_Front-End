@@ -1,8 +1,8 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { CommonModule, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import Swal from 'sweetalert2';
 
