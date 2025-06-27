@@ -24,9 +24,9 @@ export class ViewTestQuestionsProfessorComponent {
   public questions: Question[] = [];
   public CantQuestions!: number;
   public test: Test ={
-      idTest: 0,
+      testId: 0,
       testName: '',
-      descriptionTest: '',
+      testDescription: '',
       maxPoints: 0,
       cantQuestions: 0,
       active: false,
@@ -78,7 +78,7 @@ export class ViewTestQuestionsProfessorComponent {
     this.destroy$.complete();
   }
 
-  public async deleteQuestion(idQuestion: number): Promise<void> {
+  public async deleteQuestion(questionId: number): Promise<void> {
     const result = await Swal.fire({
       title: 'Are you sure?',
       text: 'This action cannot be undone.',
@@ -90,13 +90,13 @@ export class ViewTestQuestionsProfessorComponent {
 
     if (result.isConfirmed) {
       this.questionService.
-      deleteQuestion(idQuestion)
+      deleteQuestion(questionId)
       .pipe(
         takeUntil(this.destroy$),
         ).subscribe({
           next:() => {
             this.questions = this.questions.filter(
-              (question) => question.idQuestion !== idQuestion
+              (question) => question.questionId !== questionId
             );
             this.snackBar.open('Question deleted successfully', 'Close', {
               duration: 3000,

@@ -110,7 +110,7 @@ export class UpdateProfileComponent {
           }
 
           const selectedRols = this.rols.filter((rol: any) =>
-            user.rols.some((r: any) => r.idRol === rol.idRol)
+            user.rols.some((r: any) => r.rolId === rol.rolId)
           );
 
           this.rolCurrentUser = this.loginService.getUserRole();
@@ -175,9 +175,7 @@ export class UpdateProfileComponent {
     if (this.userForm.get('gender')?.value === 'Other' && customGenderValue.trim()) {
       this.userForm.patchValue({ gender: customGenderValue.trim() });
     }
-    console.log('userForm', this.selectedFile);
     const formValue = this.userForm.value;
-    console.log('formValue', formValue);
     if (formValue.gender === 'Other' && formValue.customGender?.trim()) {
       formValue.gender = formValue.customGender.trim();
     }

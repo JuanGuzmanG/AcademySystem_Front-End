@@ -2,9 +2,9 @@ import { Question } from "./Question.interface";
 import { Result } from "./Result.interface";
 import { Subject } from "./Subject.interface";
 export interface Test {
-  idTest: number;
+  testId: number;
   testName: string;
-  descriptionTest: string;
+  testDescription: string;
   maxPoints: number;
   cantQuestions: number;
   active: boolean;

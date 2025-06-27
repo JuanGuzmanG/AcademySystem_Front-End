@@ -29,7 +29,7 @@ export class UpdateQuestionComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.testId = this.route.snapshot.params['idTest'];
+    this.testId = this.route.snapshot.params['testId'];
     this.questionId = this.route.snapshot.params['questionId'];
     this.testName = this.route.snapshot.params['testName'];
     this.questionService

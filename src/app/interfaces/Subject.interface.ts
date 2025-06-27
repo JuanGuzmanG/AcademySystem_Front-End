@@ -1,13 +1,13 @@
 import { Test } from './Test.interface';
 
 export interface Subject {
-  idSubject: number;
-  nameSubject: string;
-  descriptionSubject: string;
+  subjectId: number;
+  subjectName: string;
+  subjectDescription: string;
   tests?: Test[];
 }
 
 export interface NewSubject{
-  nameSubject: string;
-  descriptionSubject: string;
+  subjectName: string;
+  subjectDescription: string;
 }

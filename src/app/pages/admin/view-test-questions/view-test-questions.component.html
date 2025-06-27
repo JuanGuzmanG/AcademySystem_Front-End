@@ -8,7 +8,7 @@
                     <mat-card-content>
                         <p>
                             <b>Question {{i+ 1}}. </b>
-                            <span class="mt-2" [innerHTML]="q.contentQuestion"></span>
+                            <span class="mt-2" [innerHTML]="q.questionContent"></span>
                         </p>
                         <div class="container-fluid">
                             <div class="row">
@@ -31,9 +31,9 @@
                             <p class="my-3 fs-5">
                                 <b>Correct Answer: {{q.correctOption}}</b>
                             </p>
-                            <button [routerLink]="'/admin/update-question/'+testName+'/'+testId+'/'+q.idQuestion"
+                            <button [routerLink]="'/admin/update-question/'+testName+'/'+testId+'/'+q.questionId"
                                 class="mx-1" mat-flat-button color="primary">Update Question</button>
-                            <button (click)="deleteQuestion(q.idQuestion)" class="mx-1" mat-flat-button
+                            <button (click)="deleteQuestion(q.questionId)" class="mx-1" mat-flat-button
                                 color="warn">Delete</button>
                         </div>
                     </mat-card-content>

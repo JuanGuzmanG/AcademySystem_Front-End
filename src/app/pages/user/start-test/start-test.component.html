@@ -18,7 +18,7 @@
             <div class="col-md-8">
                 <mat-card class="mb-2" *ngFor="let q of questions; let i = index">
                     <mat-card-content>
-                        <p><b>{{i+1}}) </b><span innerHTML="q.content">{{q.contentQuestion}}</span></p>
+                        <p><b>{{i+1}}) </b><span innerHTML="q.content">{{q.questionContent}}</span></p>
                         <mat-divider></mat-divider>
                         <div class="mt-2" *ngFor="let opt of [q.option1, q.option2, q.option3, q.option4]">
                             <input type="radio" [value]="opt" [(ngModel)]="q.selectedAnswer" [name]="'question' + i" />

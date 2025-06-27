@@ -9,18 +9,18 @@
                     <mat-icon>category</mat-icon>
                 </div>
                 <div class="col-9 m-auto">
-                    <div class="text-start fs-3 my-1" mat-line>{{ s.nameSubject }}</div>
+                    <div class="text-start fs-3 my-1" mat-line>{{ s.subjectName }}</div>
                     <mat-divider></mat-divider>
-                    <div class="my-1" mat-line>{{ s.descriptionSubject }}</div>
+                    <div class="my-1" mat-line>{{ s.subjectDescription }}</div>
                 </div>
                 <div class="col-2 m-auto">
                     <button 
                     mat-raised-button 
-                    [routerLink]="'/admin/update-subject/'+s.idSubject" 
+                    [routerLink]="'/admin/update-subject/'+s.subjectId" 
                     color="primary">Update</button>
                     <button 
                     mat-raised-button
-                    (click)="deleteSubject(s.idSubject)"
+                    (click)="deleteSubject(s.subjectId)"
                     class="m-1"
                     color="warn">Delete</button>
                 </div>

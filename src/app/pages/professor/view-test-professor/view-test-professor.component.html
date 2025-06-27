@@ -7,19 +7,19 @@
                 {{test.testName}}
             </mat-card-title>
             <mat-card-subtitle>
-                {{test.subject.nameSubject}}
+                {{test.subject.subjectName}}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
             <mat-card-actions>
-                <button class="mx-1" [routerLink]="'/professor/questions/'+test.testName+'/'+test.idTest" mat-flat-button
+                <button class="mx-1" [routerLink]="'/professor/questions/'+test.testName+'/'+test.testId" mat-flat-button
                     color="primary">Questions</button>
                 <button class="mx-1" mat-stroked-button color="primary"> Questions: {{test.cantQuestions}}</button>
                 <button class="mx-1" mat-stroked-button color="primary">Max Points {{test.maxPoints}}</button>
-                <button [routerLink]="'/professor/update-test/'+test.idTest" class="mx-2" mat-flat-button
+                <button [routerLink]="'/professor/update-test/'+test.testId" class="mx-2" mat-flat-button
                     color="primary">Update</button>
                 <button class="mx-1" mat-flat-button color="primary">attempts</button>
-                <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.idTest)">Delete Test</button>
+                <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.testId)">Delete Test</button>
             </mat-card-actions>
         </mat-card-content>
     </mat-card>

@@ -13,7 +13,7 @@ import { materialImports } from '../../../material.imports';
   styleUrl: './update-subject.component.css',
 })
 export class UpdateSubjectComponent implements OnInit, OnDestroy {
-  idSubject: any;
+  subjectId: any;
   subject: any;
 
   private readonly destroy$ = new Subject<void>();
@@ -24,12 +24,12 @@ export class UpdateSubjectComponent implements OnInit, OnDestroy {
     private readonly router: Router = inject(Router),
     private readonly location: Location = inject(Location)
   ) {
-    this.idSubject = this.route.snapshot.params['subjectId'];
+    this.subjectId = this.route.snapshot.params['subjectId'];
   }
 
   ngOnInit(): void {
     this.subjectservice
-    .getsubjectById(this.idSubject)
+    .getsubjectById(this.subjectId)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (data) => {

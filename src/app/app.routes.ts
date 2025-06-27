@@ -70,11 +70,11 @@ export const routes: Routes = [
 
         { path: 'add-category', component: AddCategoryComponent },
         { path: 'add-test', component: AddTestComponent },
-        {path: 'add-question/:testName/:idTest',component: AddQuestionComponent,},
+        {path: 'add-question/:testName/:testId',component: AddQuestionComponent,},
 
         { path: 'update-subject/:subjectId', component: UpdateSubjectComponent },
         { path: 'update-test/:testId', component: UpdateTestComponent },
-        {path: 'update-question/:testName/:idTest/:questionId',component: UpdateQuestionComponent},
+        {path: 'update-question/:testName/:testId/:questionId',component: UpdateQuestionComponent},
         { path: 'users/update/:userId', component: UpdateUserComponent },
         ],
     },
@@ -86,14 +86,14 @@ export const routes: Routes = [
         { path: 'profile', component: ProfileComponent},
         { path: 'profile/update/:userId', component: UpdateProfileComponent},
         
-        { path: ':idSubject', component: ViewTestProfessorComponent},
+        { path: ':subjectId', component: ViewTestProfessorComponent},
         { path: 'questions/:testName/:testId',component: ViewTestQuestionsProfessorComponent},
-        
-        { path: ':idSubject/add-test',component: AddTestProfessorComponent},
-        { path: 'add-question/:testName/:idTest',component: AddQuestionProfessorComponent},
+
+        { path: ':subjectId/add-test',component: AddTestProfessorComponent},
+        { path: 'add-question/:testName/:testId',component: AddQuestionProfessorComponent},
 
         { path: 'update-test/:testId',component: UpdateTestProfessorComponent},
-        { path: 'update-question/:testName/:idTest/:questionId',component: UpdateQuestionProfessorComponent},
+        { path: 'update-question/:testName/:testId/:questionId',component: UpdateQuestionProfessorComponent},
         ],
     },
 ];

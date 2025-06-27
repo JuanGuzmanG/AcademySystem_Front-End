@@ -13,7 +13,7 @@ export class RolService {
     return this.Http.get(`${baseURL}/rols/all`);
   }
 
-  public getRol(idRol:any){
-    return this.Http.get(`${baseURL}/rols/${idRol}`);
+  public getRol(rolId:any){
+    return this.Http.get(`${baseURL}/rols/${rolId}`);
   }
 }

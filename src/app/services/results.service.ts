@@ -13,7 +13,7 @@ export class ResultsService {
     return this.Http.post(`${baseURL}/results/`, result);
   }
 
-  public getAttempCount(idUser: number,idTest: number) {
-    return this.Http.get(`${baseURL}/results/count/user/${idUser}/test/${idTest}`);
+  public getAttempCount(idUser: number,testId: number) {
+    return this.Http.get(`${baseURL}/results/count/user/${idUser}/test/${testId}`);
   }
 }

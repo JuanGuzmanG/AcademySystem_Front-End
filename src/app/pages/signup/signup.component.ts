@@ -50,7 +50,7 @@ export class SignupComponent {
       phoneNumber: ['',Validators.maxLength(14)],
       gender: [''],
       bloodType: [''],
-      customGender: ['',Validators.maxLength(20)],
+      customGender: ['',Validators.maxLength(20)]
     });
   }
 
@@ -93,13 +93,10 @@ export class SignupComponent {
       });
       return;
     }
-
+    
     const userData = {...this.signupForm.value};
-    console.log(userData);
     this.userService.addUser(userData, this.selectedFile ?? undefined).subscribe(
       (data) => {
-        console.log("file:"+this.selectedFile);
-        console.log("data: "+data);
         Swal.fire('User saved successfully', 'User saved in the system', 'success');
         this.router.navigate(['/login']);
       },

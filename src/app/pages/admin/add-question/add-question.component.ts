@@ -17,7 +17,7 @@ import { Question } from '../../../interfaces/Question.interface';
   styleUrl: './add-question.component.css',
 })
 export class AddQuestionComponent implements OnInit, OnDestroy {
-  idTest: string | null = null;
+  testId: string | null = null;
   testName: string | null = null;
 
   questionForm!: FormGroup;
@@ -33,11 +33,11 @@ export class AddQuestionComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.idTest = this.route.snapshot.params['idTest'];
+    this.testId = this.route.snapshot.params['testId'];
     this.testName = this.route.snapshot.params['testName'];
 
     this.questionForm = this.fb.group({
-      contentQuestion: ['', Validators.required],
+      questionContent: ['', Validators.required],
       option1: ['', Validators.required],
       option2: ['', Validators.required],
       option3: ['', Validators.required],
@@ -63,15 +63,15 @@ export class AddQuestionComponent implements OnInit, OnDestroy {
     }
     const newQuestion: Question = {
       ...this.questionForm.value,
-      test: { idTest: this.idTest }, 
-      contentQuestion: '¿' + this.questionForm.value.contentQuestion + '?',
+      test: { testId: this.testId }, 
+      questionContent: '¿' + this.questionForm.value.questionContent + '?',
     };
 
     this.questionService.addQuestion(newQuestion).subscribe({
       next: () => {
         this.questionForm.reset();
-        this.questionForm.get('test')?.patchValue({ idTest: this.idTest });
-        this.router.navigate(['/admin/questions', this.testName, this.idTest]);
+        this.questionForm.get('test')?.patchValue({ testId: this.testId });
+        this.router.navigate(['/admin/questions', this.testName, this.testId]);
       },
       error: (err) => {
         console.error('Error adding question:', err);

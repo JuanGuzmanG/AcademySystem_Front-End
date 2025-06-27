@@ -59,8 +59,7 @@ export class ViewTestProfessorComponent implements OnInit, OnDestroy {
     this.subjectService
       .listSubjects()
       .pipe(
-        takeUntil(this.destroy$),
-        finalize(() => console.log('Subjects loaded'))
+        takeUntil(this.destroy$)
       )
       .subscribe({
         next: (data: Subject[]) => {
@@ -80,7 +79,7 @@ export class ViewTestProfessorComponent implements OnInit, OnDestroy {
       });
   }
 
-  public async deleteTest(idTest: number): Promise<void> {
+  public async deleteTest(testId: number): Promise<void> {
     const result = await Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -92,14 +91,13 @@ export class ViewTestProfessorComponent implements OnInit, OnDestroy {
     });
     if (result.isConfirmed) {
       this.testService
-        .deleteTest(idTest)
+        .deleteTest(testId)
         .pipe(
-          takeUntil(this.destroy$),
-          finalize(() => console.log('Test deleted'))
+          takeUntil(this.destroy$)
         )
         .subscribe({
           next: () => {
-            this.tests = this.tests.filter((test) => test.idTest !== idTest);
+            this.tests = this.tests.filter((test) => test.testId !== testId);
             Swal.fire('Deleted!', 'Test has been deleted.', 'success');
           },
           error: (error) => {

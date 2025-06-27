@@ -2,7 +2,7 @@
     <h1 class="text-center fs-1 my-3 fw-bold">UPDATE TEST</h1>
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <form action="" *ngIf="test">
+            <form action="" *ngIf="test" (ngSubmit)="updateTest()">
                 <mat-form-field class="w-100" appearance="fill">
                     <mat-label>Name</mat-label>
                     <input matInput type="text" name="testName" [(ngModel)]="test.testName"
@@ -10,7 +10,7 @@
                 </mat-form-field>
                 <mat-form-field class="w-100" appearance="fill">
                     <mat-label>Description</mat-label>
-                    <textarea matInput type="text" name="descriptionTest" [(ngModel)]="test.descriptionTest"
+                    <textarea matInput type="text" name="testDescription" [(ngModel)]="test.testDescription"
                         placeholder="Enter test description" rows="5" required></textarea>
                 </mat-form-field>
 
@@ -40,16 +40,16 @@
 
                 <mat-form-field appearance="fill" class="mt-2 w-100">
                     <mat-label>Subjects</mat-label>
-                    <mat-select name="subject" [(ngModel)]="test.subject.idSubject">
-                        <mat-option *ngFor="let subject of subjects" [value]="subject.idSubject">
-                            {{subject.nameSubject}}
+                    <mat-select name="subject" [(ngModel)]="test.subject.subjectId">
+                        <mat-option *ngFor="let subject of subjects" [value]="subject.subjectId">
+                            {{subject.subjectName}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <div class="d-flex w-100 text-center mb-2">
-                    <button class="w-50 mx-1" (click)="updateTest()" mat-raised-button color="primary">UPDATE</button>
-                    <button class="w-50 mx-1" (click)="goBack()" mat-raised-button color="warn">CANCEL</button>
+                    <button class="w-50 mx-1" type="submit" mat-raised-button color="primary">UPDATE</button>
+                    <button class="w-50 mx-1" type="button" (click)="goBack()" mat-raised-button color="warn">CANCEL</button>
                 </div>
             </form>
         </div>

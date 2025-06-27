@@ -16,13 +16,13 @@
                         </mat-card-header>
                         <mat-card-content>
                             <mat-card-subtitle>
-                                <h3>Subject: <span class="fw-bold">{{test.subject.nameSubject}}</span></h3>
+                                <h3>Subject: <span class="fw-bold">{{test.subject.subjectName}}</span></h3>
                             </mat-card-subtitle>
-                            <p>{{test.descriptionTest}}</p>
+                            <p>{{test.testDescription}}</p>
                             <mat-card-actions>
-                                <button [routerLink]="'/user/view-test/'+test.idTest" class="mx-1"
+                                <button [routerLink]="'/user/view-test/'+test.testId" class="mx-1"
                                     mat-raised-button>View Test</button>
-                                <button [routerLink]="'/user/instructions/'+test.idTest" class="mx-1" mat-raised-button
+                                <button [routerLink]="'/user/instructions/'+test.testId" class="mx-1" mat-raised-button
                                     color="primary">Start Test</button>
                             </mat-card-actions>
                             <mat-card-actions>

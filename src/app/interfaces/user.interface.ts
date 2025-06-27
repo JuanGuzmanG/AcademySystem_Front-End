@@ -1,6 +1,6 @@
 export interface Rol {
-    idRol: number;
-    nameRol: string;
+    rolId: number;
+    rolName: string;
 }
 
 export interface User {

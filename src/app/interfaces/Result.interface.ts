@@ -1,6 +1,6 @@
 
 export interface Result{
-    idResult?: number;
+    resultId?: number;
     score: number;
     date: Date;
 
@@ -8,6 +8,6 @@ export interface Result{
         document: string;
     };
     test: {
-        idTest: number;
+        testId: number;
     };
 }

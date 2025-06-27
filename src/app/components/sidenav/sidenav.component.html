@@ -26,9 +26,9 @@
             </div>
             <a mat-list-item 
             *ngFor="let s of subjects" 
-            [routerLink]="rolName+'/'+s.idSubject" 
+            [routerLink]="rolName+'/'+s.subjectId" 
             class="text-start text-white">
-                <mat-icon matListItemIcon>category</mat-icon> <span>{{s.nameSubject}}</span>
+                <mat-icon matListItemIcon>category</mat-icon> <span>{{s.subjectName}}</span>
             </a>
         </div>
         <div class="logout-button">

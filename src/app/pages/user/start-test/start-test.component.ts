@@ -151,7 +151,7 @@ export class StartTestComponent implements OnInit, OnDestroy {
               document: this.user.document,
             },
             test: {
-              idTest: this.testId,
+              testId: this.testId,
             },
           };
 
@@ -159,10 +159,9 @@ export class StartTestComponent implements OnInit, OnDestroy {
             .saveResult(resultData)
             .pipe(takeUntil(this.destroy$))
             .subscribe({
-              next: (data: any) => {
+              next: () => {
                 this.attempts++;
                 this.sendTest = true;
-                console.log('Test submitted successfully:', data);
               },
               error: (error) => {
                 console.error('Error saving result:', error);

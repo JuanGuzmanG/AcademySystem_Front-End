@@ -7,26 +7,26 @@
                 {{test.testName}}
             </mat-card-title>
             <mat-card-subtitle>
-                {{test.subject.nameSubject}}
+                {{test.subject.subjectName}}
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
             <mat-card-actions>
-                <button class="mx-1" [routerLink]="'/admin/questions/'+test.testName+'/'+test.idTest" mat-flat-button
+                <button class="mx-1" [routerLink]="'/admin/questions/'+test.testName+'/'+test.testId" mat-flat-button
                     color="primary">Questions</button>
                 <button class="mx-1" mat-stroked-button color="primary"> Questions: {{test.cantQuestions}}</button>
                 <button class="mx-1" mat-stroked-button color="primary">Max Points {{test.maxPoints}}</button>
-                <button [routerLink]="'/admin/update-test/'+test.idTest" class="mx-2" mat-flat-button
+                <button [routerLink]="'/admin/update-test/'+test.testId" class="mx-2" mat-flat-button
                     color="primary">Update</button>
                 <button class="mx-1" mat-flat-button color="primary">attempts</button>
-                <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.idTest)">Delete Test</button>
+                <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.testId)">Delete Test</button>
             </mat-card-actions>
         </mat-card-content>
     </mat-card>
 
     <div class="d-flex justify-content-center my-3">
             <button class="m-1" *ngIf="subjects.length > 0" mat-raised-button routerLink="/admin/add-test" color="primary">Add Test</button>
-            <span class="m-1" *ngIf="subjects.length < 1">Add subjects first to create tests.</span> 
+            <button class="m-1" *ngIf="subjects.length < 1" [routerLink]="'/admin/subjects'" mat-raised-button color="primary">Add subjects first to create tests.</button>
             <button class="m-1" [routerLink]="'/admin'" mat-raised-button color="warn">GO HOME</button>
     </div>
 </mat-card>

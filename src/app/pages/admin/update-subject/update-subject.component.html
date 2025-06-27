@@ -9,13 +9,13 @@
                     <form action="" *ngIf="subject">
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Title</mat-label>
-                            <input autofocus required [(ngModel)]="subject.nameSubject" type="text" name="nameSubject"
-                                [value]="subject.nameSubject" matInput placeholder="Enter category name">
+                            <input autofocus required [(ngModel)]="subject.subjectName" type="text" name="subjectName"
+                                [value]="subject.subjectName" matInput placeholder="Enter category name">
                         </mat-form-field>
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Description</mat-label>
-                            <input name="descriptionSubject" matInput required [(ngModel)]="subject.descriptionSubject"
-                                [value]="subject.descriptionSubject" placeholder="Enter category description" rows="15">
+                            <input name="subjectDescription" matInput required [(ngModel)]="subject.subjectDescription"
+                                [value]="subject.subjectDescription" placeholder="Enter category description" rows="15">
                         </mat-form-field>
 
                         <div class="d-flex justify-content-center w-100">

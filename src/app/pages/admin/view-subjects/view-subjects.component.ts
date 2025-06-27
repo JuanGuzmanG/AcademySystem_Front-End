@@ -5,8 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 import { SubjectService } from '../../../services/subject.service';
-import { materialImports } from '../../../material.imports';
 import { Subject } from '../../../interfaces/Subject.interface';
+import { materialImports } from '../../../material.imports';
 @Component({
   selector: 'app-view-categories',
   standalone: true,
@@ -65,7 +65,7 @@ async deleteSubject(subjectId: number): Promise<void> {
       .subscribe({
         next: () => {
           this.subjects = this.subjects.filter(
-            (subject) => subject.idSubject !== subjectId
+            (subject) => subject.subjectId !== subjectId
           );
           Swal.fire({
             icon: 'success',

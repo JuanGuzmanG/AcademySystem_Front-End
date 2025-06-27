@@ -78,7 +78,7 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
           }
 
           const selectedRols = this.rols.filter((rol: any) =>
-            user.rols.some((r: any) => r.idRol === rol.idRol)
+            user.rols.some((r: any) => r.rolId === rol.rolId)
           );
 
           this.userForm.patchValue({
@@ -138,7 +138,6 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
     }
 
     delete formValue.customGender;
-    console.log(formValue);
     this.userService.updateUser(this.userId, formValue).subscribe(
       () => {
         this.router.navigate(['/admin/users']);

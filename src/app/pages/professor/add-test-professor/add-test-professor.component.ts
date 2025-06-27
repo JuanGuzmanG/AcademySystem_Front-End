@@ -21,12 +21,12 @@ export class AddTestProfessorComponent implements OnInit, OnDestroy {
   public subjects: Subject[] = [];
   public test = {
     testName: '',
-    descriptionTest: '',
+    testDescription: '',
     maxPoints: 0,
     cantQuestions: 0,
     active: false,
     subject: {
-      idSubject: '',
+      subjectId: '',
     },
   }
   
@@ -87,7 +87,7 @@ export class AddTestProfessorComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if(!this.test.subject || !this.test.subject.idSubject) {
+    if(!this.test.subject || !this.test.subject.subjectId) {
       this.snack.open('Please select a subject', 'Close', {
         duration: 3000,
         panelClass: ['error-snackbar']
@@ -115,12 +115,12 @@ export class AddTestProfessorComponent implements OnInit, OnDestroy {
   private resetTestForm() {
     this.test = {
       testName: '',
-      descriptionTest: '',
+      testDescription: '',
       maxPoints: 0,
       cantQuestions: 0,
       active: false,
       subject: {
-        idSubject: '',
+        subjectId: '',
       }
     };
   }

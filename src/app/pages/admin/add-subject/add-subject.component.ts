@@ -21,8 +21,8 @@ export class AddCategoryComponent implements OnDestroy {
 
   public subjectForm: FormGroup;
   subject = {
-    nameSubject: '',
-    descriptionSubject: '',
+    subjectName: '',
+    subjectDescription: '',
   };
   
   private readonly destroy$ = new Subject<void>();
@@ -35,8 +35,8 @@ export class AddCategoryComponent implements OnDestroy {
     private readonly location: Location = inject(Location)
   ) {
     this.subjectForm = this.fb.group({
-      nameSubject: ['', [Validators.required, Validators.minLength(3)]],
-      descriptionSubject: ['', [Validators.required, Validators.minLength(3)]],
+      subjectName: ['', [Validators.required, Validators.minLength(3)]],
+      subjectDescription: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
 

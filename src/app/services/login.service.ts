@@ -81,7 +81,7 @@ export class LoginService {
     const user = this.getUser();
 
     if (user && user.rols && Array.isArray(user.rols)) {
-      const roleNames = user.rols.map((rol: any) => rol.nameRol);
+      const roleNames = user.rols.map((rol: any) => rol.rolName);
 
       if (roleNames.includes('admin')) {
         return 'admin';
