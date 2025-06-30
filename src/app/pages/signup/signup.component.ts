@@ -12,13 +12,13 @@ import { materialImports } from '../../material.imports';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule,materialImports()],
+  imports: [CommonModule, materialImports()],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
 export class SignupComponent {
   countries: string[] = [];
-  types = ['Cedula', 'Identity Card', 'Passport', 'PPT'];
+  types = ['Identity Card', 'Passport', 'PPT'];
   BT = ['-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   customGender = '';
 
@@ -27,41 +27,43 @@ export class SignupComponent {
   selectedFile: File | null = null;
   photoPreview: string | ArrayBuffer | null = null;
 
+  dateLimit = new Date().getFullYear() - 5;
+
   constructor(
-    private readonly userService: UserService=inject(UserService),
-    private readonly snack: MatSnackBar=inject(MatSnackBar),
-    private readonly http: HttpClient=inject(HttpClient),
-    private readonly fb: FormBuilder=inject(FormBuilder),
-    private readonly router: Router=inject(Router)
+    private readonly userService: UserService = inject(UserService),
+    private readonly snack: MatSnackBar = inject(MatSnackBar),
+    private readonly http: HttpClient = inject(HttpClient),
+    private readonly fb: FormBuilder = inject(FormBuilder),
+    private readonly router: Router = inject(Router)
   ) {
     this.getCountries();
 
     this.signupForm = this.fb.group({
       documentType: ['', Validators.required],
       document: ['', Validators.required],
-      firstName: ['',[Validators.required,Validators.maxLength(30)]],
-      middleName: ['',Validators.maxLength(30)],
-      lastName: ['', [Validators.required,Validators.maxLength(30)]],
-      secondLastName: ['',Validators.maxLength(30)],
+      firstName: ['', [Validators.required, Validators.maxLength(30)]],
+      middleName: ['', Validators.maxLength(30)],
+      lastName: ['', [Validators.required, Validators.maxLength(30)]],
+      secondLastName: ['', Validators.maxLength(30)],
       birthDate: [''],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       countryBirth: [''],
-      phoneNumber: ['',Validators.maxLength(14)],
+      phoneNumber: ['', Validators.maxLength(14)],
       gender: [''],
       bloodType: [''],
-      customGender: ['',Validators.maxLength(20)]
+      customGender: ['', Validators.maxLength(20)],
     });
   }
 
-  onFileSelected(event: Event): void { 
+  onFileSelected(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
     const fileList: FileList | null = element.files;
 
     if (fileList && fileList.length > 0) {
       this.selectedFile = fileList[0];
       const reader = new FileReader();
-      reader.onload = e => this.photoPreview = reader.result;
+      reader.onload = (e) => (this.photoPreview = reader.result);
       reader.readAsDataURL(this.selectedFile);
     } else {
       this.selectedFile = null;
@@ -70,20 +72,29 @@ export class SignupComponent {
   }
 
   getCountries() {
-    this.http.get<any[]>('https://restcountries.com/v3.1/all?fields=name').subscribe(
-      (data) => {
-        this.countries = data.map((c) => c.name.common).sort();
-      },
-      () => {
-        console.error('Error fetching countries');
-      }
-    );
+    this.http
+      .get<any[]>('https://restcountries.com/v3.1/all?fields=name')
+      .subscribe(
+        (data) => {
+          this.countries = data.map((c) => c.name.common).sort();
+        },
+        () => {
+          console.error('Error fetching countries');
+        }
+      );
   }
 
   formSubmit() {
     const customGenderValue = this.signupForm.get('customGender')?.value;
     if (this.signupForm.get('gender')?.value === 'Other' && customGenderValue) {
       this.signupForm.patchValue({ gender: customGenderValue });
+    }
+
+    const dateRegister = new Date(this.signupForm.get('birthDate')?.value);
+
+    if (dateRegister.getFullYear() > this.dateLimit) {
+      Swal.fire('Error', 'The age limit is 5 years old', 'error');
+      return;
     }
 
     if (this.signupForm.invalid) {
@@ -93,20 +104,26 @@ export class SignupComponent {
       });
       return;
     }
-    
-    const userData = {...this.signupForm.value};
-    this.userService.addUser(userData, this.selectedFile ?? undefined).subscribe(
-      () => {
-        Swal.fire('User saved successfully', 'User saved in the system', 'success');
-        this.router.navigate(['/login']);
-      },
-      () => {
-        this.snack.open('System Error, Try later', 'OK', {
-          duration: 3000,
-          verticalPosition: 'top',
-        });
-      }
-    );
+
+    const userData = { ...this.signupForm.value };
+    this.userService
+      .addUser(userData, this.selectedFile ?? undefined)
+      .subscribe(
+        () => {
+          Swal.fire(
+            'User saved successfully',
+            'User saved in the system',
+            'success'
+          );
+          this.router.navigate(['/login']);
+        },
+        () => {
+          this.snack.open('System Error, Try later', 'OK', {
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        }
+      );
   }
 
   clear() {

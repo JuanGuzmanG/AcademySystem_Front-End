@@ -24,7 +24,7 @@ export class UpdateProfileComponent {
   userId: any;
   user: any;
   countries: string[] = [];
-  types = ['Cedula', 'Identity Card', 'Passport', 'PPT'];
+  types = ['Identity Card', 'Passport', 'PPT'];
   BT = ['-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   genders = ['Male', 'Female', "I'd rather not say"];
   customGender = '';
@@ -35,7 +35,7 @@ export class UpdateProfileComponent {
   selectedFile: File | null = null;
   photoPreview: string | ArrayBuffer | null = null;
 
-  deletePhoto= false;
+  dateLimit = new Date().getFullYear()-5;
 
   constructor(
     private readonly route: ActivatedRoute=inject(ActivatedRoute),
@@ -87,7 +87,7 @@ export class UpdateProfileComponent {
     this.userForm.get('documentType')?.[isAdmin ? 'enable' : 'disable']();
     
     this.userForm.get('document')?.setErrors(null)
-    this.userForm.get('document')?.[isAdmin ? 'enable' : 'disable']();
+    this.userForm.get('document')?.['disable']();
 
     this.userForm.get('birthDate')?.setErrors(null)
     this.userForm.get('birthDate')?.[isAdmin ? 'enable' : 'disable']();
@@ -104,6 +104,7 @@ export class UpdateProfileComponent {
         this.userService.get(this.userId).subscribe((user: any) => {
           user.rols = user.rols ?? [];
           this.user = user;
+          console.log(this.user);
           if (!this.genders.includes(user.gender)) {
             this.customGender = user.gender;
             user.gender = 'Other';
@@ -170,17 +171,27 @@ export class UpdateProfileComponent {
       Swal.fire('Error', 'Fill out the required fields', 'error');
       return;
     }
+    const dateRegister = new Date(this.userForm.get('birthDate')?.value);
+
+    if(dateRegister.getFullYear() > this.dateLimit) {
+      Swal.fire('Error', 'The age limit is 5 years old', 'error');
+      return;
+    }
 
     const customGenderValue = this.userForm.get('customGender')?.value;
     if (this.userForm.get('gender')?.value === 'Other' && customGenderValue) {
       this.userForm.patchValue({ gender: customGenderValue });
     }
+
+    this.userForm.get('username')?.setValue(
+      this.userForm.get('document')?.value
+    );
+
     const formValue = this.userForm.value;
     if (formValue.gender === 'Other' && formValue.customGender=== '') {
       formValue.gender = formValue.customGender;
     }
     delete formValue.customGender;
-
     const userData = { ...this.userForm.getRawValue() };
     this.userService
       .updateUser(this.userId, userData, this.selectedFile ?? undefined)

@@ -22,13 +22,15 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
   userId: any;
   user: any;
   countries: string[] = [];
-  types = ['Cedula', 'Identity Card', 'Passport', 'PPT'];
+  types = ['Identity Card', 'Passport', 'PPT'];
   BT = ['-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   customGender = '';
   genders = ['Male', 'Female', "I'd rather not say"];
   rol: any;
   rols: any[] = [];
   selectedRols: any[] = [];
+
+  dateLimit = new Date().getFullYear() - 5;
 
   private readonly destroy$ = new Subject<void>();
 
@@ -103,6 +105,7 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
       },
       (error) => console.error(error)
     );
+    this.applyFieldsPermissions();
   }
 
   ngOnDestroy() {
@@ -112,6 +115,10 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.location.back();
+  }
+
+  private applyFieldsPermissions() {
+    this.userForm.get('document')?.['disable']();
   }
 
   getCountries() {
@@ -130,6 +137,13 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
   updateUser() {
     if (this.userForm.invalid) {
       Swal.fire('Error', 'Fill out the required fields', 'error');
+      return;
+    }
+
+    const dateRegister = new Date(this.userForm.get('birthDate')?.value);
+
+    if (dateRegister.getFullYear() > this.dateLimit) {
+      Swal.fire('Error', 'The age limit is 5 years old', 'error');
       return;
     }
 
