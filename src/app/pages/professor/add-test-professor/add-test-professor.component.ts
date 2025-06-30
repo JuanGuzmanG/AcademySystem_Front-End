@@ -79,7 +79,7 @@ export class AddTestProfessorComponent implements OnInit, OnDestroy {
   }
 
   public async saveTest(): Promise<void> {
-    if(!this.test || this.test.testName.trim() === '') {
+    if(!this.test || this.test.testName === '') {
       this.snack.open('Please enter a test name', 'Close', {
         duration: 3000,
         panelClass: ['warning-snackbar']

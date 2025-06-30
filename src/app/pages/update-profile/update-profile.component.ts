@@ -172,12 +172,12 @@ export class UpdateProfileComponent {
     }
 
     const customGenderValue = this.userForm.get('customGender')?.value;
-    if (this.userForm.get('gender')?.value === 'Other' && customGenderValue.trim()) {
-      this.userForm.patchValue({ gender: customGenderValue.trim() });
+    if (this.userForm.get('gender')?.value === 'Other' && customGenderValue) {
+      this.userForm.patchValue({ gender: customGenderValue });
     }
     const formValue = this.userForm.value;
-    if (formValue.gender === 'Other' && formValue.customGender?.trim()) {
-      formValue.gender = formValue.customGender.trim();
+    if (formValue.gender === 'Other' && formValue.customGender=== '') {
+      formValue.gender = formValue.customGender;
     }
     delete formValue.customGender;
 

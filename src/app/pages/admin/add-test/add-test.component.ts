@@ -79,7 +79,7 @@ export class AddTestComponent implements OnInit, OnDestroy {
   }
 
   public async saveTest(): Promise<void> {
-    if (!this.test.testName || this.test.testName.trim() === '') {
+    if (!this.test.testName || this.test.testName === '') {
       this.snack.open('Please enter a test name', '', {
         duration: 3000,
       });
@@ -93,15 +93,8 @@ export class AddTestComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if( this.test.maxPoints <= 0) {
-      this.snack.open('Please select a valid maximum points value', '', {
-        duration: 3000,
-      });
-      return;
-    }
-
-    if (this.test.cantQuestions <= 0 || this.test.cantQuestions > 50) {
-      this.snack.open('Please enter a valid number of questions 0 - 50', '', {
+    if (this.test.cantQuestions <= 0 || this.test.cantQuestions > 5) {
+      this.snack.open('Please enter a valid number of questions 1 - 10', '', {
         duration: 3000,
       });
       return;

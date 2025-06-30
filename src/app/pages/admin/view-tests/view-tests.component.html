@@ -19,14 +19,15 @@
                 <button [routerLink]="'/admin/update-test/'+test.testId" class="mx-2" mat-flat-button
                     color="primary">Update</button>
                 <button class="mx-1" mat-flat-button color="primary">attempts</button>
-                <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.testId)">Delete Test</button>
+                <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.testId)"><mat-icon>delete</mat-icon></button>
             </mat-card-actions>
         </mat-card-content>
     </mat-card>
 
     <div class="d-flex justify-content-center my-3">
-            <button class="m-1" *ngIf="subjects.length > 0" mat-raised-button routerLink="/admin/add-test" color="primary">Add Test</button>
+            <button class="m-1" *ngIf="subjects.length > 0 && !limitTests()" mat-raised-button routerLink="/admin/add-test" color="primary">Add Test</button>
             <button class="m-1" *ngIf="subjects.length < 1" [routerLink]="'/admin/subjects'" mat-raised-button color="primary">Add subjects first to create tests.</button>
+            <button class="m-1" *ngIf="limitTests()" mat-raised-button color="accent">creation limit reached (reason: memory, app in test environment only)</button>
             <button class="m-1" [routerLink]="'/admin'" mat-raised-button color="warn">GO HOME</button>
     </div>
 </mat-card>

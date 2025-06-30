@@ -31,6 +31,10 @@ export class ViewsubjectsComponent implements OnInit, OnDestroy {
     this.destoy$.complete();
   }
 
+  limitSubjects(){
+    return this.subjects.length >= 3;
+  }
+
   loadSubjects(): void {
   this.subjectService
     .listSubjects()

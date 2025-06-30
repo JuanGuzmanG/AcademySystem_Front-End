@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule,Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 
@@ -33,13 +33,13 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   constructor(
-    private readonly route: ActivatedRoute= inject(ActivatedRoute),
-    private readonly userService: UserService= inject(UserService),
-    private readonly http: HttpClient= inject(HttpClient),
-    private readonly router: Router= inject(Router),
-    private readonly fb: FormBuilder= inject(FormBuilder),
-    private readonly rolservice: RolService= inject(RolService),
-    private readonly location: Location= inject(Location)
+    private readonly route: ActivatedRoute = inject(ActivatedRoute),
+    private readonly userService: UserService = inject(UserService),
+    private readonly http: HttpClient = inject(HttpClient),
+    private readonly router: Router = inject(Router),
+    private readonly fb: FormBuilder = inject(FormBuilder),
+    private readonly rolservice: RolService = inject(RolService),
+    private readonly location: Location = inject(Location)
   ) {}
 
   ngOnInit() {
@@ -58,7 +58,7 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.required],
       gender: ['', Validators.required],
-      customGender: [''],
+      customGender: ['', Validators.maxLength(20)],
       countryBirth: ['', Validators.required],
       bloodType: [''],
       birthDate: ['', Validators.required],
@@ -71,7 +71,7 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
 
         this.userService.get(this.userId).subscribe((user: any) => {
           user.rols = user.rols ?? [];
-
+          this.user = user;
           if (!this.genders.includes(user.gender)) {
             this.customGender = user.gender;
             user.gender = 'Other';
@@ -115,14 +115,16 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
   }
 
   getCountries() {
-    this.http.get<any[]>('https://restcountries.com/v3.1/all?fields=name').subscribe(
-      (data) => {
-        this.countries = data.map((c) => c.name.common).sort();
-      },
-      (error) => {
-        console.error('Error fetching countries');
-      }
-    );
+    this.http
+      .get<any[]>('https://restcountries.com/v3.1/all?fields=name')
+      .subscribe(
+        (data) => {
+          this.countries = data.map((c) => c.name.common).sort();
+        },
+        (error) => {
+          console.error('Error fetching countries');
+        }
+      );
   }
 
   updateUser() {
@@ -130,11 +132,14 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
       Swal.fire('Error', 'Fill out the required fields', 'error');
       return;
     }
-    
-    const formValue = this.userForm.value;
 
-    if (formValue.gender === 'Other' && formValue.customGender?.trim()) {
-      formValue.gender = formValue.customGender.trim();
+    const customGenderValue = this.userForm.get('customGender')?.value;
+    if (this.userForm.get('gender')?.value === 'Other' && customGenderValue) {
+      this.userForm.patchValue({ gender: customGenderValue });
+    }
+    const formValue = this.userForm.value;
+    if (formValue.gender === 'Other' && formValue.customGender === '') {
+      formValue.gender = formValue.customGender;
     }
 
     delete formValue.customGender;

@@ -22,7 +22,7 @@
                     mat-raised-button
                     (click)="deleteSubject(s.subjectId)"
                     class="m-1"
-                    color="warn">Delete</button>
+                    color="warn"><mat-icon>delete</mat-icon></button>
                 </div>
             </div>
         </mat-card>
@@ -30,7 +30,8 @@
     </div>
 
     <div class="container text-center my-3">
-        <button class="mx-1" routerLink="/admin/add-category" mat-raised-button color="primary">ADD SUBJECT</button>
+        <button *ngIf="!limitSubjects()" class="mx-1" routerLink="/admin/add-category" mat-raised-button color="primary">ADD SUBJECT</button>
+        <button *ngIf="limitSubjects()" mat-raised-button color="accent">creation limit reached (reason: memory, app in test environment only)</button>
         <button
         class="mx-1"
         mat-raised-button

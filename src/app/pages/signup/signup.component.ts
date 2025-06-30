@@ -45,7 +45,7 @@ export class SignupComponent {
       secondLastName: ['',Validators.maxLength(30)],
       birthDate: [''],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       countryBirth: [''],
       phoneNumber: ['',Validators.maxLength(14)],
       gender: [''],
@@ -74,7 +74,7 @@ export class SignupComponent {
       (data) => {
         this.countries = data.map((c) => c.name.common).sort();
       },
-      (error) => {
+      () => {
         console.error('Error fetching countries');
       }
     );
@@ -82,8 +82,8 @@ export class SignupComponent {
 
   formSubmit() {
     const customGenderValue = this.signupForm.get('customGender')?.value;
-    if (this.signupForm.get('gender')?.value === 'Other' && customGenderValue.trim()) {
-      this.signupForm.patchValue({ gender: customGenderValue.trim() });
+    if (this.signupForm.get('gender')?.value === 'Other' && customGenderValue) {
+      this.signupForm.patchValue({ gender: customGenderValue });
     }
 
     if (this.signupForm.invalid) {
@@ -96,7 +96,7 @@ export class SignupComponent {
     
     const userData = {...this.signupForm.value};
     this.userService.addUser(userData, this.selectedFile ?? undefined).subscribe(
-      (data) => {
+      () => {
         Swal.fire('User saved successfully', 'User saved in the system', 'success');
         this.router.navigate(['/login']);
       },

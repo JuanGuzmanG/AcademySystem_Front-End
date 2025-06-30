@@ -41,9 +41,7 @@ export class ViewTestProfessorComponent implements OnInit, OnDestroy {
   loadTests() {
     this.testService
       .listTests()
-      .pipe(
-        takeUntil(this.destroy$)
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data: Test[]) => {
           this.tests = data;
@@ -55,12 +53,14 @@ export class ViewTestProfessorComponent implements OnInit, OnDestroy {
       });
   }
 
+  limitTests() {
+    return this.tests.length >= 9;
+  }
+
   loadSubjects(): void {
     this.subjectService
       .listSubjects()
-      .pipe(
-        takeUntil(this.destroy$)
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data: Subject[]) => {
           this.subjects = data;
@@ -92,9 +92,7 @@ export class ViewTestProfessorComponent implements OnInit, OnDestroy {
     if (result.isConfirmed) {
       this.testService
         .deleteTest(testId)
-        .pipe(
-          takeUntil(this.destroy$)
-        )
+        .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
             this.tests = this.tests.filter((test) => test.testId !== testId);

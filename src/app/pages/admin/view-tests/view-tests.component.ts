@@ -38,6 +38,10 @@ export class ViewTestsComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  limitTests() {
+    return this.tests.length >= 9;
+  }
+
   loadTests(){
     this.testService.listTests().pipe(
       takeUntil(this.destroy$)

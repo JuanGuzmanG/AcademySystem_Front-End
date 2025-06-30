@@ -34,7 +34,7 @@
                             <button [routerLink]="'/admin/update-question/'+testName+'/'+testId+'/'+q.questionId"
                                 class="mx-1" mat-flat-button color="primary">Update Question</button>
                             <button (click)="deleteQuestion(q.questionId)" class="mx-1" mat-flat-button
-                                color="warn">Delete</button>
+                                color="warn"><mat-icon>delete</mat-icon></button>
                         </div>
                     </mat-card-content>
                 </mat-card>
