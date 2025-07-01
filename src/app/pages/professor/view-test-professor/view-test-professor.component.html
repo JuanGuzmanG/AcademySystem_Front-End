@@ -12,24 +12,21 @@
         </mat-card-header>
         <mat-card-content>
             <mat-card-actions>
-                <button class="mx-1" [routerLink]="'/professor/questions/'+test.testName+'/'+test.testId"
-                    mat-flat-button color="primary">Questions</button>
+                <button class="mx-1" [routerLink]="'/professor/questions/'+test.testName+'/'+test.testId" mat-flat-button
+                    color="primary">Questions</button>
                 <button class="mx-1" mat-stroked-button color="primary"> Questions: {{test.cantQuestions}}</button>
                 <button class="mx-1" mat-stroked-button color="primary">Max Points {{test.maxPoints}}</button>
                 <button [routerLink]="'/professor/update-test/'+test.testId" class="mx-2" mat-flat-button
                     color="primary">Update</button>
-                <button class="mx-1" mat-flat-button color="warn"
-                    (click)="deleteTest(test.testId)"><mat-icon>delete</mat-icon></button>
+                <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.testId)"><mat-icon>delete</mat-icon></button>
             </mat-card-actions>
         </mat-card-content>
     </mat-card>
 
     <div class="d-flex justify-content-center my-3">
-        <button class="m-1" *ngIf="subjects.length > 0 && !limitTests()" mat-raised-button routerLink="add-test" color="primary">Add
-            Test</button>
-        <span class="m-1" *ngIf="subjects.length < 1">Add subjects first to create tests.</span>
-        <button class="m-1" *ngIf="limitTests()" mat-raised-button color="accent">creation limit reached (reason:
-            memory, app in test environment only)</button>
-        <button class="m-1" [routerLink]="'/professor'" mat-raised-button color="warn">GO HOME</button>
+            <button class="m-1" *ngIf="subjects.length > 0 && !limitTests()" mat-raised-button routerLink="/professor/add-test" color="primary">Add Test</button>
+            <button class="m-1" *ngIf="subjects.length < 1" [routerLink]="'/professor/subjects'" mat-raised-button color="primary">Add subjects first to create tests.</button>
+            <button class="m-1" *ngIf="limitTests()" mat-raised-button color="accent">creation limit reached (reason: memory, app in test environment only)</button>
+            <button class="m-1" [routerLink]="'/professor'" mat-raised-button color="warn">GO HOME</button>
     </div>
 </mat-card>

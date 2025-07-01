@@ -1,55 +1,47 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-4 col-sm-2 col-lg-4">
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-4 pt-5">
+        <mat-card class="rounded border-dark border-2 shadow">
+            <div class="container p-3">
+                <div class="text-center pb-2">
+                    <mat-icon fontIcon="person" style="font-size: 148px; height: 148px; width: 148px;"></mat-icon>
+                </div>
 
-            </div>
-            <div class="col-4 col-sm-8 col-lg-4 pt-5">
-                <mat-card>
-                    <div class="container p-3">
-                        <div class="text-center pb-4">
-                            <mat-icon fontIcon="person"></mat-icon>
-                            <h1 class="fs-3 text-center">Login</h1>
-                        </div>
+                <form #loginForm="ngForm" (ngSubmit)="forSubmit()">
+                    <mat-form-field class="w-100 mb-2" appearance="outline">
+                        <mat-label>Documento</mat-label>
+                        <mat-icon matIconPrefix>person</mat-icon>
+                        <input [(ngModel)]="loginData.username" name="username" required matInput
+                            placeholder="Ingresa tu documento" />
+                        <mat-error
+                            *ngIf="loginForm.controls['username']?.touched && loginForm.controls['username']?.invalid">
+                            El documento es requerido
+                        </mat-error>
+                    </mat-form-field>
 
-                        <div class="text-center">
-                            <form>
-                                <div>
-                                    <div>
-                                        <mat-form-field class="w-50" appearance="outline">
-                                            <mat-label>Document</mat-label>
-                                            <input [(ngModel)]="loginData.username" name="username" matInput type="document" placeholder="document" />
-                                            <mat-error>
-                                                Enter your Document
-                                            </mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        <mat-form-field class="w-50" appearance="outline">
-                                            <mat-label>password</mat-label>
-                                            <input [(ngModel)]="loginData.password" name="password" matInput type="password" placeholder="password" />
-                                            <mat-error>
-                                                Enter your password
-                                            </mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        <button mat-flat-button color="primary" (click)="forSubmit()">
-                                            <mat-icon>login</mat-icon>
-                                        </button>
-                                        <button mat-stroked-button class="ms-4" color="warn" (click)="clear()">
-                                            Limpiar
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                    <mat-form-field class="w-100 mb-3" appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <mat-icon matIconPrefix>lock</mat-icon>
+                        <input [(ngModel)]="loginData.password" name="password" required matInput type="password"
+                            placeholder="Ingresa tu contraseña" />
+                        <mat-error
+                            *ngIf="loginForm.controls['password']?.touched && loginForm.controls['password']?.invalid">
+                            La contraseña es requerida
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div class="d-flex justify-content-center align-items-center gap-3">
+                        <button type="submit" mat-flat-button color="primary" [disabled]="!loginForm.valid"
+                            class="w-50">
+                            <mat-icon>login</mat-icon>
+                            Ingresar
+                        </button>
+                        <button type="button" mat-flat-button color="warn" (click)="clear()" class="w-50">
+                            <mat-icon>clear</mat-icon>
+                            Limpiar
+                        </button>
                     </div>
-                </mat-card>
+                </form>
             </div>
-            <div class="col-4 col-sm-2 col-lg-4">
-
-            </div>
-        </div>
+        </mat-card>
     </div>
 </div>

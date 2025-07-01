@@ -3,12 +3,19 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { materialImports } from './material.imports';
 import { LoginService } from './services/login.service';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { Subject } from './interfaces/Subject.interface';
+import { SubjectService } from './services/subject.service';
 
+export type MenuItem = {
+  name: string;
+  icon: string;
+  route?: string;
+  action?: () => void;
+};
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidenavComponent, materialImports(), CommonModule],
+  imports: [RouterOutlet, materialImports(), CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
