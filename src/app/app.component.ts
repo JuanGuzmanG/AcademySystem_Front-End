@@ -1,10 +1,19 @@
-import { Component, computed, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { materialImports } from './material.imports';
 import { LoginService } from './services/login.service';
-import { Subject } from './interfaces/Subject.interface';
-import { SubjectService } from './services/subject.service';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatSidenav } from '@angular/material/sidenav';
 
 export type MenuItem = {
   name: string;
@@ -15,19 +24,32 @@ export type MenuItem = {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, materialImports(), CommonModule],
+  imports: [RouterOutlet, SidenavComponent, materialImports(), CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+  private breakpointObserver = inject(BreakpointObserver);
+  private destroyRef = inject(DestroyRef);
   title = 'SystemAcademy_FE';
   isLoggedIn = false;
   user: any = null;
   rols: any = null;
   collapsed = signal(false);
   sideNavWidth = computed(() => (this.collapsed() ? '58px' : '250px'));
-
-  constructor(public login: LoginService) {}
+  isHandset = signal(false);
+  constructor(public login: LoginService) {
+    this.breakpointObserver
+      .observe(Breakpoints.Handset)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((result) => {
+        this.isHandset.set(result.matches);
+        if (result.matches) {
+          this.collapsed.set(true);
+        }
+      });
+  }
 
   ngOnInit(): void {
     this.isLoggedIn = this.login.isLoggedIn();
@@ -42,6 +64,24 @@ export class AppComponent {
     this.rols = this.login.getUserRole();
   }
 
+  toggleSidenav() {
+    if (this.isHandset()) {
+      this.sidenav.toggle();
+    } else {
+      this.collapsed.set(!this.collapsed());
+    }
+  }
+
+  handleSidenavClick(): void {
+    if (this.isHandset()) {
+      this.sidenav.close();
+    } else {
+      if (!this.collapsed()) {
+        this.collapsed.set(true);
+      }
+    }
+  }
+  
   public logout() {
     this.login.logout();
     window.location.reload();

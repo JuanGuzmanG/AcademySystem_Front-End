@@ -1,11 +1,10 @@
 mat-card-actions {
     display: flex;
-    flex-wrap: wrap; /* ¡La clave está aquí! */
-    gap: 8px; /* Espacio entre botones, tanto horizontal como vertical */
-    padding: 8px 16px; /* Asegura un poco de padding interno */
+    flex-wrap: wrap;
+    gap: 8px; 
+    padding: 8px 16px;
 }
 
-/* Opcional: Centrar los botones cuando se envuelven */
 mat-card-actions {
-    justify-content: flex-start; /* O 'center' si prefieres */
+    justify-content: flex-start; 
 }

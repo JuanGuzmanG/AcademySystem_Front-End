@@ -1,18 +1,15 @@
 .table-responsive-container {
-    overflow-x: auto; /* ¡Esta es la propiedad clave! */
+    overflow-x: auto; 
     width: 100%;
 }
 
 table {
     width: 100%;
-    /* Opcional: define un ancho mínimo para la tabla para forzar el scroll en pantallas medianas si es necesario */
-    /* min-width: 800px; */ 
 }
 
-/* Para evitar que textos muy largos (como nombres o emails) rompan el layout */
 .cell-name, .cell-email {
-    white-space: nowrap; /* Evita que el texto se parta en varias líneas */
+    white-space: nowrap; 
     overflow: hidden;
-    text-overflow: ellipsis; /* Añade "..." si el texto es muy largo */
-    max-width: 200px; /* Define un ancho máximo para la celda */
+    text-overflow: ellipsis;
+    max-width: 200px; 
 }

@@ -27,7 +27,7 @@ mat-form-field {
   color: grey;
 }
 .mb-3 {
-  margin-bottom: 1rem; /* 16px si el font-size base es 16px */
+  margin-bottom: 1rem;
 }
 .full-width {
   width: 100%;

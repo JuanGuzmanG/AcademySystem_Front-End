@@ -5,6 +5,8 @@ import {
   signal,
   OnInit,
   OnDestroy,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject as RxjSubject } from 'rxjs';
@@ -37,7 +39,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   subjects: Subject[] = [];
 
   private readonly destroy$ = new RxjSubject<void>();
-
+  @Output() menuItemClicked = new EventEmitter<void>();
   constructor(
     private loginservice: LoginService,
     private subjectService: SubjectService
@@ -113,12 +115,17 @@ export class SidenavComponent implements OnInit, OnDestroy {
     }
   }
 
+  onItemClick(): void {
+    this.menuItemClicked.emit();
+  }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
   logout() {
+    this.onItemClick();
     this.loginservice.logout();
     window.location.reload();
   }

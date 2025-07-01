@@ -39,8 +39,8 @@ export class AuthInterceptor implements HttpInterceptor {
           if (error.status === 401 || error.status === 403) {
             Swal.fire('error', 'Session expired', 'error')
             this.loginService.logout();
-/*             this.router.navigate(['/login']);
-            window.location.reload(); */
+            this.router.navigate(['/login']);
+            window.location.reload();
           }
           return throwError(()=> error)
         }),

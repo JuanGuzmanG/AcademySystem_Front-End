@@ -1,4 +1,4 @@
-<div class="bootstrap-wrapper">
+<mat-card class="p-3">
   <div class="container">
     <div class="row" style="margin-top: 20px">
       <div class="col-md-12">
@@ -10,7 +10,8 @@
           <form [formGroup]="signupForm" novalidate>
             <div class="row">
               <div class="col-md-12">
-                <img class="rounded-circle object-fit-cover" style="width: 160px; height: 160px;" *ngIf="selectedFile" [src]="photoPreview" alt="Photo preview">
+                <img class="rounded-circle object-fit-cover" style="width: 160px; height: 160px;" *ngIf="selectedFile"
+                  [src]="photoPreview" alt="Photo preview">
                 <div class="full-width my-3">
                   <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
                     <mat-icon>attach_file</mat-icon>
@@ -65,15 +66,6 @@
                   <mat-label>Second Last Name</mat-label>
                   <input formControlName="secondLastName" matInput type="text" placeholder="Second Last Name" />
                 </mat-form-field>
-
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Blood Type</mat-label>
-                  <mat-select formControlName="bloodType">
-                    <mat-option *ngFor="let Blood of BT" [value]="Blood">
-                      {{ Blood }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
               </div>
 
               <div class="col-md-6">
@@ -111,31 +103,34 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-
                 <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Rol</mat-label>
-                  <input matInput type="text" value="New User" disabled />
+                  <mat-label>Blood Type</mat-label>
+                  <mat-select formControlName="bloodType">
+                    <mat-option *ngFor="let Blood of BT" [value]="Blood">
+                      {{ Blood }}
+                    </mat-option>
+                  </mat-select>
                 </mat-form-field>
+              </div>
 
-                <div class="container row mb-3">
-                  <div class="col-1 m-auto">
-                    <mat-label class="container px-0 px-3">Gender</mat-label>
-                  </div>
-                  <div class="gender-container col-11"
-                    [ngClass]="{ 'other-selected': signupForm.get('gender')?.value === 'Other' }">
-                    <mat-radio-group formControlName="gender" class="gender-radio-group">
-                      <mat-radio-button value="Male">Male</mat-radio-button>
-                      <mat-radio-button value="Female">Female</mat-radio-button>
-                      <mat-radio-button value="private">I'd rather not say</mat-radio-button>
-                      <mat-radio-button value="Other">Other</mat-radio-button>
-                    </mat-radio-group>
+              <div class="container row mb-3">
+                <div class="col-1 m-auto">
+                  <mat-label class="container px-0 px-3">Gender</mat-label>
+                </div>
+                <div class="gender-container col-11"
+                  [ngClass]="{ 'other-selected': signupForm.get('gender')?.value === 'Other' }">
+                  <mat-radio-group formControlName="gender" class="gender-radio-group">
+                    <mat-radio-button value="Male">Male</mat-radio-button>
+                    <mat-radio-button value="Female">Female</mat-radio-button>
+                    <mat-radio-button value="private">I'd rather not say</mat-radio-button>
+                    <mat-radio-button value="Other">Other</mat-radio-button>
+                  </mat-radio-group>
 
-                    <mat-form-field *ngIf="signupForm.get('gender')?.value === 'Other'" class="gender-input"
-                      appearance="outline">
-                      <mat-label>Specify Gender</mat-label>
-                      <input formControlName="customGender" matInput type="text" placeholder="Enter your gender" />
-                    </mat-form-field>
-                  </div>
+                  <mat-form-field *ngIf="signupForm.get('gender')?.value === 'Other'" class="gender-input"
+                    appearance="outline">
+                    <mat-label>Specify Gender</mat-label>
+                    <input formControlName="customGender" matInput type="text" placeholder="Enter your gender" />
+                  </mat-form-field>
                 </div>
               </div>
 
@@ -153,4 +148,4 @@
       </div>
     </div>
   </div>
-</div>
+</mat-card>

@@ -89,7 +89,7 @@ export class LoginComponent implements OnDestroy{
           }
         );
       },
-      (error) => {
+      () => {
         this.snak.open('Invalid Details', 'Try again', {
           duration: 3000,
         });

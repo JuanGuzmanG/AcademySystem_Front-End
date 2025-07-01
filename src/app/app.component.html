@@ -1,45 +1,41 @@
-<ngx-ui-loader 
-text="Loading..." 
-fgsType="three-strings" 
-fgsColor="black">
-</ngx-ui-loader>
 <mat-toolbar color="primary" class="shadow">
-    <button class="menu-icon"
-    *ngIf="isLoggedIn" mat-icon-button 
-    (click)="collapsed.set(!collapsed())">
+    <button class="menu-icon" *ngIf="isLoggedIn" mat-icon-button (click)="toggleSidenav()">
         <mat-icon>menu</mat-icon>
     </button>
-    <div class="w-100 d-flex justify-content-between align-items-center ms-5 px-3">
-        <a [routerLink]="'/'" class="text-decoration-none text-reset d-flex align-items-center">
-            <img class="img-fluid me-2" style="height: 40px;" src="../../../../assets/logoas.png"
-                alt="logo_AcademySystem">
-            <span class="fs-5">Academic System</span>
-        </a>
 
-        <div class="d-flex align-items-center gap-3">
-            <a *ngIf="!isLoggedIn" [routerLink]="'/register'" class="text-white text-decoration-none" mat-button>
+    <a [routerLink]="'/'" class="text-decoration-none text-reset d-flex align-items-center logo-container">
+        <img class="img-fluid me-2" style="height: 40px;" src="../../../../assets/logoas.png" alt="logo_AcademySystem">
+        <span class="fs-5 d-none d-sm-inline">Academic System</span> </a>
+
+    <span class="spacer"></span>
+
+    <div class="d-flex align-items-center gap-2">
+        <ng-container *ngIf="!isLoggedIn">
+            <a [routerLink]="'/register'" class="text-white text-decoration-none" mat-button>
                 Signup
             </a>
-            <a *ngIf="!isLoggedIn" [routerLink]="'/login'" class="text-white text-decoration-none" mat-button>
+            <a [routerLink]="'/login'" class="text-white text-decoration-none" mat-button>
                 Login
             </a>
-            <a *ngIf="isLoggedIn" (click)="logout()" [routerLink]="'/'" class="text-white text-decoration-none"
-                mat-button>
-                Logout
-            </a>
-            <button *ngIf="isLoggedIn && user" mat-button
-                [routerLink]="(user.rols[0])+'/profile'">
-                {{user.firstName}} {{user.lastName}}
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn">
+            <button mat-button [routerLink]="(user.rols[0])+'/profile'">
+                <span class="d-none d-md-inline">{{user.firstName}} {{user.lastName}}</span> <mat-icon
+                    class="d-md-none">account_circle</mat-icon> </button>
+            <button mat-icon-button (click)="logout()" [routerLink]="'/'" aria-label="Logout button">
+                <mat-icon>logout</mat-icon>
             </button>
-        </div>
+        </ng-container>
     </div>
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav *ngIf="isLoggedIn" opened mode="side" [style.width]="sideNavWidth()">
-        <app-sidenav [collapsed]="collapsed()"/>
+    <mat-sidenav #sidenav *ngIf="isLoggedIn" [mode]="isHandset() ? 'over' : 'side'" [opened]="!isHandset()"
+        [style.width]="sideNavWidth()">
+        <app-sidenav [collapsed]="collapsed()" (menuItemClicked)="handleSidenavClick()" />
     </mat-sidenav>
-    
-    <mat-sidenav-content class="content" [style.margin-left]="sideNavWidth()">
+
+    <mat-sidenav-content class="content" [style.margin-left]="isHandset() || !isLoggedIn ? '0' : sideNavWidth()">
         <router-outlet></router-outlet>
     </mat-sidenav-content>
-</mat-sidenav-container> 
+</mat-sidenav-container>

@@ -14,6 +14,7 @@
         routerLinkActive
         #rla="routerLinkActive"
         [activated]="rla.isActive"
+        (click)="onItemClick()"
         class="text-start">
             <mat-icon class="text-white" matListItemIcon>{{item.icon}}</mat-icon>
             <span class="text-white" matListItemTitle *ngIf="!sideNavCollapsed()">{{item.name}}</span>
@@ -27,7 +28,8 @@
             <a mat-list-item 
             *ngFor="let s of subjects" 
             [routerLink]="rolName+'/'+s.subjectId" 
-            class="text-start text-white">
+            class="text-start text-white"
+            (click)="onItemClick()">
                 <mat-icon matListItemIcon>category</mat-icon> <span>{{s.subjectName}}</span>
             </a>
         </div>
