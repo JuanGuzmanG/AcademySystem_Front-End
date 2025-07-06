@@ -1,21 +1,34 @@
-<mat-card>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <mat-card-content>
-                    <mat-card-title class="fs-2 fw-bold">{{test?.testName}}</mat-card-title>
-                    <mat-card-subtitle>{{test?.testDescription}}</mat-card-subtitle>
-                    <mat-divider></mat-divider>
-                    <br>
-                    <ul>
-                        <li>This test contain <b>{{test?.cantQuestions}}</b> questions</li>
-                        <li *ngIf="test?.subject">This test about <b> {{test?.subject?.subjectName}} </b></li>
-                    </ul>
-                    <mat-card-actions>
-                        <button mat-raised-button color="warn" [routerLink]="'/user/'+0">Back</button>
-                    </mat-card-actions>
-                </mat-card-content>
+<mat-card class="container p-4 shadow-sm" *ngIf="test">
+    <mat-card-content>
+        <h2 class="text-primary text-center fs-3 fw-bold p-2">Test Information</h2>
+        <h3 class="mt-4 fs-1 text-primary">{{ test.testName }}</h3>
+        <p class="text-muted fs-3">{{ test.testDescription }}</p>
+
+        <div class="info-container mt-4">
+
+            <div class="d-flex align-items-start info-item mb-3">
+                <mat-icon class="me-3 my-auto info-icon">schedule</mat-icon>
+                <div>
+                    <span class="fw-bold d-block">Time to answer the questions</span>
+                    <span><span class="fw-bold">{{ test.cantQuestions * 2 }}</span> minutes</span>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-start info-item">
+                <mat-icon class="me-3 my-auto info-icon">help_outline</mat-icon>
+                <div>
+                    <span class="fw-bold d-block">Number of Questions</span>
+                    <span><span class="fw-bold">{{ test.cantQuestions }}</span> Multiple choice questions</span>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="d-grid gap-2 mt-5">
+            <button mat-flat-button color="primary" (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+                Volver al Menú
+            </button>
+        </div>
+
+    </mat-card-content>
 </mat-card>

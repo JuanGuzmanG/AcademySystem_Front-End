@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Subject as RxjSubject } from 'rxjs';
 import { takeUntil } from 'rxjs';
 
@@ -18,12 +18,13 @@ import { Test } from '../../../interfaces/Test.interface';
 export class ViewTestComponent implements OnInit, OnDestroy {
   test: Test | null = null;
   testId: number = 0;
-
+  pageSizeOptions: number[] = [5, 10, 25, 50];
   private readonly destroy$ = new RxjSubject<void>();
 
   constructor(
     private readonly testService: TestService=inject(TestService),
-    private readonly route: ActivatedRoute=inject(ActivatedRoute)
+    private readonly route: ActivatedRoute=inject(ActivatedRoute),
+    private readonly location: Location=inject(Location)
   ){}
 
   ngOnInit() {
@@ -48,5 +49,9 @@ export class ViewTestComponent implements OnInit, OnDestroy {
         console.error('Error loading test:', error);
       }
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

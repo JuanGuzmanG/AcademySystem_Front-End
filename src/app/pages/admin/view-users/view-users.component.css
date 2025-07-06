@@ -1,15 +1,22 @@
 .table-responsive-container {
-    overflow-x: auto; 
-    width: 100%;
+  overflow-x: auto;
+  width: 100%;
 }
 
 table {
-    width: 100%;
+  width: 100%;
 }
 
-.cell-name, .cell-email {
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px; 
+.cell-name,
+.cell-email {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.avatar-icon {
+  font-size: 80px;
+  width: 80px;
+  height: 80px;
 }

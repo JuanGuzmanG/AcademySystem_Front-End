@@ -1,37 +1,97 @@
-<mat-card>
-    <mat-card-content>
-        <div class="row">
-            <div class="col-12">
-                <div class="text-center">
-                    <img class="rounded-circle mb-2" src="{{user.photo}}" alt="User Image" width="150" height="150">
-                    <h1 class="mt20">{{user.firstName}} {{user.middleName}} {{user.lastName}}
-                        {{user.secondLastName}}
-                    </h1>
-                </div>
-                <table class="table">
-                    <tr>
-                        <td>Type Document</td>
-                        <td>{{user.documentType}}</td>
-                    </tr>
-                    <tr>
-                        <td>Document</td>
-                        <td>{{user.document}}</td>
-                    </tr>
-                    <tr>
-                        <td>Phone Number</td>
-                        <td>{{user.phoneNumber}}</td>
-                    </tr>
-                    <tr>
-                        <td>Role</td>
-                        <td>{{user.rols[0].rolName}}</td>
-                    </tr>
-                </table>
+<mat-card class="shadow-sm border-0">
+    <div class="row justify-content-center">
+        <div class="text-center my-3">
+            <img src="{{user.photo}}" width="150" class="rounded-circle border border-dark border-2">
+        </div>
+        <div class="text-center mt-3">
+            <h1 class="fs-3 fw-bold mb-0 text-primary">{{user.firstName}} {{user.lastName}}</h1>
+            <span class="fs-4 text-muted">{{userRol}}</span>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-center">
+            <div class="p-3">
+                <ul class="list-unstyled">
+                    <li class="d-flex align-items-center mb-3">
+                        <div>
+                            <strong class="d-flex align-items-center mb-2"><mat-icon class="me-2 text-primary">badge</mat-icon> Documento</strong>
+                            <span class="text-muted ps-4">{{user.document}}</span>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center mb-3">
+                        <div>
+                            <strong class="d-flex align-items-center mb-2"><mat-icon class="me-2 text-primary">email</mat-icon> Email</strong>
+                            <span class="text-muted ps-4">{{user.email}}</span>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <div>
+                            <strong class="d-flex align-items-center mb-2"><mat-icon class="me-2 text-primary">phone</mat-icon> Teléfono</strong>
+                            <span class="text-muted ps-4">{{user.phoneNumber}}</span>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
-        <mat-card-actions class="d-flex w-100 text-center">
-            <button class="w-50 m-1" mat-raised-button color="primary" [routerLink]="'update/'+user.document">EDIT</button>
-            <button class="w-50 m-1" mat-raised-button color="warn" [routerLink]="'/' + userRol">GO HOME</button>
-        </mat-card-actions>
-    </mat-card-content>
 
+        <div class="col-md-4 d-flex justify-content-center">
+            <div class="p-3">
+                <ul class="list-unstyled">
+                    <li class="d-flex align-items-center mb-3">
+                        <div>
+                            <strong class="d-flex align-items-center mb-2"><mat-icon class="me-2 text-primary">description</mat-icon> Tipo Documento</strong>
+                            <span class="text-muted ps-4">{{user.documentType}}</span>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center mb-3">
+                        <div>
+                            <strong class="d-flex align-items-center mb-2"><mat-icon class="me-2 text-primary">diversity_2</mat-icon>Género</strong>
+                            <span class="text-muted ps-4">{{user.gender}}</span>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <div>
+                            <strong class="d-flex align-items-center mb-2"><mat-icon class="me-2 text-primary">bloodtype</mat-icon> Tipo Sangre</strong>
+                            <span class="text-muted ps-4">{{user.bloodType}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-center">
+            <div class="p-3">
+                <ul class="list-unstyled">
+                    <li class="d-flex align-items-center mb-3">
+                        <div>
+                            <strong class="d-flex align-items-center mb-2"><mat-icon class="me-2 text-primary">cake</mat-icon> Fec. Nacimiento</strong>
+                            <span class="text-muted ps-4">{{user.birthDate | date: 'longDate'}}</span>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center mb-3">
+                        <div>
+                            <strong class="d-flex align-items-center mb-2"><mat-icon class="me-2 text-primary">flag</mat-icon> Lugar Nacimiento</strong>
+                            <span class="text-muted ps-4">{{user.countryBirth}}</span>
+                        </div>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <div>
+                            <strong class="d-flex align-items-center mb-2"><mat-icon class="me-2 text-primary">fingerprint</mat-icon> Rol</strong>
+                            <span class="text-muted ps-4">{{userRol}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-12 my-3">
+            <div class="d-flex px-3 mt-3">
+                <button class="w-50 m-1" mat-raised-button color="primary" [routerLink]="'update/'+user.document">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button class="w-50 m-1" mat-raised-button color="warn" [routerLink]="'/' + userRol">
+                    <mat-icon>home</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
 </mat-card>

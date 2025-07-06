@@ -1,45 +1,73 @@
-<mat-card>
-    <div class="bootstrap-wrapper">
-        <div class="container-fluid">
-            <h1 class="fw-bold fs-1 text-center my-2">TESTS AVAILABLE</h1>
-            <mat-divider></mat-divider>
-            <div class="row mt-3" *ngIf="tests">
-                <div class="col-md-4" *ngFor="let test of tests">
-                    <mat-card class="mb-3 border">
+<mat-card class="border-0 shadow">
+    <div class="container-fluid p-3 p-md-4">
+
+        <div class="text-center my-4">
+            <span class="fs-3 text-primary fw-bold">Available Tests</span>
+            <p class="fs-5 text-muted">
+                Choose a test to start or view its details.
+            </p>
+        </div>
+
+        <div *ngIf="tests && tests.length > 0; else noTestsTemplate">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let test of paginatedTests">
+                    <mat-card class="h-100 d-flex flex-column shadow">
+
                         <mat-card-header>
-                            <div mat-card-avatar>
-                                <mat-icon>person</mat-icon>
+                            <div mat-card-avatar class="d-flex justify-content-center align-items-center">
+                                <mat-icon color="primary">quiz</mat-icon>
                             </div>
-                            <mat-card-title>
-                                <h1>Test: <span class="fw-bold">{{test.testName}}</span></h1>
-                            </mat-card-title>
+                            <mat-card-title class="fw-bold">{{ test.testName }}</mat-card-title>
+                            <mat-card-subtitle>{{ test.subject.subjectName }}</mat-card-subtitle>
                         </mat-card-header>
-                        <mat-card-content>
-                            <mat-card-subtitle>
-                                <h3>Subject: <span class="fw-bold">{{test.subject.subjectName}}</span></h3>
-                            </mat-card-subtitle>
-                            <p>{{test.testDescription}}</p>
-                            <mat-card-actions>
-                                <button [routerLink]="'/user/view-test/'+test.testId" class="mx-1"
-                                    mat-raised-button>View Test</button>
-                                <button [routerLink]="'/user/instructions/'+test.testId" class="mx-1" mat-raised-button
-                                    color="primary">Start Test</button>
-                            </mat-card-actions>
-                            <mat-card-actions>
-                                <button mat-button color="accent">Questions: {{test.cantQuestions}}</button>
-                                <button mat-button color="accent">Max Points: {{test.maxPoints}}</button>
-                            </mat-card-actions>
+
+                        <mat-divider></mat-divider>
+
+                        <mat-card-content class="py-3 flex-grow-1">
+                            <p class="text-muted">{{ test.testDescription }}</p>
+
+                            <div class="d-flex justify-content-start align-items-center mt-3">
+                                <div class="d-flex align-items-center me-4">
+                                    <mat-icon class="me-1" fontIcon="help_outline"></mat-icon>
+                                    <span class="fw-light">{{ test.cantQuestions }} Questions</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <mat-icon class="me-1" fontIcon="emoji_events"></mat-icon>
+                                    <span class="fw-light">{{ test.maxPoints }} Points</span>
+                                </div>
+                            </div>
                         </mat-card-content>
-                    </mat-card>
-                </div>
-                <div class="col-md-12" *ngIf="tests.length == 0">
-                    <mat-card>
-                        <mat-card-content>
-                            <h1>No tests on this subject</h1>
-                        </mat-card-content>
+
+                        <mat-card-actions class="p-3" align="end">
+                            <button mat-stroked-button [routerLink]="'/user/view-test/' + test.testId">
+                                Details
+                            </button>
+                            <button mat-flat-button color="primary" [routerLink]="'/user/instructions/' + test.testId"
+                                class="ms-2">
+                                Start Test
+                            </button>
+                        </mat-card-actions>
                     </mat-card>
                 </div>
             </div>
+
+            <mat-paginator class="d-flex justify-content-start mt-3" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                (page)="handlePageEvent($event)" aria-label="Select page of tests">
+            </mat-paginator>
         </div>
+
+        <ng-template #noTestsTemplate>
+            <div class="d-flex justify-content-center align-items-center p-5 border rounded bg-light">
+                <div class="text-center">
+                    <mat-icon class="text-muted" style="font-size: 5rem; width: 5rem; height: 5rem;">
+                        sentiment_dissatisfied
+                    </mat-icon>
+                    <h2 class="mt-3 text-muted">No tests found</h2>
+                    <p *ngIf="subjectName">There are currently no tests available for the subject: <span
+                            class="fw-bold">{{ subjectName }}</span>.</p>
+                </div>
+            </div>
+        </ng-template>
+
     </div>
 </mat-card>

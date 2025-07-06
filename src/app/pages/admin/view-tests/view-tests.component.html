@@ -1,32 +1,73 @@
-<mat-card>
-    <h2 class="text-center fs-1 fw-bold my-3">ALL TESTS</h2>
-    <mat-card class="m-2" appearance="outlined" *ngFor="let test of tests">
-        <mat-card-header>
-            <div mat-card-avatar class="mt-2 my-auto"><mat-icon>category</mat-icon></div>
-            <mat-card-title>
-                {{test.testName}}
-            </mat-card-title>
-            <mat-card-subtitle>
-                {{test.subject.subjectName}}
-            </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <mat-card-actions>
-                <button class="mx-1" [routerLink]="'/admin/questions/'+test.testName+'/'+test.testId" mat-flat-button
-                    color="primary">Questions</button>
-                <button class="mx-1" mat-stroked-button color="primary"> Questions: {{test.cantQuestions}}</button>
-                <button class="mx-1" mat-stroked-button color="primary">Max Points {{test.maxPoints}}</button>
-                <button [routerLink]="'/admin/update-test/'+test.testId" class="mx-2" mat-flat-button
-                    color="primary">Update</button>
-                <button class="mx-1" mat-flat-button color="warn" (click)="deleteTest(test.testId)"><mat-icon>delete</mat-icon></button>
-            </mat-card-actions>
-        </mat-card-content>
-    </mat-card>
+<mat-card class="p-3 shadow-sm border-0">
+    <div class="text-center my-3">
+        <h1 class="fs-3 fw-bold text-primary">Manage Tests</h1>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let test of paginatedTests">
+            <mat-card class="h-100 d-flex flex-column">
+                <mat-card-header>
+                    <div mat-card-avatar class="my-auto">
+                        <mat-icon color="primary">quiz</mat-icon>
+                    </div>
+                    <mat-card-title class="fw-bold">{{test.testName}}</mat-card-title>
+                    <mat-card-subtitle>{{test.subject.subjectName}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="flex-grow-1">
+                    <ul class="list-unstyled p-3">
+                        <li class="d-flex align-items-center mb-3">
+                            <mat-icon class="me-3 text-primary">help_outline</mat-icon>
+                            <div>
+                                <strong class="d-block">Questions</strong>
+                                <span class="text-muted">{{test.cantQuestions}}</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <mat-icon class="me-3 text-primary">emoji_events</mat-icon>
+                            <div>
+                                <strong class="d-block">Max Points</strong>
+                                <span class="text-muted">{{test.maxPoints}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </mat-card-content>
+                <mat-divider></mat-divider>
+                <mat-card-actions class="d-flex justify-content-between p-2">
+                    <button mat-stroked-button color="primary"
+                        [routerLink]="'/admin/questions/'+test.testName+'/'+test.testId">
+                        View Questions  
+                    </button>
+                    <div>
+                        <button mat-icon-button color="primary" [routerLink]="'/admin/update-test/'+test.testId"
+                            matTooltip="Editar Test">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="deleteTest(test.testId)"
+                            matTooltip="Eliminar Test">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center mt-4">
 
-    <div class="d-flex justify-content-center my-3">
-            <button class="m-1" *ngIf="subjects.length > 0 && !limitTests()" mat-raised-button routerLink="/admin/add-test" color="primary">Add Test</button>
-            <button class="m-1" *ngIf="subjects.length < 1" [routerLink]="'/admin/subjects'" mat-raised-button color="primary">Add subjects first to create tests.</button>
-            <button class="m-1" *ngIf="limitTests()" mat-raised-button color="accent">creation limit reached (reason: memory, app in test environment only)</button>
-            <button class="m-1" [routerLink]="'/admin'" mat-raised-button color="warn">GO HOME</button>
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+            (page)="handlePageEvent($event)" aria-label="Seleccionar página de tests">
+        </mat-paginator>
+
+        <div class="w-100 d-flex justify-content-center mt-3">
+            <button class="w-50 mx-1" *ngIf="subjects.length > 0" mat-flat-button color="primary"
+                routerLink="/admin/add-test">
+                <mat-icon>assignment</mat-icon>
+            </button>
+            <button class="w-50 mx-1" mat-flat-button color="warn" [routerLink]="'/admin'"
+                matTooltip="Volver al inicio">
+                <mat-icon>home</mat-icon>
+            </button>
+            <button *ngIf="subjects.length < 1" mat-raised-button color="accent" [routerLink]="'/admin/subjects'">
+                Add subjects to be able to create tests
+            </button>
+        </div>
     </div>
 </mat-card>

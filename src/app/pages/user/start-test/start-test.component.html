@@ -1,12 +1,14 @@
-<div class="bootstrap-wrapper" *ngIf="!sendTest">
+<div *ngIf="!sendTest">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 my-2">
                 <mat-card>
                     <mat-card-content>
                         <mat-card-title>Test: {{test?.testName}}</mat-card-title>
                         <mat-divider></mat-divider>
                         <h3>Instructions</h3>
+                        <h2 class="text-center m-0 p-0">You have</h2>
+                        <h2 class="text-center">{{getFormattedTime() }}</h2>
                         <ul>
                             <li>Don't minimize the test.</li>
                             <li>Don't switch tabs.</li>
@@ -30,8 +32,8 @@
                     <button mat-raised-button (click)="SendTest()" color="primary">Send Test</button>
                 </div>
             </div>
-            <div class="col-md-2">
-                <mat-card class="mt-2">
+            <div class="col-md-2 my-2">
+                <mat-card>
                     <mat-card-header>
                         <mat-card-title>
                             Progress

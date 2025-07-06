@@ -1,22 +1,21 @@
-<mat-card>
-    <h1 class="text-center fs-1 my-3 fw-bold">UPDATE TEST</h1>
+<mat-card class="px-3">
     <div class="row">
         <div class="col-md-8 offset-md-2">
+            <h1 class="text-center text-primary fs-3 fw-bold p-2 my-3">Update Test</h1>
             <form action="" *ngIf="test" (ngSubmit)="updateTest()">
-                <mat-form-field class="w-100" appearance="fill">
+                <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Name</mat-label>
                     <input matInput type="text" name="testName" [(ngModel)]="test.testName"
                         placeholder="Enter test name" required>
                 </mat-form-field>
-                <mat-form-field class="w-100" appearance="fill">
+                <mat-form-field class="w-100" appearance="outline">
                     <mat-label>Description</mat-label>
                     <textarea matInput type="text" name="testDescription" [(ngModel)]="test.testDescription"
                         placeholder="Enter test description" rows="5" required></textarea>
                 </mat-form-field>
-
                 <div class="row">
                     <div class="col-md-6">
-                        <mat-form-field class="w-100" appearance="fill">
+                        <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Max Points</mat-label>
                             <mat-select name="maxPoints" [(ngModel)]="test.maxPoints">
                                 <mat-option *ngFor="let option of MaxPointsOptions" [value]="option">
@@ -26,7 +25,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-md-6">
-                        <mat-form-field class="w-100" appearance="fill">
+                        <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Number of Questions</mat-label>
                             <input matInput type="number" name="cantQuestions" [(ngModel)]="test.cantQuestions"
                                 placeholder="Enter test duration" required>
@@ -38,7 +37,7 @@
                     Publication status
                 </mat-slide-toggle>
 
-                <mat-form-field appearance="fill" class="mt-2 w-100">
+                <mat-form-field appearance="outline" class="mt-2 w-100">
                     <mat-label>Subjects</mat-label>
                     <mat-select name="subject" [(ngModel)]="test.subject.subjectId">
                         <mat-option *ngFor="let subject of subjects" [value]="subject.subjectId">
@@ -48,8 +47,8 @@
                 </mat-form-field>
 
                 <div class="d-flex w-100 text-center mb-2">
-                    <button class="w-50 mx-1" type="submit" mat-raised-button color="primary">UPDATE</button>
-                    <button class="w-50 mx-1" type="button" (click)="goBack()" mat-raised-button color="warn">CANCEL</button>
+                    <button class="w-50 mx-1" type="submit" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
+                    <button class="w-50 mx-1" type="button" (click)="goBack()" mat-raised-button color="warn"><mat-icon>close</mat-icon></button>
                 </div>
             </form>
         </div>

@@ -1,150 +1,127 @@
-<mat-card class="p-3">
-  <div class="container">
-    <div class="row" style="margin-top: 20px">
-      <div class="col-md-12">
-        <div class="container text-center pb-4">
-          <h1 class="fs-3 text-center">REGISTRO</h1>
+<mat-card class="shadow-lg w-100 border-0 overflow-hidden">
+  <div class="row g-0">
+    <div class="col-lg-7 p-4 p-md-5">
+      <div class="row">
+        <div class="col-6">
+          <h1 class="fs-1">Create Account</h1>
+          <span class="fs-5 text-muted">join the community and start learning</span>
         </div>
+        <div *ngIf="photoPreview" class="col-6 mb-3 d-flex justify-content-center align-items-center">
+          <img class="rounded-circle object-fit-cover profile-preview" [src]="photoPreview" alt="Photo preview" />
+        </div>
+      </div>
+      <form [formGroup]="signupForm" novalidate>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Document Type</mat-label>
+              <mat-select formControlName="documentType">
+                <mat-option *ngFor="let type of types" [value]="type">{{ type }}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-        <div class="container text-center">
-          <form [formGroup]="signupForm" novalidate>
-            <div class="row">
-              <div class="col-md-12">
-                <img class="rounded-circle object-fit-cover" style="width: 160px; height: 160px;" *ngIf="selectedFile"
-                  [src]="photoPreview" alt="Photo preview">
-                <div class="full-width my-3">
-                  <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
-                    <mat-icon>attach_file</mat-icon>
-                    Select Profile Photo
-                  </button>
-                  <input hidden type="file" #fileInput (change)="onFileSelected($event)" accept="image/*">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Document Type</mat-label>
-                  <mat-select formControlName="documentType">
-                    <mat-option *ngFor="let type of types" [value]="type">
-                      {{ type }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="signupForm.get('documentType')?.hasError('required')">
-                    Choose a Type Document
-                  </mat-error>
-                </mat-form-field>
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Document</mat-label>
+              <input formControlName="document" matInput type="text" placeholder="Document" />
+            </mat-form-field>
 
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Document</mat-label>
-                  <input formControlName="document" matInput type="text" placeholder="Document" />
-                  <mat-error *ngIf="signupForm.get('document')?.hasError('required')">
-                    Enter your Document
-                  </mat-error>
-                </mat-form-field>
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Name</mat-label>
+              <input formControlName="firstName" matInput type="text" placeholder="Name" />
+            </mat-form-field>
 
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Name</mat-label>
-                  <input formControlName="firstName" matInput type="text" placeholder="Name" />
-                  <mat-error *ngIf="signupForm.get('firstName')?.hasError('required')">
-                    Enter your First Name
-                  </mat-error>
-                </mat-form-field>
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Middle Name</mat-label>
+              <input formControlName="middleName" matInput type="text" placeholder="Middle Name" />
+            </mat-form-field>
 
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Middle Name</mat-label>
-                  <input formControlName="middleName" matInput type="text" placeholder="Middle Name" />
-                </mat-form-field>
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input formControlName="lastName" matInput type="text" placeholder="Last Name" />
+            </mat-form-field>
 
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Last Name</mat-label>
-                  <input formControlName="lastName" matInput type="text" placeholder="Last Name" />
-                  <mat-error *ngIf="signupForm.get('lastName')?.hasError('required')">
-                    Enter your Last Name
-                  </mat-error>
-                </mat-form-field>
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Second Last Name</mat-label>
+              <input formControlName="secondLastName" matInput type="text" placeholder="Second Last Name" />
+            </mat-form-field>
 
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Second Last Name</mat-label>
-                  <input formControlName="secondLastName" matInput type="text" placeholder="Second Last Name" />
-                </mat-form-field>
-              </div>
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Blood Type</mat-label>
+              <mat-select formControlName="bloodType">
+                <mat-option *ngFor="let Blood of BT" [value]="Blood">{{ Blood }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-              <div class="col-md-6">
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Email</mat-label>
-                  <input formControlName="email" matInput type="email" placeholder="Email" />
-                  <mat-error *ngIf="signupForm.get('email')?.hasError('email')">
-                    Email invalid: Enter Correct Format
-                  </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Password</mat-label>
-                  <input formControlName="password" matInput type="password" placeholder="Password" />
-                  <mat-error *ngIf="signupForm.get('password')?.hasError('minlength')">
-                    Password must be at least 8 characters
-                  </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Phone</mat-label>
-                  <input formControlName="phoneNumber" matInput type="text" placeholder="Phone" />
-                </mat-form-field>
-
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Birth Date</mat-label>
-                  <input formControlName="birthDate" matInput type="date" />
-                </mat-form-field>
-
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Country of Birth</mat-label>
-                  <mat-select formControlName="countryBirth">
-                    <mat-option *ngFor="let country of countries" [value]="country">
-                      {{ country }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field class="w-100" appearance="outline">
-                  <mat-label>Blood Type</mat-label>
-                  <mat-select formControlName="bloodType">
-                    <mat-option *ngFor="let Blood of BT" [value]="Blood">
-                      {{ Blood }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-
-              <div class="container row mb-3">
-                <div class="col-1 m-auto">
-                  <mat-label class="container px-0 px-3">Gender</mat-label>
-                </div>
-                <div class="gender-container col-11"
-                  [ngClass]="{ 'other-selected': signupForm.get('gender')?.value === 'Other' }">
-                  <mat-radio-group formControlName="gender" class="gender-radio-group">
-                    <mat-radio-button value="Male">Male</mat-radio-button>
-                    <mat-radio-button value="Female">Female</mat-radio-button>
-                    <mat-radio-button value="private">I'd rather not say</mat-radio-button>
-                    <mat-radio-button value="Other">Other</mat-radio-button>
-                  </mat-radio-group>
-
-                  <mat-form-field *ngIf="signupForm.get('gender')?.value === 'Other'" class="gender-input"
-                    appearance="outline">
-                    <mat-label>Specify Gender</mat-label>
-                    <input formControlName="customGender" matInput type="text" placeholder="Enter your gender" />
-                  </mat-form-field>
-                </div>
-              </div>
-
-              <div class="container text-center">
-                <button mat-flat-button color="primary" (click)="formSubmit()">
-                  Registrar
-                </button>
-                <button mat-stroked-button style="margin-left: 20px" color="warn" type="reset" (click)="clear()">
-                  Limpiar
-                </button>
-              </div>
+          <div class="col-md-6">
+            <div class="d-flex justify-content-center align-items-center w-100" style="height: 56px; margin-bottom: 22px;">
+              <button type="button" mat-stroked-button color="primary" (click)="fileInput.click()">
+                <mat-icon>attach_file</mat-icon>
+                Select Profile Photo
+              </button>
+              <input hidden type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" />
             </div>
-          </form>
+
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input formControlName="email" matInput type="email" placeholder="Email" />
+            </mat-form-field>
+
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input formControlName="password" matInput type="password" placeholder="Password" />
+            </mat-form-field>
+
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Phone</mat-label>
+              <input formControlName="phoneNumber" matInput type="text" placeholder="Phone" />
+            </mat-form-field>
+
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Birth Date</mat-label>
+              <input formControlName="birthDate" matInput type="date" />
+            </mat-form-field>
+
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Country of Birth</mat-label>
+              <mat-select formControlName="countryBirth">
+                <mat-option *ngFor="let country of countries" [value]="country">{{ country }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="gender-container" [ngClass]="{
+                  'other-selected': signupForm.get('gender')?.value === 'Other'
+                }">
+              <mat-form-field appearance="outline" class="gender-select">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                  <mat-option *ngFor="let gender of Genders" [value]="gender">{{ gender }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="gender-input" appearance="outline">
+                <mat-label>Specify Gender</mat-label>
+                <input formControlName="customGender" matInput type="text" placeholder="Enter your gender" />
+              </mat-form-field>
+            </div>
+          </div>
         </div>
+
+        <div class="d-flex gap-3 mt-4">
+          <button mat-flat-button color="primary" class="flex-grow-1 py-3" (click)="formSubmit()">
+            Register
+          </button>
+          <button mat-stroked-button color="warn" class="flex-grow-1 py-3" type="reset" (click)="clear()">
+            Clear
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-lg-5 bg-primary">
+      <div class="d-flex flex-column align-items-center justify-content-center text-center h-100 p-4">
+        <mat-icon class="info-icon text-white">menu_book</mat-icon>
+        <h2 class="fs-2 text-white mt-3">Start learning</h2>
+        <span class="fs-5 text-white lead mt-2">Access a world of testing and learning variety.</span>
       </div>
     </div>
   </div>

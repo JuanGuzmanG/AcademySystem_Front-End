@@ -1,34 +1,48 @@
-.gender-container {
-  display: flex;
-  transition: width 0.3s ease-in-out;
+.info-icon {
+  font-size: 100px;
+  width: 100px;
+  height: 100px;
 }
 
-.gender-radio-group {
+.profile-preview {
+  width: 120px;
+  height: 120px;
+  border: 4px solid #e0e0e0;
+}
+
+.gender-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
   width: 100%;
-  transition: width 0.3s ease-in-out;
+}
+
+.gender-select,
+.gender-input {
+  transition: all 0.4s ease-in-out;
+}
+
+.gender-select {
+  width: 100%;
 }
 
 .gender-input {
+  width: 0;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  display: none;
+  overflow: hidden;
+}
+
+.gender-container.other-selected .gender-select {
   width: 50%;
-  transition: width 0.3s ease-in-out;
 }
 
-.other-selected .gender-radio-group {
+.gender-container.other-selected .gender-input {
   width: 50%;
-}
-
-mat-form-field {
-  padding: 5px;
-}
-
-.file-name-display {
-  margin-left: 10px;
-  font-style: italic;
-  color: grey;
-}
-.mb-3 {
-  margin-bottom: 1rem;
-}
-.full-width {
-  width: 100%;
+  opacity: 1;
+  border: initial;
+  display: block;
 }

@@ -1,54 +1,48 @@
-<div class="bootstrap-wrapper" *ngIf="test">
-    <div class="container">
-        <div class="row">
+    <mat-card class="container my-5" *ngIf="test">
+        <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="mt-1">
-                    <mat-card>
-                        <mat-card-header class="mb-5">
-                            <mat-card-title class="fs-1 fw-bold mb-1">{{test.testName}}</mat-card-title>
-                            <mat-card-subtitle>{{test.testDescription}}</mat-card-subtitle>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div class="mb-2">
-                                <mat-card-title class="fw-bold">
-                                    Read the instructions carefully
-                                </mat-card-title>
-                                <mat-card-subtitle>One more step</mat-card-subtitle>
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-center fw-bolder text-primary mb-4">
+                            Test Rules and Instructions
+                        </h2>
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+                            <div>
+                                Please read the following rules carefully before you begin. Failure to comply may result
+                                in the cancellation of your exam.
                             </div>
-                            <mat-divider></mat-divider>
-                            <div class="my-3">
-                                <h2 class="fw-bold mb-1">Important Instructions</h2>
-                                <ul>
-                                    <li>This test is for practice only.</li>
-                                    <li>You must submit the test to: <b>{{test.cantQuestions *2}} minutes</b></li>
-                                    <li>You can attempt the test as many times as you like.</li>
-                                    <li>There are <b>{{test.maxPoints/test.cantQuestions}} points</b> per question.</li>
-                                </ul>
-                            </div>
-                            <mat-divider></mat-divider>
-                            <div class="my-3">
-                                <h2 class="fw-bold mb-1">Attempts of test</h2>
-                                <ul>
-                                    <li>press the <b>Start</b> button to begin the test</li>
-                                    <li>Time will start when you click the <b>Start</b> button</li>
-                                    <li>you can not resume this test if it's interrupted for any reason</li>
-                                    <li>Scroll down to move on the next question</li>
-                                    <li>Click the submit button when you finish the test</li>
-                                    <li>The test report will be automatically generated as a PDF</li>
-                                </ul>
-                            </div>
-                        </mat-card-content>
-                        <mat-card-actions class="d-flex justify-content-center">
-                            <button mat-raised-button color="primary" (click)="onStartTest()">
+                        </div>
+                        <ul class="list-group list-group-flush mt-4">
+                            <li class="list-group-item d-flex align-items-center border-0 px-0">
+                                <mat-icon class="fs-5 me-3 text-success">check_circle_outline</mat-icon>
+                                Make sure you have a stable internet connection.
+                            </li>
+                            <li class="list-group-item d-flex align-items-center border-0 px-0">
+                                <mat-icon class="fs-5 me-3 text-success">check_circle_outline</mat-icon>
+                                Find a quiet place without distractions.
+                            </li>
+                            <li class="list-group-item d-flex align-items-center border-0 px-0">
+                                <mat-icon class="fs-5 me-3 text-danger">highlight_off</mat-icon>
+                                No calculators, phones or other devices are allowed.
+                            </li>
+                            <li class="list-group-item d-flex align-items-center border-0 px-0">
+                                <mat-icon class="fs-5 me-3 text-danger">highlight_off</mat-icon>
+                                Do not open other tabs or applications in your browser.
+                            </li>
+                            <li class="list-group-item d-flex align-items-center border-0 px-0">
+                                <mat-icon class="fs-5 me-3 text-danger">highlight_off</mat-icon>
+                                You are not allowed to receive help from other people.
+                            </li>
+                        </ul>
+                        <div class="d-flex mt-4">
+                            <button mat-raised-button color="primary" (click)="onStartTest()" class="w-50 m-1">
                                 START TEST
                             </button>
-                            <button class="m-2" mat-raised-button color="warn" (click)="goBack()">
+                            <button class="m-2" mat-raised-button color="warn" (click)="goBack()" class="w-50 m-1">
                                 CANCEL
                             </button>
-                        </mat-card-actions>
-                    </mat-card>
-                </div>
+                        </div>
+                    </div>
             </div>
         </div>
-    </div>
-</div>
+    </mat-card>

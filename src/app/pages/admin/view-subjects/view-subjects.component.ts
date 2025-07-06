@@ -1,4 +1,5 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject as RxjSubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -10,16 +11,22 @@ import { materialImports } from '../../../material.imports';
 @Component({
   selector: 'app-view-categories',
   standalone: true,
-  imports: [CommonModule, materialImports()],
+  imports: [MatPaginator, CommonModule, materialImports()],
   templateUrl: './view-subjects.component.html',
   styleUrl: './view-subjects.component.css',
 })
 export class ViewsubjectsComponent implements OnInit, OnDestroy {
   public subjects: Subject[] = [];
-  private readonly destoy$ = new RxjSubject<void>();
-
+  public paginatedSubjects: Subject[] = [];
+  
+  length = 0;
+  pageSize = 3; 
+  pageSizeOptions: number[] = [3, 6, 12];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
+  private readonly destroy$ = new RxjSubject<void>();
   constructor(
-    private readonly subjectService: SubjectService=inject(SubjectService)
+    private readonly subjectService: SubjectService = inject(SubjectService)
   ) {}
 
   ngOnInit() {
@@ -27,64 +34,78 @@ export class ViewsubjectsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destoy$.next();
-    this.destoy$.complete();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
-  limitSubjects(){
-    return this.subjects.length >= 3;
+  limitSubjects() {
+    return this.subjects.length >= 4;
   }
 
   loadSubjects(): void {
-  this.subjectService
-    .listSubjects()
-    .pipe(takeUntil(this.destoy$))
-    .subscribe({
-      next: (data) => {
-        this.subjects = data;
-      },
-      error: () => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Failed to load subjects. Please try again later.',
-        });
-      },
-    });
-  }
-
-async deleteSubject(subjectId: number): Promise<void> {
-  const result = await Swal.fire({
-    title: 'Are you sure?',
-    text: 'This action cannot be undone.',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'No, cancel!',
-  });
-  if (result.isConfirmed) {
     this.subjectService
-      .deleteSubject(subjectId)
-      .pipe(takeUntil(this.destoy$))
+      .listSubjects()
+      .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: () => {
-          this.subjects = this.subjects.filter(
-            (subject) => subject.subjectId !== subjectId
-          );
-          Swal.fire({
-            icon: 'success',
-            title: 'Deleted!',
-            text: 'The subject has been deleted successfully.',
-          });
+        next: (data: Subject[]) => {
+          this.subjects = data;
+          this.length = data.length;
+          this.updatePaginatedSubjects();
         },
-        error: (error) => {
+        error: () => {
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Failed to delete the subject. Please try again later.',
+            text: 'Failed to load subjects. Please try again later.',
           });
         },
       });
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.paginator.pageIndex = event.pageIndex;
+    this.updatePaginatedSubjects();
+  }
+
+  updatePaginatedSubjects() {
+    const startIndex = this.paginator ? this.paginator.pageIndex * this.pageSize : 0;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedSubjects = this.subjects.slice(startIndex, endIndex);
+  }
+
+  async deleteSubject(subjectId: number): Promise<void> {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    });
+    if (result.isConfirmed) {
+      this.subjectService
+        .deleteSubject(subjectId)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: () => {
+            this.subjects = this.subjects.filter(
+              (subject) => subject.subjectId !== subjectId
+            );
+            Swal.fire({
+              icon: 'success',
+              title: 'Deleted!',
+              text: 'The subject has been deleted successfully.',
+            });
+          },
+          error: () => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Failed to delete the subject. Please try again later.',
+            });
+          },
+        });
     }
   }
 }

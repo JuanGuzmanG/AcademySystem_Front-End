@@ -1,50 +1,48 @@
-<mat-card class="mt-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card-header>
-                    <mat-card-title class="fs-2 fw-bold">
-                        WELCOME TO PROFESSOR
-                    </mat-card-title>
-                    <mat-card-subtitle>
-                        Professor Panel</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content class="mt-1">
-                    <h2></h2>
-                    <p></p>
-                    <mat-divider></mat-divider>
-                    <br>
-                    <h2>funtions: </h2>
-                    <ul>
-                        <li>Manage Tests</li>
-                        <li>Manage Questions</li>
+<mat-card class="container-fluid rounded-3 p-0">
+    <div class="text-center p-5 bg-light-blue rounded-3 rounded-bottom-0">
+        <div class="icon-circle bg-primary text-white mx-auto mb-3">
+            <mat-icon>school</mat-icon>
+        </div>
+        <h2 class="text-uppercase small fw-bold text-secondary">Welcome to the professor panel</h2>
+        <h1 class="display-5 fw-bolder">Manage Tests and Questions</h1>
+        <p class="col-lg-6 mx-auto text-muted">
+            Create, edit and delete tests and questions. Manage the content of the academy.
+        </p>
+    </div>
+    <div class="row mt-4 justify-content-center px-2">
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h3 class="mb-3">Main Fuctions</h3>
+                    <div class="d-grid gap-3">
+                        <button [routerLink]="'/professor/view-test'" mat-flat-button color="primary" 
+                        class="text-start p-3 mx-1">
+                            <mat-icon class="me-1">assignment_turned_in</mat-icon>
+                            Manage Tests
+                        </button>
+                        <button mat-stroked-button color="primary" class="text-start p-3 mx-1">
+                            <mat-icon class="me-1">question_answer</mat-icon>
+                            Manage Questions
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="mb-3">Actions Available</h3>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-start mb-3">
+                            <mat-icon class="me-3 text-primary">assignment_turned_in</mat-icon>
+                            <span>Create, edit and delete tests.</span>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <mat-icon class="me-3 text-primary">question_answer</mat-icon>
+                            <span>Create, edit and delete questions by test.</span>
+                        </li>
+                        <li class="d-flex align-items-start">
+                            <mat-icon class="me-3 text-primary">folder</mat-icon>
+                            <span>Manage Content.</span>
+                        </li>
                     </ul>
-                    <mat-divider></mat-divider>
-                    <h2>You can do:</h2>
-                    <carousel [interval]="5000" [noWrap]="false" [showIndicators]="true">
-                        <slide class="border border-1 border-dark">
-                            <img src="/assets/AllTests.png" alt="slide 1" class="d-block w-100 h-50">
-                            <div class="carousel-caption d-none d-md-block bg-dark">
-                                <h5 class="fs-1 mb-4">VIEW TESTS</h5>
-                            </div>
-                        </slide>
-                        <slide class="border border-1 border-dark">
-                            <img src="/assets/AddTest.png" alt="slide 1" class="d-block w-100 h-50">
-                            <div class="carousel-caption d-none d-md-block bg-dark">
-                                <h5 class="fs-1 mb-4">ADD AND UPDATE TESTS</h5>
-                                <p>Add and Update test only if there are available subjects</p>
-                            </div>
-                        </slide>
-                        <slide class="border border-1 border-dark">
-                            <img src="/assets/UpdateQuestions.png" alt="slide 2" class="d-block w-100 h-50">
-                            <div class="carousel-caption d-none d-md-block bg-dark">
-                                <h5 class="fs-1 mb-4">ADD AND UPDATE QUESTIONS</h5>
-                                <p>Add and update questions per test created, select score and note that each test has a
-                                    limit of questions.</p>
-                            </div>
-                        </slide>
-                    </carousel>
-                </mat-card-content>
+                </div>
             </div>
         </div>
     </div>

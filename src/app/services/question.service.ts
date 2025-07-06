@@ -28,10 +28,10 @@ export class QuestionService {
   }
 
   public getQuestion(questionId: number): Observable<Question>{
-    return this.http.get<Question>(`http://localhost:8080/questions/${questionId}`);
+    return this.http.get<Question>(`${baseURL}/questions/${questionId}`);
   }
 
   public evaluateTest(questions:Question[]): Observable<{ cantCorrect: number; attempts: number; maxPoints: number }>{
-    return this.http.post<{ cantCorrect: number; attempts: number; maxPoints: number }>("http://localhost:8080/questions/evaluateTest", questions);
+    return this.http.post<{ cantCorrect: number; attempts: number; maxPoints: number }>(`${baseURL}/questions/evaluateTest`, questions);
   }
 }

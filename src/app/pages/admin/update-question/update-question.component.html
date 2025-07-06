@@ -1,7 +1,7 @@
 <div class="bootstrap-wrapper">
     <div class="row">
         <div class="col-md-12">
-            <h1>UPDATE QUESTION OF <span class="fw-bold">{{testName}}</span></h1>
+            <h1 class="fs-3">Update Question of <span class="fw-bold text-primary">{{testName}}</span></h1>
             <mat-card>
                 <mat-card-header>
                     <mat-card-subtitle>
@@ -10,7 +10,7 @@
                 </mat-card-header>
                 <mat-card-content>
                     <form action="" class="mt-2">
-                        <mat-form-field class="w-100">
+                        <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Enter the content of the question</mat-label>
                             <textarea
                             name="questionContent"
@@ -23,7 +23,7 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <mat-form-field class="w-100">
+                                <mat-form-field class="w-100" appearance="outline">
                                     <mat-label>Enter the option 1:</mat-label>
                                     <input 
                                     name="option1"
@@ -33,7 +33,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                                <mat-form-field class="w-100">
+                                <mat-form-field class="w-100" appearance="outline">
                                     <mat-label>Enter the option 2:</mat-label>
                                     <input 
                                     name="option2"
@@ -43,7 +43,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                                <mat-form-field class="w-100">
+                                <mat-form-field class="w-100" appearance="outline">
                                     <mat-label>Enter the option 3:</mat-label>
                                     <input
                                     name="option3"
@@ -53,7 +53,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                                <mat-form-field class="w-100">
+                                <mat-form-field class="w-100" appearance="outline">
                                     <mat-label>Enter the option 4:</mat-label>
                                     <input 
                                     name="option4"
@@ -63,7 +63,7 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <mat-form-field class="w-100">
+                        <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Select the Correct Answer</mat-label>
                             <mat-select [(ngModel)]="question.correctOption" name="correctAnswer">
                                 <mat-option *ngIf="question.option1" [value]="question.option1">{{question.option1}}</mat-option>

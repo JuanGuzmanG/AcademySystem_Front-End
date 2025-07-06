@@ -1,13 +1,17 @@
-
 html,
 body {
   height: 100%;
+  margin: 0;
 }
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+font-family: 'Quicksand', sans-serif !important;
 }
-
-button mat-icon{
-    margin: 0 !important;
+h1,h2,h3,h4,h5,h6,p,a,i,span {
+font-family: 'Quicksand', sans-serif !important;
+}
+mat-card-title{
+  font-family: 'Quicksand', sans-serif !important;
+}
+button mat-icon {
+  margin: 0 !important;
 }

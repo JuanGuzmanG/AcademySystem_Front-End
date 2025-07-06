@@ -40,10 +40,7 @@ export class InstructionsComponent {
             title: 'Error',
             text: 'Failed to load test instructions.',
           });
-        },
-        complete: () => {
-          console.log('Test instructions loaded successfully.');
-        },
+        }
       });
   }
 

@@ -1,6 +1,6 @@
-<mat-card>
-    <h1 class="text-center fs-4 my-2">MODIFING USER:
-        <b class="fs-3">
+<mat-card class="px-3">
+    <h1 class="text-center fs-3 fw-bold p-2 my-3">Modifying User:
+        <b class="fs-3 text-primary">
             {{ userForm.get('firstName')?.value + " " +
             userForm.get('middleName')?.value + " " +
             userForm.get('lastName')?.value + " " +
@@ -28,7 +28,7 @@
                     <div class="col-md-6">
                         <mat-form-field class="w-100" appearance="fill" disabled>
                             <mat-label>Document</mat-label>
-                            <input matInput formControlName="document" placeholder="Enter document"/>
+                            <input matInput formControlName="document" placeholder="Enter document" />
                         </mat-form-field>
                     </div>
 
@@ -75,23 +75,21 @@
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <div class="row">
-                            <div class="col-12">
-                                <label>Gender</label>
-                                <mat-radio-group formControlName="gender"
-                                    class="d-flex justify-content-center flex-wrap">
-                                    <mat-radio-button *ngFor="let gender of genders" [value]="gender">{{ gender
-                                        }}</mat-radio-button>
-                                    <mat-radio-button value="Other">Other</mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-
-                            <div class="col-12 mt-2" *ngIf="userForm.get('gender')?.value === 'Other'">
-                                <mat-form-field class="w-50" appearance="outline">
-                                    <mat-label>Specify Gender</mat-label>
-                                    <input matInput formControlName="customGender" placeholder="Custom gender" />
-                                </mat-form-field>
-                            </div>
+                        <div class="gender-container" [ngClass]="{
+                                    'other-selected': userForm.get('gender')?.value === 'Other'
+                                    }">
+                            <mat-form-field appearance="outline" class="gender-select  pt-3">
+                                <mat-label>Gender</mat-label>
+                                <mat-select formControlName="gender">
+                                    <mat-option *ngFor="let gender of genders" [value]="gender">{{ gender
+                                        }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="gender-input pt-3" appearance="outline">
+                                <mat-label>Specify Gender</mat-label>
+                                <input formControlName="customGender" matInput type="text"
+                                    placeholder="Enter your gender" />
+                            </mat-form-field>
                         </div>
                     </div>
 
@@ -134,12 +132,11 @@
                 </div>
 
                 <div class="d-flex w-100 my-3 text-center">
-                    <button mat-raised-button color="primary" type="submit"
-                        class="w-50 mx-1" (click)="updateUser()"
-                        [disabled]="userForm.invalid">UPDATE USER</button>
-                    <button (click)="goBack()" mat-raised-button color="warn"
-                        class="w-50 mx-1">
-                        CANCEL
+                    <button mat-raised-button color="primary" type="submit" class="w-50 mx-1" (click)="updateUser()"
+                        [disabled]="userForm.invalid"><mat-icon class="mb-1 me-1">save
+                        </mat-icon></button>
+                    <button (click)="goBack()" mat-raised-button color="warn" class="w-50 mx-1">
+                        <mat-icon class="mb-1 me-1">cancel</mat-icon>
                     </button>
                 </div>
             </form>

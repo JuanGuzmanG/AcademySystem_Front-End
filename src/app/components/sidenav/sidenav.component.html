@@ -1,42 +1,44 @@
 <mat-nav-list class="sidenav-list text-center">
     <div class="sidenav-header">
-        <img [width]="profilePicSize()" [height]="profilePicSize()" [src]="user?.photo"  alt="">
-        <div class="header-text text-white" [class.hide-header-text]="sideNavCollapsed()">
-            <h2>{{user?.firstName+" "+user?.lastName}}</h2>
+        <img class="border border-dark border-2" [width]="profilePicSize()" [height]="profilePicSize()"
+            [src]="user?.photo" alt="profile-sidenav">
+
+        <div class="header-text text-white" [class.hide-text]="sideNavCollapsed()">
+            <h2>{{user?.firstName + " " + user?.lastName}}</h2>
             <h3>{{rolName}}</h3>
         </div>
     </div>
-    
+
     <div class="sidenav-content">
-        <a mat-list-item 
-        *ngFor="let item of menuItems()" 
-        [routerLink]="item.route"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [activated]="rla.isActive"
-        (click)="onItemClick()"
-        class="text-start">
+        <a mat-list-item *ngFor="let item of menuItems()" [routerLink]="item.route" routerLinkActive
+            #rla="routerLinkActive" [activated]="rla.isActive" (click)="onItemClick()" class="text-start">
             <mat-icon class="text-white" matListItemIcon>{{item.icon}}</mat-icon>
-            <span class="text-white" matListItemTitle *ngIf="!sideNavCollapsed()">{{item.name}}</span>
+
+            <span class="text-white" matListItemTitle [class.hide-text]="sideNavCollapsed()">
+                {{item.name}}
+            </span>
         </a>
-        <div *ngIf="rolName == 'user'">
-            <div class="container" [class.hide-header-text]="sideNavCollapsed()">
-                <mat-divider></mat-divider>
-                <p class="text-center m-auto p-2">Subjects</p>
-                <mat-divider></mat-divider>
-            </div>
-            <a mat-list-item 
-            *ngFor="let s of subjects" 
-            [routerLink]="rolName+'/'+s.subjectId" 
-            class="text-start text-white"
-            (click)="onItemClick()">
-                <mat-icon matListItemIcon>category</mat-icon> <span>{{s.subjectName}}</span>
+        
+        <div *ngIf="rolName == 'user'" class="container" [class.hide-text]="sideNavCollapsed()">
+            <mat-divider></mat-divider>
+            <p class="text-center m-auto p-2">Subjects</p>
+            <mat-divider></mat-divider>
+        </div>
+        <div *ngIf="rolName == 'user'" class="subjects-container">
+
+            <a mat-list-item *ngFor="let s of subjects" [routerLink]="rolName+'/'+s.subjectId"
+                class="text-start text-white" (click)="onItemClick()" title="{{s.subjectName}}">
+                <mat-icon matListItemIcon>folder</mat-icon>
+                <span [class.hide-text]="sideNavCollapsed()">{{s.subjectName}}</span>
             </a>
         </div>
+
         <div class="logout-button">
             <a mat-list-item (click)="logout()" class="text-start">
-                <mat-icon class="text-white" matListItemIcon>logout</mat-icon>
-                <span [class.hide-header-text]="sideNavCollapsed()"><span class="text-white">logout</span></span>
+                <mat-icon class="text-white" matListItemIcon>power_settings_new</mat-icon>
+                <span [class.hide-text]="sideNavCollapsed()">
+                    <span class="text-white">logout</span>
+                </span>
             </a>
         </div>
     </div>

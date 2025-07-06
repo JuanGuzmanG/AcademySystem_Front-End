@@ -13,7 +13,9 @@ export class ProfileComponent {
   user: any = null;
   userDocument: any;
   userRol: string | null = null;
-  constructor(private loginservice: LoginService = inject(LoginService)) {
+  constructor(
+    private loginservice: LoginService = inject(LoginService)
+  ) {
     this.user = loginservice.getUser();
     this.userDocument = this.user.document;
     this.userRol = loginservice.getUserRole();

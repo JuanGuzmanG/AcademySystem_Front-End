@@ -1,48 +1,60 @@
-<mat-card class="p-3 shadow rounded-3">
-    <h1 class="text-center fw-bold fs-1 mb-4">USER CONTROL</h1>
-
-    <div class="table-responsive-container mat-elevation-z2">
-        <table mat-table [dataSource]="users" class="table table-striped">
-
-            <ng-container matColumnDef="document">
-                <th mat-header-cell *matHeaderCellDef> Document </th>
-                <td mat-cell *matCellDef="let user"> {{ user.document }} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let user" class="cell-name"> {{ user.firstName+" "+user.middleName+" "+user.lastName }} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef> Email </th>
-                <td mat-cell *matCellDef="let user" class="cell-email"> {{ user.email }} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="role">
-                <th mat-header-cell *matHeaderCellDef> Role </th>
-                <td mat-cell *matCellDef="let user"> {{ user.rols[0].rolName }} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
-                <td mat-cell *matCellDef="let user" class="text-center">
-                    <button [routerLink]="'/admin/users/update/'+user.document" mat-icon-button color="primary" aria-label="Edit user">
+<mat-card class="p-3 shadow-sm border-0">
+    <div class="text-center my-1">
+        <h1 class="fs-3 fw-bold text-primary">User Control</h1>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mb-3" *ngFor="let user of paginatedUsers">
+            <mat-card class="h-100 d-flex flex-column text-center shadow">
+                <mat-card-content class="flex-grow-1">
+                    <div class="mt-1">
+                        <mat-icon *ngIf="!user.photo" class="avatar-icon text-primary">account_circle</mat-icon>
+                        <img *ngIf="user.photo" [src]="user.photo"
+                            class="img-fluid rounded-circle avatar-icon">
+                    </div>
+                    <h2 class="mat-h2 fw-bold mb-0 mt-1">{{ user.firstName }} {{ user.lastName }}</h2>
+                    <p class="text-muted">{{ user.rols[0]?.rolName || 'Sin rol' }}</p>
+                    <mat-divider class="my-2"></mat-divider>
+                    <ul class="list-unstyled text-start px-3">
+                        <li class="d-flex align-items-center mb-3">
+                            <mat-icon class="me-3" color="primary">badge</mat-icon>
+                            <div>
+                                <strong class="d-block">Documento</strong>
+                                <span class="text-muted">{{ user.document }}</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <mat-icon class="me-3" color="primary">email</mat-icon>
+                            <div>
+                                <strong class="d-block">Email</strong>
+                                <span class="text-muted">{{ user.email }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </mat-card-content>
+                <mat-card-actions class="d-flex justify-content-end p-2">
+                    <button mat-flat-button color="primary" class="me-1" [routerLink]="'/admin/users/update/'+user.document"
+                        matTooltip="Editar Usuario">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button (click)="deleteUser(user.document)" mat-icon-button color="warn" aria-label="Delete user">
+                    <button mat-flat-button color="warn" class="me-1" (click)="deleteUser(user.document)"
+                        matTooltip="Eliminar Usuario">
                         <mat-icon>delete</mat-icon>
                     </button>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        </table>
+                </mat-card-actions>
+            </mat-card>
+        </div>
     </div>
-
-    <div class="text-center mt-4">
-        <button [routerLink]="'/admin'" mat-raised-button color="warn">GO HOME</button>
+    <div class="d-flex flex-column justify-content-center mt-3">
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+            (page)="handlePageEvent($event)" aria-label="Seleccionar página de usuarios">
+        </mat-paginator>
+        <div class="w-100 d-flex flex-row mb-2">
+            <button class="w-50 mx-1" mat-raised-button color="primary" routerLink="/register"> 
+                <mat-icon>person_add</mat-icon>
+            </button>
+            <button class="w-50 mx-1" mat-raised-button color="warn" [routerLink]="'/admin'" matTooltip="Volver al inicio">
+                <mat-icon>home</mat-icon>
+            </button>
+        </div>
     </div>
 </mat-card>

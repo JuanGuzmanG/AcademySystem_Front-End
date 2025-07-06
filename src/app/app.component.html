@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="shadow">
+<mat-toolbar class="shadow">
     <button class="menu-icon" *ngIf="isLoggedIn" mat-icon-button (click)="toggleSidenav()">
         <mat-icon>menu</mat-icon>
     </button>
@@ -20,7 +20,7 @@
         </ng-container>
 
         <ng-container *ngIf="isLoggedIn">
-            <button mat-button [routerLink]="(user.rols[0])+'/profile'">
+            <button mat-button [routerLink]="role+'/profile'">
                 <span class="d-none d-md-inline">{{user.firstName}} {{user.lastName}}</span> <mat-icon
                     class="d-md-none">account_circle</mat-icon> </button>
             <button mat-icon-button (click)="logout()" [routerLink]="'/'" aria-label="Logout button">

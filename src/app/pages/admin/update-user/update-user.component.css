@@ -1,0 +1,36 @@
+.gender-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.gender-select,
+.gender-input {
+  transition: all 0.4s ease-in-out;
+}
+
+.gender-select {
+  width: 100%;
+}
+
+.gender-input {
+  width: 0;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  display: none;
+  overflow: hidden;
+}
+
+.gender-container.other-selected .gender-select {
+  width: 50%;
+}
+
+.gender-container.other-selected .gender-input {
+  width: 50%;
+  opacity: 1;
+  border: initial;
+  display: block;
+}

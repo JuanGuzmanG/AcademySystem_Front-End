@@ -25,7 +25,7 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
   types = ['Identity Card', 'Passport', 'PPT'];
   BT = ['-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   customGender = '';
-  genders = ['Male', 'Female', "I'd rather not say"];
+  genders = ['Male', 'Female', "I'd rather not say","Other"];
   rol: any;
   rols: any[] = [];
   selectedRols: any[] = [];

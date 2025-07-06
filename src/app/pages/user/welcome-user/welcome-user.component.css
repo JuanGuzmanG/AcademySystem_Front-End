@@ -1,0 +1,16 @@
+.bg-light-blue {
+  background-color: #f0f4fa; 
+}
+
+.icon-circle {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-circle .mat-icon {
+  transform: scale(2.5);
+}

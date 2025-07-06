@@ -86,30 +86,30 @@ export class StartTestComponent implements OnInit, OnDestroy {
   }
 
   loadQuestions() {
-    this.questionsService
-      .listQuestionsOfTest(this.testId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (data: Question[]) => {
-          this.questions = data;
+  this.questionsService
+    .listQuestionsOfTest(this.testId)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (data: Question[]) => {
+        this.questions = data;
 
-          this.timer = this.questions.length * 2 * 60;
+        this.timer = this.questions.length * 2 * 60;
 
-          this.questions.forEach((question: any) => {
-            question['selectedAnswer'] = null;
-          });
-          this.startTimer();
-        },
-        error: (error) => {
-          console.error('Error loading questions:', error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'There was an error loading the questions. Please try again later.',
-          });
-          this.router.navigate(['/user/tests']);
-        },
-      });
+        this.questions.forEach((question: any) => {
+          question['selectedAnswer'] = null;
+        });
+        this.startTimer();
+      },
+      error: (error) => {
+        console.error('Error loading questions:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'There was an error loading the questions. Please try again later.',
+        });
+        this.router.navigate(['/user/tests']);
+      },
+    });
   }
 
   denyRollback() {
@@ -136,7 +136,7 @@ export class StartTestComponent implements OnInit, OnDestroy {
     });
   }
 
-  evaluateTest() {
+  evaluateTest(){
     this.questionsService
       .evaluateTest(this.questions)
       .pipe(takeUntil(this.destroy$))
@@ -154,7 +154,6 @@ export class StartTestComponent implements OnInit, OnDestroy {
               testId: this.testId,
             },
           };
-
           this.resultService
             .saveResult(resultData)
             .pipe(takeUntil(this.destroy$))

@@ -1,43 +1,52 @@
-<mat-card>
-    <div class="m-3">
-        <h2 class="text-center fs-1 fw-bold">ALL SUBJECTS</h2>
-        <mat-divider></mat-divider>
-        <mat-card *ngFor="let s of subjects"
-            class="h-100 m-2">
-            <div class="row w-100">
-                <div class="col-1 d-flex justify-content-center align-items-center">
-                    <mat-icon>category</mat-icon>
-                </div>
-                <div class="col-9 m-auto">
-                    <div class="text-start fs-3 my-1" mat-line>{{ s.subjectName }}</div>
-                    <mat-divider></mat-divider>
-                    <div class="my-1" mat-line>{{ s.subjectDescription }}</div>
-                </div>
-                <div class="col-2 m-auto">
-                    <button 
-                    mat-raised-button 
-                    [routerLink]="'/admin/update-subject/'+s.subjectId" 
-                    color="primary">Update</button>
-                    <button 
-                    mat-raised-button
-                    (click)="deleteSubject(s.subjectId)"
-                    class="m-1"
-                    color="warn"><mat-icon>delete</mat-icon></button>
+<mat-card class="shadow-sm border-0">
+    <mat-card-content class="p-3">
+        <div class="text-center my-3">
+            <h1 class="fs-3 fw-bold text-primary">Manage Subjects</h1>
+            <p class="fs-5 text-muted">Add, edit and delete subjects.</p>
+        </div>
+        <mat-divider class="my-4"></mat-divider>
+        <div class="list-group list-group-flush">
+            <div *ngFor="let s of paginatedSubjects" class="list-group-item p-3">
+                <div class="row align-items-center">
+                    <div class="col-md-8 d-flex align-items-center mb-2 mb-md-0">
+                        <mat-icon class="me-3 text-primary"
+                            style="font-size: 2.5rem; width: 2.5rem; height: 2.5rem;">folder_open</mat-icon>
+                        <div>
+                            <h3 class="fs-5 fw-bold mb-0">{{ s.subjectName }}</h3>
+                            <span class="text-muted">{{ s.subjectDescription }}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-md-end">
+                        <button mat-raised-button color="primary" [routerLink]="'/admin/update-subject/'+s.subjectId"
+                            class="flex-grow-1 flex-md-grow-0 me-2">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-raised-button color="warn" (click)="deleteSubject(s.subjectId)"
+                            class="flex-grow-1 flex-md-grow-0">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </mat-card>
-        <mat-divider></mat-divider>
-    </div>
-
-    <div class="container text-center my-3">
-        <button *ngIf="!limitSubjects()" class="mx-1" routerLink="/admin/add-category" mat-raised-button color="primary">ADD SUBJECT</button>
-        <button *ngIf="limitSubjects()" mat-raised-button color="accent">creation limit reached (reason: memory, app in test environment only)</button>
-        <button
-        class="mx-1"
-        mat-raised-button
-        [routerLink]="'/admin'"
-        color="warn">
-            GO HOME
-        </button>
-    </div>
+        </div>
+        <div *ngIf="!paginatedSubjects || paginatedSubjects.length === 0" class="text-center p-5">
+            <mat-icon class="text-muted" style="font-size: 4rem;">search_off</mat-icon>
+            <h3 class="text-muted mt-3">No se encontraron asignaturas</h3>
+            <p class="text-muted">Prueba a crear una nueva asignatura para empezar.</p>
+        </div>
+        <mat-divider class="my-4"></mat-divider>
+        <div class="d-flex flex-column flex-md-column justify-content-center align-items-center mt-3 px-2">
+            <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                (page)="handlePageEvent($event)" aria-label="Seleccionar página de asignaturas">
+            </mat-paginator>
+            <div class="mb-3 w-100 d-flex flex-row justify-content-center">
+                <button routerLink="/admin/add-subject" mat-raised-button color="primary" class="w-50 mx-1">
+                    <mat-icon>create_new_folder</mat-icon>
+                </button>
+                <button mat-flat-button [routerLink]="'/admin'" class="w-50 mx-1" color="warn">
+                    <mat-icon>home</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-card-content>
 </mat-card>

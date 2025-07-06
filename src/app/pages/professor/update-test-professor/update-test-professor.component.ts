@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 import { TestService } from '../../../services/test.service';
@@ -22,7 +22,8 @@ export class UpdateTestProfessorComponent {
     private route: ActivatedRoute,
     private testService: TestService,
     private subjectService: SubjectService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ){
     this.testId = this.route.snapshot.params['testId'];
     this.testService.getTest(this.testId).subscribe(
@@ -54,6 +55,10 @@ export class UpdateTestProfessorComponent {
         console.log(error);
       }
     );
+  }
+
+  goBack(){
+    this.location.back();
   }
 }
 

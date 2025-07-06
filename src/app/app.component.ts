@@ -6,7 +6,7 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { materialImports } from './material.imports';
 import { LoginService } from './services/login.service';
@@ -35,19 +35,16 @@ export class AppComponent {
   title = 'SystemAcademy_FE';
   isLoggedIn = false;
   user: any = null;
-  rols: any = null;
+  role: any = null;
   collapsed = signal(false);
   sideNavWidth = computed(() => (this.collapsed() ? '58px' : '250px'));
   isHandset = signal(false);
-  constructor(public login: LoginService) {
+  constructor(public login: LoginService, public router: Router) {
     this.breakpointObserver
       .observe(Breakpoints.Handset)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.isHandset.set(result.matches);
-        if (result.matches) {
-          this.collapsed.set(true);
-        }
       });
   }
 
@@ -57,11 +54,11 @@ export class AppComponent {
     this.login.loginStatusSubject.asObservable().subscribe((data) => {
       this.isLoggedIn = this.login.isLoggedIn();
       this.user = this.login.getUser();
+      this.role = this.login.getUserRole();
     });
     if (!this.isLoggedIn) {
       this.collapsed.set(true);
     }
-    this.rols = this.login.getUserRole();
   }
 
   toggleSidenav() {
@@ -81,9 +78,10 @@ export class AppComponent {
       }
     }
   }
-  
+
   public logout() {
     this.login.logout();
+    this.router.navigate(['/login']);
     window.location.reload();
   }
 }

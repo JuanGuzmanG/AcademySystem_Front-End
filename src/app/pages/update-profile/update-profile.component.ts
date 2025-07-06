@@ -26,7 +26,7 @@ export class UpdateProfileComponent {
   countries: string[] = [];
   types = ['Identity Card', 'Passport', 'PPT'];
   BT = ['-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-  genders = ['Male', 'Female', "I'd rather not say"];
+  genders = ['Male', 'Female', "I'd rather not say","Other"];
   customGender = '';
   rols: any[] = [];
   selectedRols: any[] = [];
@@ -104,7 +104,6 @@ export class UpdateProfileComponent {
         this.userService.get(this.userId).subscribe((user: any) => {
           user.rols = user.rols ?? [];
           this.user = user;
-          console.log(this.user);
           if (!this.genders.includes(user.gender)) {
             this.customGender = user.gender;
             user.gender = 'Other';
@@ -221,7 +220,6 @@ export class UpdateProfileComponent {
       data: { user: this.user },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('El diálogo de cambiar contraseña se cerró');
       if (result && result.newPassword) {
         Swal.fire(
           'Success',

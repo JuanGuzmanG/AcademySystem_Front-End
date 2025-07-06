@@ -86,6 +86,13 @@ export class AddTestComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if( this.test.maxPoints <= 0 || !this.test.maxPoints) {
+      this.snack.open('Please select a valid maximum points value', '', {
+        duration: 3000,
+      });
+      return;
+    }
+
     if (!this.test.subject.subjectId || !this.test.subject.subjectId) {
       this.snack.open('Please select a subject for the test', '', {
         duration: 3000,

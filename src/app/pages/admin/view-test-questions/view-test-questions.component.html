@@ -1,5 +1,5 @@
 <mat-card class="p-3">
-    <h1 class="text-center fs-1 my-2">QUESTIONS OF <span class="fw-bold">{{testName}}</span></h1>
+    <h1 class="text-center mx-2 fs-3 fw-bold p-2 my-3">Questions of <span class="fw-bold text-primary">{{testName}}</span></h1>
     <mat-divider></mat-divider>
     <div class="bootstrap-wrapper">
         <div class="row mt-3">
@@ -31,10 +31,16 @@
                             <p class="my-3 fs-5">
                                 <b>Correct Answer: {{q.correctOption}}</b>
                             </p>
-                            <button [routerLink]="'/admin/update-question/'+testName+'/'+testId+'/'+q.questionId"
-                                class="mx-1" mat-flat-button color="primary">Update Question</button>
-                            <button (click)="deleteQuestion(q.questionId)" class="mx-1" mat-flat-button
-                                color="warn"><mat-icon>delete</mat-icon></button>
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button
+                                        [routerLink]="'/admin/update-question/'+testName+'/'+testId+'/'+q.questionId"
+                                        class="w-50 me-1" mat-raised-button
+                                        color="primary"><mat-icon>edit</mat-icon></button>
+                                    <button (click)="deleteQuestion(q.questionId)" class="w-50" mat-raised-button
+                                        color="warn"><mat-icon>delete</mat-icon></button>
+                                </div>
+                            </div>
                         </div>
                     </mat-card-content>
                 </mat-card>
@@ -42,22 +48,14 @@
         </div>
     </div>
     <div class="text-center p-3 d-flex justify-content-center">
-        <button *ngIf="questions.length < test.cantQuestions" 
-        mat-raised-button color="primary" 
-        [routerLink]="'/admin/add-question/'+testName+'/'+testId">
-            Add Question
+        <button *ngIf="questions.length < test.cantQuestions" mat-raised-button class="w-50 mx-2" color="primary"
+            [routerLink]="'/admin/add-question/'+testName+'/'+testId">
+            <mat-icon>note_add</mat-icon>
         </button>
-        
-        <button
-        mat-raised-button
-        class="fs-3 rounded text-white p-2 my-auto mx-2" 
-        color="accent"
-        *ngIf="questions.length >= test.cantQuestions"
-        >LIMIT OF QUESTIONS REACHED</button>
 
-        <button
-        [routerLink]="'/admin/view-tests'"
-        class="mx-2"
-        mat-flat-button color="warn">GO BACK</button>
+        <button mat-raised-button class=" rounded text-white w-100" color="accent"
+            *ngIf="questions.length >= test.cantQuestions">limit reached</button>
+
+        <button [routerLink]="'/admin/view-tests'" class="w-50 mx-2" mat-flat-button color="warn"><mat-icon>close</mat-icon></button>
     </div>
 </mat-card>

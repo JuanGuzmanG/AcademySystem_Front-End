@@ -9,7 +9,7 @@ import { adminGuard } from './services/guards/admin.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WelcomeAdminComponent } from './pages/admin/welcome-admin/welcome-admin.component';
 import { ViewsubjectsComponent } from './pages/admin/view-subjects/view-subjects.component';
-import { AddCategoryComponent } from './pages/admin/add-subject/add-subject.component';
+import { AddSubjectComponent } from './pages/admin/add-subject/add-subject.component';
 import { ViewTestsComponent } from './pages/admin/view-tests/view-tests.component';
 import { AddTestComponent } from './pages/admin/add-test/add-test.component';
 import { UpdateTestComponent } from './pages/admin/update-test/update-test.component';
@@ -68,7 +68,7 @@ export const routes: Routes = [
         { path: 'users', component: ViewUsersComponent },
         {path: 'questions/:testName/:testId',component: ViewTestQuestionsComponent,},
 
-        { path: 'add-category', component: AddCategoryComponent },
+        { path: 'add-subject', component: AddSubjectComponent },
         { path: 'add-test', component: AddTestComponent },
         {path: 'add-question/:testName/:testId',component: AddQuestionComponent,},
 

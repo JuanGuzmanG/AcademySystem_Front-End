@@ -1,5 +1,5 @@
 <mat-card class="p-3">
-    <h1 class="text-center fs-1 my-2">QUESTIONS OF <span class="fw-bold">{{testName}}</span></h1>
+    <h1 class="text-center fs-3 fw-bold p-2 my-3">Questions of <span class="fw-bold text-primary">{{testName}}</span></h1>
     <mat-divider></mat-divider>
     <div class="bootstrap-wrapper">
         <div class="row mt-3">
@@ -32,7 +32,7 @@
                                 <b>Correct Answer: {{q.correctOption}}</b>
                             </p>
                             <button [routerLink]="'/professor/update-question/'+testName+'/'+testId+'/'+q.questionId"
-                                class="mx-1" mat-flat-button color="primary">Update Question</button>
+                                class="mx-1" mat-flat-button color="primary"><mat-icon>edit</mat-icon></button>
                             <button (click)="deleteQuestion(q.questionId)" class="mx-1" mat-flat-button
                                 color="warn"><mat-icon>delete</mat-icon></button>
                         </div>
@@ -41,23 +41,24 @@
             </div>
         </div>
     </div>
-    <div class="text-center p-3 d-flex justify-content-center">
+    <div class="text-center w-100 py-3 d-flex justify-content-center">
         <button *ngIf="questions.length < test.cantQuestions" 
         mat-raised-button color="primary" 
-        [routerLink]="'/professor/add-question/'+testName+'/'+testId">
-            Add Question
+        [routerLink]="'/professor/add-question/'+testName+'/'+testId"
+        class="w-50 mx-1">
+        <mat-icon>add</mat-icon>
         </button>
         
         <button
         mat-raised-button
-        class="fs-3 rounded text-white p-2 my-auto mx-2" 
+        class="text-white my-auto mx-1 w-50" 
         color="accent"
         *ngIf="questions.length >= test.cantQuestions"
-        >LIMIT OF QUESTIONS REACHED</button>
+        >LIMIT REACHED</button>
 
         <button
         [routerLink]="'/professor/view-tests'"
-        class="mx-2"
-        mat-flat-button color="warn">GO BACK</button>
+        class="w-50 mx-1"
+        mat-flat-button color="warn"><mat-icon>close</mat-icon></button>
     </div>
 </mat-card>

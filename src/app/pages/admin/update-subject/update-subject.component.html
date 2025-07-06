@@ -1,12 +1,12 @@
 <mat-card class="mt-3 shadow rounded-3">
     <mat-card-content>
         <div class="container">
-            <div class="m-auto mt-3">
-                <h1 class="text-center fw-bold fs-1">UPDATE SUBJECT</h1>
-            </div>
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <form action="" *ngIf="subject">
+                        <div class="m-auto mt-3">
+                            <h1 class="text-center text-primary fs-3 fw-bold p-2 my-3">Update Subject</h1>
+                        </div>
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Title</mat-label>
                             <input autofocus required [(ngModel)]="subject.subjectName" type="text" name="subjectName"
@@ -19,13 +19,10 @@
                         </mat-form-field>
 
                         <div class="d-flex justify-content-center w-100">
-                            <button (click)="onSubmit()"
-                            mat-raised-button color="primary" class="w-50 mx-1">UPDATE
-                                SUBJECT</button>
-                            <button 
-                            (click)="goBack()"
-                            mat-raised-button color="warn" class="w-50 mx-1">
-                                CANCEL
+                            <button (click)="onSubmit()" mat-raised-button color="primary" class="w-50 mx-1">
+                                <mat-icon>save</mat-icon></button>
+                            <button (click)="goBack()" mat-raised-button color="warn" class="w-50 mx-1">
+                                <mat-icon>close</mat-icon>
                             </button>
                         </div>
                     </form>

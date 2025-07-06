@@ -1,16 +1,17 @@
-<div class="bootstrap-wrapper">
+<div>
     <div class="row">
         <div class="col-md-12">
-            <h1>Add Question of <span class="fw-bold">{{testName}}</span></h1>
             <mat-card>
                 <mat-card-header>
+                    <mat-card-title class="text-center rounded fs-3 fw-bold p-2 my-3">Add question of 
+                        <span class="fw-bold text-primary">{{testName}}</span></mat-card-title>
                     <mat-card-subtitle>
                         Enter the details of the test you want to add.
                     </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
                     <form action="" class="mt-2" [formGroup]="questionForm">
-                        <mat-form-field class="w-100">
+                        <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Enter the content of the question</mat-label>
                             <textarea
                             formControlName="questionContent"
@@ -19,10 +20,9 @@
                             placeholder="Enter the content of the question"
                             ></textarea>
                         </mat-form-field>
-
                         <div class="row">
                             <div class="col-md-6">
-                                <mat-form-field class="w-100">
+                                <mat-form-field class="w-100" appearance="outline">
                                     <mat-label>Enter the option 1:</mat-label>
                                     <input
                                     formControlName="option1"
@@ -31,7 +31,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                                <mat-form-field class="w-100">
+                                <mat-form-field class="w-100" appearance="outline">
                                     <mat-label>Enter the option 2:</mat-label>
                                     <input
                                     formControlName="option2"
@@ -40,7 +40,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                                <mat-form-field class="w-100">
+                                <mat-form-field class="w-100" appearance="outline">
                                     <mat-label>Enter the option 3:</mat-label>
                                     <input
                                     formControlName="option3"
@@ -49,7 +49,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-md-6">
-                                <mat-form-field class="w-100">
+                                <mat-form-field class="w-100" appearance="outline">
                                     <mat-label>Enter the option 4:</mat-label>
                                     <input
                                     formControlName="option4"
@@ -58,7 +58,7 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <mat-form-field class="w-100">
+                        <mat-form-field class="w-100" appearance="outline">
                             <mat-label>Select the Correct Answer</mat-label>
                             <mat-select formControlName="correctOption">
                                 <mat-option *ngIf="questionForm.get('option1')?.value" [value]="questionForm.get('option1')?.value">{{questionForm.get('option1')?.value}}</mat-option>
@@ -73,13 +73,13 @@
                             mat-raised-button
                             class="w-50 mx-1"
                             color="primary"
-                            >SAVE QUESTION</button>
+                            ><mat-icon>save</mat-icon></button>
                             <button
                             mat-raised-button
                             class="w-50 mx-1"
                             color="warn"
                             (click)="goBack()">
-                                CANCEL
+                                <mat-icon>close</mat-icon>
                             </button>
                         </div>
                     </form>

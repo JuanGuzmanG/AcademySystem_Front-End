@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
 import { UserService } from '../../services/user.service';
 import { materialImports } from '../../material.imports';
 
@@ -20,13 +19,11 @@ export class SignupComponent {
   countries: string[] = [];
   types = ['Identity Card', 'Passport', 'PPT'];
   BT = ['-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+  Genders = ['Male', 'Female', "I'd rather not say", 'Other'];
   customGender = '';
-
   signupForm: FormGroup;
-
   selectedFile: File | null = null;
   photoPreview: string | ArrayBuffer | null = null;
-
   dateLimit = new Date().getFullYear() - 5;
 
   constructor(
@@ -37,7 +34,6 @@ export class SignupComponent {
     private readonly router: Router = inject(Router)
   ) {
     this.getCountries();
-
     this.signupForm = this.fb.group({
       documentType: ['', Validators.required],
       document: ['', Validators.required],
@@ -48,18 +44,18 @@ export class SignupComponent {
       birthDate: [''],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      countryBirth: [''],
+      countryBirth: ['',[Validators.required]],
       phoneNumber: ['', Validators.maxLength(14)],
       gender: [''],
       bloodType: [''],
       customGender: ['', Validators.maxLength(20)],
     });
+    this.photoPreview = '/assets/default.jpg';
   }
 
   onFileSelected(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
     const fileList: FileList | null = element.files;
-
     if (fileList && fileList.length > 0) {
       this.selectedFile = fileList[0];
       const reader = new FileReader();
@@ -70,7 +66,6 @@ export class SignupComponent {
       this.photoPreview = null;
     }
   }
-
   getCountries() {
     this.http
       .get<any[]>('https://restcountries.com/v3.1/all?fields=name')
@@ -89,14 +84,11 @@ export class SignupComponent {
     if (this.signupForm.get('gender')?.value === 'Other' && customGenderValue) {
       this.signupForm.patchValue({ gender: customGenderValue });
     }
-
     const dateRegister = new Date(this.signupForm.get('birthDate')?.value);
-
     if (dateRegister.getFullYear() > this.dateLimit) {
       Swal.fire('Error', 'The age limit is 5 years old', 'error');
       return;
     }
-
     if (this.signupForm.invalid) {
       this.snack.open('Fill out the required fields', 'OK', {
         duration: 3000,
@@ -104,7 +96,6 @@ export class SignupComponent {
       });
       return;
     }
-
     const userData = { ...this.signupForm.value };
     this.userService
       .addUser(userData, this.selectedFile ?? undefined)
@@ -125,7 +116,6 @@ export class SignupComponent {
         }
       );
   }
-
   clear() {
     this.signupForm.reset();
     this.customGender = '';

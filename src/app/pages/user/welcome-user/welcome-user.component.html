@@ -1,27 +1,47 @@
-<mat-card class="mt-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card-header>
-                    <mat-card-title class="fs-2 fw-bold mb-1">
-                        WELCOME TO USER
-                    </mat-card-title>
-                    <mat-card-subtitle>
-                        User Panel</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content class="mt-1">
-                    <mat-divider></mat-divider>
-                    <br>
-                    <h2>funtions: </h2>
-                    <ul>
-                        <li>Response Tests</li>
-                        <li>View Tests</li>
-                        <li>View Results</li>
+<mat-card class="container-fluid rounded-3 p-0">
+    <div class="text-center p-5 bg-light-blue rounded-3 rounded-bottom-0">
+        <div class="icon-circle bg-primary text-white mx-auto mb-3">
+            <mat-icon>hiking</mat-icon>
+        </div>
+        <h2 class="text-uppercase small fw-bold text-secondary">Welcome to the user panel</h2>
+        <h1 class="display-5 fw-bolder">Interact with the subjects and tests</h1>
+        <p class="col-lg-6 mx-auto text-muted">
+            Solve tests of different subjects
+        </p>
+    </div>
+    <div class="row mt-4 justify-content-center px-2">
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h3 class="mb-3">Main Fuctions</h3>
+                    <div class="d-grid gap-3">
+                        <button mat-flat-button color="primary" [routerLink]="'/user/0'" class="text-start p-3">
+                            <mat-icon class="me-2 align-middle">assignment_turned_in</mat-icon>
+                            Solve Tests
+                        </button>
+                        <button mat-stroked-button color="primary" class="text-start p-3">
+                            <mat-icon class="me-2 align-middle">local_printshop</mat-icon>
+                            View and Print Results
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="mb-3">Actions Available</h3>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-start mb-3">
+                            <mat-icon class="me-3 text-primary">folder</mat-icon>
+                            <span>Solve tests.</span>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <mat-icon class="me-3 text-primary">source</mat-icon>
+                            <span>View available tests by subject.</span>
+                        </li>
+                        <li class="d-flex align-items-start">
+                            <mat-icon class="me-3 text-primary">local_printshop</mat-icon>
+                            <span>View and print results.</span>
+                        </li>
                     </ul>
-                    <mat-divider></mat-divider>
-                    <h2>You can do:</h2>
-                    <img class="w-100 border rounded" src="/assets/startTest.png" alt="">
-                </mat-card-content>
+                </div>
             </div>
         </div>
     </div>

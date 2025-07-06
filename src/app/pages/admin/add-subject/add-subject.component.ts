@@ -17,7 +17,7 @@ import { CommonModule, Location } from '@angular/common';
   templateUrl: './add-subject.component.html',
   styleUrl: './add-subject.component.css',
 })
-export class AddCategoryComponent implements OnDestroy {
+export class AddSubjectComponent implements OnDestroy {
 
   public subjectForm: FormGroup;
   subject = {
@@ -41,7 +41,6 @@ export class AddCategoryComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Clean up subscriptions or resources if needed
     this.destroy$.next();
     this.destroy$.complete();
   }
