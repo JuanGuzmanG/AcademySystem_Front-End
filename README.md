@@ -1,4 +1,4 @@
-# SystemAcademyFE
+# SystemAcademy-FrontEnd
 
 Frontend del sistema académico **SystemAcademy**, desarrollado en Angular 19 para ofrecer una experiencia de usuario moderna, responsiva y segura.
 
